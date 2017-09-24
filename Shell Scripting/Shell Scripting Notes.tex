@@ -1,0 +1,516 @@
+\documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\section{Shell Scripting}\label{shell-scripting}
+
+\subsection{Exercise 1 - Command
+Overview}\label{exercise-1---command-overview}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textbf{man } : Documentação dos comandos\\
+\item
+  \textbf{ls} : Listar ficheiros de uma pasta\\
+\item
+  \textbf{mkdir} : Criar uma pasta\\
+\item
+  \textbf{pwd} : Caminho absoluto do diretório corrente\\
+\item
+  \textbf{rm} : Remover ficheiros
+\item
+  \textbf{mv} : Renomear ficheiros ou mover ficheiros/pastas entre
+  pastas\\
+\item
+  \textbf{cat} : Imprimir um ficheiro para o stdout\\
+\item
+  \textbf{echo} : Imprimir para o stdout uma mensagem\\
+\item
+  \textbf{less} : paginar um ficheiro (não mostra o texto literal)\\
+\item
+  \textbf{head} : mostrar as primeiras 10 linhas de um ficheiro\\
+\item
+  \textbf{tail} : mostrar as ultimas 10 linhas de m ficheiro\\
+\item
+  \textbf{cp} : copiar ficheiros\\
+\item
+  \textbf{diff} : mostrar as diferenças linha a linha entre dois
+  ficheiros\\
+\item
+  \textbf{wc} : contar linhas, palavras e caracteres de um ficheiro\\
+\item
+  \textbf{sort} : ordenar ficheiros\\
+\item
+  \textbf{grep} : pesquisa de padroes em ficheiros\\
+\item
+  \textbf{sed} : transformacoes de texto\\
+\item
+  \textbf{tr} : substituir, modificar ou apagar caracteres do stdin e
+  imprimir no stdout\\
+\item
+  \textbf{cut} : imprimir partes de um ficheiro para o stdout\\
+\item
+  \textbf{paste} : imprimir linhas de um ficheiro separadas por tabs
+  para o stdout\\
+\item
+  \textbf{tee} : Redireciona para o nome do ficheiro passado como
+  argumento e para o stdout
+\end{itemize}
+
+\subsection{Exercise 2 - Redirect input and
+output}\label{exercise-2---redirect-input-and-output}
+
+\subsubsection{1}\label{section}
+
+\texttt{\textgreater{}} : redirecionar o output do comando anterior do
+stdout para um ficheiro\\\texttt{\textgreater{}\textgreater{}} : append
+do output do comando anterior do stdout para um ficheiro
+
+\subsubsection{2}\label{section-1}
+
+\texttt{2\textgreater{}} : redireciona o stderror para um ficheiro
+
+\subsubsection{3}\label{section-2}
+
+\texttt{\textbar{}} : redireciona o stdout de um comando para o stdin do
+comando seguinte
+
+\subsubsection{4}\label{section-3}
+
+\texttt{2\textgreater{}\&1} : redireciona o stderror para o
+stdout\\\texttt{1\textgreater{}\&2} : redireciona o stdout para o
+stderror
+
+\subsection{Exercise 3 - Using special
+characters}\label{exercise-3---using-special-characters}
+
+\subsubsection{1}\label{section-4}
+
+touch : criar ficheiros caso o ficheiro não exista. Alterar a data de
+modificação caso o ficheiro exista\\a* : {[}REGEX{]} Lista todos os
+ficheiros que o primeiro caracter seja um a, independentemente do número
+de ficheiros\\a? : {[}REGEX{]} Lista todos os ficheiros começados por a
+e com mais 1 caracter\\\textbackslash{}* : {[}REGEX{]} Lista qualquer
+ficheiro independentemente do numero de caracteres
+
+\subsubsection{2}\label{section-5}
+
+{[}ac{]} : {[}REGEX{]} Lista os ficheiros com os caracteres entre
+{[}{]}\\{[}a-c{]} : {[}REGEX{]} Lista os ficheiros com os caracteres
+entre a e c\\{[}ab{]}* : {[}REGEX{]} Lista os ficheiros com os
+caracteres \{a, b\} independentemente do número de caracteres
+
+\subsubsection{3}\label{section-6}
+
+o \textbackslash{} antes de um caracter especial desativa as capacidades
+especiais do stdout
+
+a* : {[}REGEX{]} Lista todos os ficheiros começados por a
+independentemente do número de caracteres\\a\textbackslash{}* : Lista o
+ficheiro com o nome a*\\a? : {[}REGEX{]} Lista todos os ficheiros
+começados por a e com mais um caracter\\a\textbackslash{}? : Lista o
+ficheiro com o nome a?\\a\textbackslash{}{[} : Lista o ficheiro com o
+nome a{[}\\a\textbackslash{}\textbackslash{} : Lista o ficheiro com o
+nome a~
+
+\subsubsection{4}\label{section-7}
+
+Usando \texttt{''} ou \texttt{""} podemos desativar o significado de
+caracteres especiais\\\texttt{a*} : {[}REGEX{]} Lista todos os ficheiros
+começados por a independentemente do número de caracteres\\\texttt{'a*'}
+: Seleciona o ficheiro a*\\\texttt{"a*"} : Seleciona o ficheiro a*
+
+\subsection{Exercise 4 - Declaring and using
+variables}\label{exercise-4---declaring-and-using-variables}
+
+\subsubsection{1}\label{section-8}
+
+\textless{}variable name\textgreater{}=\ldots{}. : Atribuição de
+variáveis em bash. Não deve ter espaço entre o nome da variável e a
+atribuição\\\texttt{\$\textless{}variable name\textgreater{}} : lê o
+valor da variável (em bash existe diferença entre atribuir um valor a
+uma variável e ler o valor da variável). Pode se atribuir nome de
+ficheiros e usar REGEX (p.e.
+z=a*)\\\texttt{\$\{\textless{}variable name\textgreater{}\}} : lê o
+valor da variável (em bash existe diferença entre atribuir m valor a uma
+variável e ler o valor da
+variável)\\\texttt{\$\{\textless{}variable name\textgreater{}\}\textless{}etc\textgreater{}}
+: Concatena o valor da variável com o que está à frente ()
+
+\subsubsection{2}\label{section-9}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{\$\textless{}variable name\textgreater{}} : Acede ao valor da
+  variável\\
+\item
+  \texttt{"\$\textless{}varibale name\textgreater{}"} : Acede ao valor
+  da variável (não aplica quaisquer caracteres especiais). P.e. se
+  v=a\emph{, \texttt{"\$v"} será igual a a} em vez de todos os ficheiros
+  começados por a com mais um caracter adicional\\
+\item
+  \texttt{'\$\textless{}variable name\textgreater{}'} : Ignora a leitura
+  da variável e de um possível REGEX, devolvendo
+  \texttt{\$\textless{}variable name\textgreater{}}\\
+\end{itemize}
+
+\subsubsection{3}\label{section-10}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{\$\{\textless{}variable name\textgreater{}:start:numero de caracteres\}}
+  : trata a variável como string, criando uma substring começando no
+  caracter start com o numero de caracteres especificado. Pode ter
+  espaços entre os :\\
+\item
+  \texttt{\$\{\textless{}variable name\textbackslash{}\textgreater{}/\textless{}search substring\textbackslash{}\textgreater{}/\textless{}replace substring\textgreater{}\}}
+  : Procura uma substring na variable name e substitui por outra
+  substring indicada
+\end{itemize}
+
+\subsection{Exercise 5 - Declaring and using
+functions}\label{exercise-5---declaring-and-using-functions}
+
+\subsubsection{1}\label{section-11}
+
+Para declarar uma função:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{<nome_da_funcao>()}
+\KeywordTok{\{}
+    \CommentTok{# corpo da função}
+\KeywordTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{2}\label{section-12}
+
+\texttt{\$\#} : Número de argumentos de uma função\\\texttt{\$1} :
+Primeiro argumento\\\texttt{\$2} : Segundo argumento\\\texttt{\$*} :
+Todos os argumentos - Ignora sequencias de white space dentro das aspas
+na passagem de argumentos da bash\\\texttt{\$@} : Todos os argumentos -
+Ignora sequencias de white space dentro das aspas na passagem de
+argumentos da bash\\\texttt{"\$*"} : Todos os argumentos - Preserva a
+forma dos argumentos passados entre aspas (i.e., o white
+space)\\\texttt{"\$@"} : Todos os argumentos - Preserva a forma dos
+argumentos passados entre aspas (i.e., o white space) ~
+
+\subsection{Exercise 6}\label{exercise-6}
+
+\subsubsection{1, 2 e 3}\label{e-3}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{\{ .......\textbackslash{}\}} : Agrupar commandos (pode ser
+  redirecionado o stdout usando \textbar{} ou \textgreater{}). A lista
+  de comandos é executada na mesma instância da bash em que é chamada
+  (contexto global de execução, com variáveis globais)\\
+\item
+  ( \ldots{}\ldots{}. ) : Agrupar comandos (pode ser redirecionado o
+  stdout usando \textbar{} ou \textgreater{}). O grupo de comandos é
+  executado noutra instância da bash (contexto próprio de execução, com
+  variáveis locais)\\
+\end{itemize}
+
+\subsection{Exercise 7}\label{exercise-7}
+
+\subsubsection{1}\label{section-13}
+
+\texttt{\$?} : Valor de retorno de um comando (semelhante a C/C++). Se
+for \texttt{'1'} existe um erro na execução do comando. Se for
+\texttt{'0'} está tudo bem
+
+\subsubsection{2}\label{section-14}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{echo} \NormalTok{-e : Faz parse de códigos de cores}
+
+\StringTok{"e\textbackslash{}33m ... \textbackslash{}e[0m"} \KeywordTok{:} \NormalTok{Código de cores que define a cor de sucesso}
+\StringTok{"e\textbackslash{}31m ... \textbackslash{}e[0m"} \KeywordTok{:} \NormalTok{Código de cores que define a cor de erro }
+\end{Highlighting}
+\end{Shaded}
+
+Estrutura de um if:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{if} \KeywordTok{<cond>}
+\KeywordTok{then}
+    \KeywordTok{<statment>}
+\KeywordTok{else}
+    \KeywordTok{<statment>}
+\KeywordTok{fi}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{3}\label{section-15}
+
+Os parentesis retos na condição do if (p.e. \texttt{if {[} -f \$1{]}})
+que chamam a função test devem estar com pelo menos um espaço entre os
+outros caracteres
+
+\subsubsection{4}\label{section-16}
+
+Os operadores têm de estar com pelo menos um espaço de intervalo\\! :
+Operador not
+
+\subsubsection{5}\label{section-17}
+
+\&\& : Operador and\\\texttt{\textbar{}\textbar{}} : Operador or\\
+
+\subsection{Exercise 8 - The multiple choice case
+construction}\label{exercise-8---the-multiple-choice-case-construction}
+
+\subsubsection{1 Case stament}\label{case-stament}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{case} \NormalTok{<variavel para selecionar>}\KeywordTok{ in}
+    \NormalTok{<cond1>}\KeywordTok{)} \KeywordTok{<statment} \KeywordTok{1>;;}
+    \KeywordTok{<cond2>}\NormalTok{) }\KeywordTok{<statment} \KeywordTok{2>;;}
+    \KeywordTok{<cond3>}\NormalTok{) }\KeywordTok{<statment} \KeywordTok{3>;;}
+    \KeywordTok{....}
+\KeywordTok{esac}
+\end{Highlighting}
+\end{Shaded}
+
+Onde:\\- A pode ser \texttt{\$\#}, \texttt{\$*} ou \texttt{\$1}\\- O ;;
+no final da \texttt{\textless{}ação \#\textgreater{}} equivale ao fim da
+branch (break em C)\\- O \textbar{} permite a definição de uma várias
+alternativas (condições) para o mesmo case (e consequentemente ação)\\-
+O * segnifica qualquer valor. Ao ser colocado em último permite
+selecionar todas as outras opções que ainda não forma cobertas
+(equivalente ao default em C)\\ \#\# Exercise 9 - The repetitive for
+contruction
+
+\subsubsection{1}\label{section-18}
+
+A syntax de um for é:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{for} \KeywordTok{<variavel} \NormalTok{de iteracao}\KeywordTok{>} \NormalTok{in }\KeywordTok{<}\NormalTok{lista de objectos para iterar}\KeywordTok{>}
+\KeywordTok{do}
+    \KeywordTok{<statment>}
+\KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+Onde \texttt{\textless{}lista de objectos para iterar\textgreater{}}
+podem ser ficheiros e/ou pastas e podem ser usados caracteres especiais
+como \texttt{a*}
+
+\subsubsection{2}\label{section-19}
+
+\subsection{10 - The repetitive while and until
+constructions}\label{the-repetitive-while-and-until-constructions}
+
+\subsubsection{1}\label{section-20}
+
+Estrutura de um while:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{while [} \NormalTok{<condicao de paragem}\OtherTok{>}\KeywordTok{ ]}
+\KeywordTok{do}
+    \KeywordTok{<statment>}
+    \KeywordTok{shift}
+\KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+Estrutura de um until
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{until [} \NormalTok{<condição de paragem}\OtherTok{>}\KeywordTok{ ]}
+\KeywordTok{do}
+    \KeywordTok{<statment>}
+    \KeywordTok{shift}
+\KeywordTok{done} 
+\end{Highlighting}
+\end{Shaded}
+
+Onde a condição de paragem pode ser escrita como:
+\texttt{\textless{}variable\textgreater{} \textless{}condição de teste\textgreater{} \textless{}fim\textgreater{}}
+
+As condições de teste podem ser:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{-gt} \NormalTok{: greater than}
+\KeywordTok{-eq} \NormalTok{: equal}
+\KeywordTok{-lt} \NormalTok{: less than}
+\KeywordTok{-le} \NormalTok{: less or equal than}
+\KeywordTok{-ge} \NormalTok{: greater or equal than}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{shift} é uma palavra equivalente ao continue em C
+
+\subsection{Exercise 11 - Script
+Files}\label{exercise-11---script-files}
+
+\section{1}\label{section-21}
+
+O cabeçalho do ficheiro de script é:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#!/bin/bash}
+\CommentTok{# The previous line (comment) tells the operating system that}
+\CommentTok{#  this script is to be executed in bash}
+\CommentTok{#}
+\end{Highlighting}
+\end{Shaded}
+
+Condições usadas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{[} \OtherTok{$#} \OtherTok{-ne} \NormalTok{1}\KeywordTok{ ]} \KeywordTok{:} \NormalTok{número de argumentos diferente de 1}
+\NormalTok{!}\KeywordTok{ [} \OtherTok{-f} \OtherTok{$1}\KeywordTok{ ]} \KeywordTok{:} \NormalTok{O primeiro argumento dado não é um ficheiro}
+\KeywordTok{1>&2} \KeywordTok{-} \NormalTok{Redirecionar o stderror para o stdout}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Exercise 12 - Bash supports both indexed and associative
+arrays}\label{exercise-12---bash-supports-both-indexed-and-associative-arrays}
+
+\subsubsection{1}\label{section-22}
+
+Os indices de um array não são continuos e não podem ser negativos
+
+A declaração explicita dos arrays pode ser feita fazendo:
+\texttt{declare -a \textless{}array\textgreater{}{[}\textless{}idx\textgreater{}{]}=\textless{}value\textgreater{}}\\
+Outras operações:\\- \textbf{Atribuição}:
+\texttt{\textless{}array\textgreater{}{[}\textless{}idx\textgreater{}{]}=\textless{}valor\textgreater{}}\\-
+\textbf{Leitura}:
+\texttt{\$\{\textless{}array\textgreater{}{[}\textless{}idx{]}\}}\\-
+\textbf{Leitura de todos os elementos do array}:
+\texttt{\$\{a{[}*{]}\}}\\- \textbf{Número de elementos do array}:
+\texttt{\$\{\#a{[}*{]}\}}\\- \textbf{Lista dos indices do array} :
+\texttt{\$\{!a{[}*{]}\}}\\
+
+Os indices podem ser obtidos com expressões aritméticas\\A iteração
+pelos indices é feita da mesma forma que em python\\- \textbf{Iterar na
+lista de elementos}:
+\texttt{for \textless{}variavel\textgreater{} in \$\{\textless{}array\textgreater{}{[}*{]}\}}\\-
+\textbf{Iterar na lista de indices}:
+\texttt{for \textless{}variavel\textgreater{} in \$\{!a{[}*{]}\}}\\
+Exemplo de código para imprimir os indices e os elementos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{for} \KeywordTok{v} \NormalTok{in }\OtherTok{$\{!a[*]\}}
+\KeywordTok{do}
+    \KeywordTok{echo} \StringTok{"a[}\OtherTok{$i}\StringTok{] = }\OtherTok{$\{a[$i]\}}\StringTok{"}
+\KeywordTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{2}\label{section-23}
+
+A declaração de arrays associativos tem de ser feita de forma explicita
+\texttt{declare -A \textless{}array\textgreater{}}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  A \textbf{atribuição de valores} para um \textbf{array associativo}:
+  \texttt{\textless{}array\textgreater{}{[}"\textless{}key\textgreater{}"{]}=\textless{}value\textgreater{}}
+\item
+  \textbf{Listar os elementos no array} :
+  \texttt{\$\{\textless{}array\textgreater{}{[}*{]}\}}
+\item
+  \textbf{Listar o número de elementos no array} :
+  \texttt{\$\{\#\textless{}array\textgreater{}{[}*{]}\}}
+\item
+  \textbf{Listar os indices usados no array} :
+  \texttt{\$\{!\textless{}array\textgreater{}{[}*{]}\}}
+\end{itemize}
+
+Exemplo de código para percorrer as keys e imprimir as keys e os values
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{for} \KeywordTok{i} \NormalTok{in }\OtherTok{$\{!arr[*]\}}
+\KeywordTok{do}
+    \KeywordTok{echo} \StringTok{"Key = }\OtherTok{$i}\StringTok{ | Value = }\OtherTok{$\{arr[$i]\}}\DataTypeTok{\textbackslash{}"}
+\StringTok{done}
+\end{Highlighting}
+\end{Shaded}
+
+\end{document}
