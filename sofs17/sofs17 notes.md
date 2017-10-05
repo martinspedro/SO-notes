@@ -189,7 +189,7 @@ Isola-se a execução deste novo filesystem do kernel.
 	- Protótipos de funções (que devem ser desenvolvidas pelo user para criar o filesystem específico)
 	- Métodos para instanciar e integrar o novo filesystem com o kernel
 
-![FUSE diagram with sofs17](fuse.jpeg)
+![FUSE diagram with sofs17](pic/fuse.jpeg)
 
 # 2 SOFS17 Architecture
 - Um disco é um conjunto de blocos numerados
@@ -213,7 +213,7 @@ Isola-se a execução deste novo filesystem do kernel.
 
 De forma geral, os N blocks de um disco formatado em sof17 organizam-se em 4 áreas:
 
-![Organização de um disco formatado em sofs17](sofs17_disk.png)
+![Organização de um disco formatado em sofs17](pic/sofs17_disk.png)
 
 ## 2.1 List of free inodes
 - O número de inodes num disco sofs17 é **fixo após a formatação**.
@@ -221,15 +221,31 @@ De forma geral, os N blocks de um disco formatado em sof17 organizam-se em 4 ár
 	- Definir uma política (conjunto de regras) para decidir que free inode será usado
 	- Definir e guardar no disco uma estrutura de dados adequada à implementação desta política
 
+---
 
 > _In sofs17 a FIFO policy is used, meaning that the first free inode to be used is the oldest one. The
 implementation is based in a double linked list of free inodes, built using the inodes themselves._
 
-- Na estrutura de inodes, existem dois campos que guardam os indíces do próximo inode e do inode anterior vazios.
-- Estas listas de inodes são circulares, ou seja:
+---
+
+- Na estrutura de inodes, existem dois campos que guardam os indíces do próximo inode e do inode anterior vazios (criam uma lista ligada)
+- Estas listas ligadas de inodes são circulares, ou seja:
 	- O _previous_ inode livre do primeiro free inode é o último free inode
 	- o _next_ free inode do último inode é o primeiro free inode
-- No _superblock_, dois dois campos guardam o número total de free inodes e um indíce para o primeiro free inode
+	- Assim:
+	- Cada numero da lista paonta sempre para o seguinte. 
+	- O previous aponta sempre para o elemento aterior.
+	- Só preciso de saber a tail porque a previous do head é a tail
+- No _superblock_, dois campos guardam o número total de free inodes e um indíce para o primeiro free inode
+- O número de inodes por default é [NUM_BLOCKS]/8
+
+
+Correspondência univoca entre o inode e o nome do ficheiro
+
+- stat <filename> : mostra a estatísticas do ficheiro (filesize, blocks, ID Block, device, inode, links e datas de aceso, modificação e change)
+	- Ficheiro `.` : diretório atual
+	- Ficheiro `..` : diretório atual
+
 
 ## 2.2 List of free clusters
 - Tal como os inodes, o número de clusters num disco é fixo após a formatação.
@@ -253,7 +269,15 @@ Concretamente no sofs17: \
 - As duas caches têm como função melhorar a eficiência de operações de **alocação**(atribiuir um cluster livre a um novo ficheiro a ser guardado em disco) e **libertação**(remover as referências para um dado cluster).
 	- Na maioria das vezes as duas operações só precisam de aceder ao superblock e não fazem mais di que um acesso ao disco
 
-![Caches and Reference bitmap blocks](cache.png)
+
+### Retrieval Chache
+Serve para guardar as referências após eliminar um ficheiro. Se o disco tiver vazio, a referência deve ser max e não 0. O valor 0 significa que está cheio a retrieval cach está cheia.
+
+### Insertion cach
+Serve para guardar as referências de ficheiros a inserir. Se o cache estiver vazia, a referência deve ser 0. O 0 significa que a insertion cahce esta cheia
+
+
+![Caches and Reference bitmap blocks](pic/cache.png)
 
 ### Allocation
 1. Uma referência para um cluster livre é obtida da retrieval cache
@@ -297,7 +321,7 @@ A **escrita** e a **leitura** no disco **não são sequenciais**, mas sim aleat�
 Exemplo: pretendemos aceder ao indice _j_ de um ficheiro. Para obter o cluster que contém esse ficheiro precisamos de saber o indice do cluster do ponto de vista de um ficheiro, $ClusterIndex = \frac{j}{ClusterSize}$ 
 
 Para obter a localização do ficheiro no disco, temos de obter o número do cluster usando a  estrutura do filesystem.
-
+e
 No sofs17: \
 - a _data strucuture_ definida é dinâmica e permite uam identificação rápida de qualquer data cluster.
 - Cada inode permite o acesso a um array dinâmico, _**d**_, que identifica a sequencia de clusters usados para guardar os dados associados com um ficheiro.
@@ -380,13 +404,14 @@ A operação de formatação deve: \
 # 4. Code Structure
 A estrutura do código é apresentada abaixo:
 
-![Code Strucuture to be developed](structure.png)
+![Code Strucuture to be developed](pic/structure.png)
 
 ## Rawdisk
 Implementa o acesso físico ao disco
 
 ## Dealers
-Implementam o acesso ao superblock, inodes, bit map e clusters
+- Implementam o acesso ao superblock, inodes, bit map e clusters
+- São opcionais (só são feitas se os alunos desejarem ter notas mais altas)
 
 ### sbdealer
 Acesso ao superblock
@@ -406,15 +431,16 @@ Open/close the dealers
 
 ## ilayers
 Funções intermédias
+Obrigatórias
 
 ### inodeattr
-Manipular os campos dos inodes
+Lida com a manipulação dos campos especiais dos inodes
 
 ### freelists
 Manipular a lista dos inodes livres e a lista de clusters livres
 
 ### filecluster
-Lidar com os clusters de um inode
+Lidar com os clusters de um inode (file clusters associados a um ficheiro)
 
 ### direntries
 Lidar com entradas de diretórios
@@ -422,6 +448,7 @@ Lidar com entradas de diretórios
 
 ## syscalls
 versão das syscalls de sistema adaptadas ao _sofs17_ 
+Cada grupo Só irá implementar 6 das 24 utilizadas.
 
 ## fusecallbacks
 Interface com FUSE
@@ -433,81 +460,435 @@ Biblioteca para debug
 o tipo de exceções lançadas em caso de erro
 
 
+---
 
-[AQUI]
+# createDisk
+Cria um disco que serve de suporte ao sistema de ficheiros. O disco **não está formatado** apenas contém: \
+- o número desejado de clusters
+- o número desejado de bytes por cluster
 
-## Generic
-- ficheiro showsizes é usado para mostrar os valores dos campos de dados
+Ainda falta formatar os clusters de acordo com o sistema de ficheiros, para este disco ser um sistema de ficheiros válido
 
-## createDisk
 ```bash
-createDisk <dir> <num_blocks>
+USAGE
+./createDisk <diskfile> <numblocks>
 ```
 
-- createDisk usa o dd
+O output parece-se com o seguinte:
+```bash
+./createDisk <diskfle> 1000
+1000+0 records in                               
+1000+0 records out
+512000 bytes (512 kB) copied, 0.05734 s, 8.9 MB/s
+```
+
+O createDisk usa o `dd`para criar o disco e preenche-o com valores aleatórios.
+
+```bash
+#!/bin/bash                
+           
+if [ $# != 2 ]; then
+        echo "$0 diskfile numblocks"
+        exit 1                     
+fi
+ 
+dd if=/dev/urandom of=$1 bs=512 count=$2
+```
+
+# Exceptions
+
+
+# rawlevel
+Manipulation of the disk at block level
+
+## Modules
+- **mksofs**  : Formatting functions
+- **rawdisk** : Access to disk blocks at raw level 
+                     
+# mksofs
+Função responsável por formatar o disco para criar o sistem de ficheiros sofs17
+
+```bash
+USAGE:
+Sinopsis: mksofs [OPTIONS] supp-file
+  OPTIONS:
+  -n name --- set volume name (default: "sofs17_disk")
+  -i num  --- set number of inodes (default: N/8, where N = number of blocks)
+  -z      --- set zero mode (default: not zero)
+  -q      --- set quiet mode (default: not quiet)
+  -h      --- print this help
+```
+
+Por default ao indicar apenas um nome de ficheiro. O número de inodes é o número de clusters/8:
+
+```bash
+./mksofs ../disk.sofs1
+
+Trying to install a 125-inodes SOFS17 file system in ../disk.sofs17.
+Computing disk structure... 
+Filling in the superblock fields... 
+Filling in the table of inodes... 
+Filling in the bitmap of free clusters... 
+Filling in the root directory... 
+144-inodes SOFS17 file system was successfully installed in ../disk.sofs17.
+```
+
+Ao usar a opção `-z` todos os clusters livres são preenchidos com zeros:
+
+```bash
+./mksofs ../disk.sofs17 -z
+
+Trying to install a 125-inodes SOFS17 file system in ../disk.sofs17.
+Computing disk structure... 
+Filling in the superblock fields... 
+Filling in the table of inodes... .
+Filling in the bitmap of free clusters... 
+Filling in the root directory... 
+Filling in free clusters with zeros... cstart: 24, ctotal: 244
+A 144-inodes SOFS17 file system was successfully installed in ../disk.sofs17.
+```
+
+## computeStrcuture
+
+## fillInSuperBlock
+- As caches estão no superblock
+
+## fillInInodeTable
+
+## fillInfreeClusterTable
+Fill in the blocks of the free cluster table.
+
+- There is a one to one correspondence between bits in the table and clusters. 
+- Bits on the table are considered to grow up from lower blocks to upper blocks, from lower bytes to upper bytes, and from most significant bits (MSB) to least significant bits (LSB). 
+	- Thus, bit 0 corresponds to the most significant bit of the first byte of first block of the table. 
+	- A bit at 1 means the corresponding cluster is free. 
+	- Conversely, a bit at 0 means the corresponding cluster is in use. 
+	- Bit 0, as the root occupies the first cluster, must be set in use. 
+- The number of bits in the table is, in general, greater than the number of clusters. 
+- The non used bits should be put as in use.
+
+```bash
+void fillInFreeClusterTable (uint32_t rmstart, uint32_t ctotal)
+# Fill in the block of the free cluster table
+#
+# PARAMETERS:
+# 	- rmstart : the number of the first block used by the bit table
+# 	- ctotal  : the total number of clusters
+```
+
+Problemas:
+- É preciso ter em consideração que o número de clusters pode ser inferior ou superior ao tamanho de um bloco.
+- É preciso ter em consideração que o primeiro bit do primeiro bloco deve estar em use
+- É preciso ter em consderação que todos os bits que não referenciem um cluster devem ser colocados como em uso
+
+
+Notas: \
+- **rawdisk** contem todas as funções para mainuplar diretamente o disco
+	- soOpenRawDisk - abre o disco
+	```bash
+	void soOpenRawDisk(const char *devname, uint32_t * np = NULL);
+	```
+	- soCloseRawDisk - fecha o disco em segurança
+	```bash
+	void soCloseRawDisk(void)
+	```
+	- soReadRawBlock - lê um bloco de dados do disco
+	```bash
+	 void soReadRawBlock(uint32_t n, void *buf);
+	```
+	- soWriteRawBlock - escreve um bloco de dados para o disco
+	```bash
+	void soWriteRawBlock(uint32_t n, void *buf)
+	```
+	 
+- **datatypes**: um conjunto de constantes que podem ser usadas para aceder aos ficheiros
+	- InodesPerBlock
+	- ReferencesPerBlock
+	- ReferencesPerCluster
+	- ReferencesPerBitmapBlock
+	- BlocksPerCluster
+	- CLusterSize
+	- DirentriesPerCluster
+	- NullReference
+
+- **exceptions** : sofs17 exception definition module
+	```cpp
+	struct SOException:public std::exception
+		int en;             ///< (system) error number
+		const char *msg;    ///< name of function that has thrown the exception
+	```
+
+- **SORefBlock** : estrutura dos Reference bitmaop Block data type
+	```cpp
+	struct SORefBlock
+	{
+		/** \brief number of references in block */
+		uint16_t cnt;
+		/** \brief index of first non-empty byte */
+		uint16_t idx;
+		/** \brief bit map */
+		uint8_t map[ReferenceBytesPerBitmapBlock];
+	};
+	```	
+
+## fillInRootDir
+
+## resetClusters
+
+\newpage 
+# testtool
+Ferramenta para testar as funções desenvolvidas e visualizar o disco
+
+```bash
+USAGE:
+Sinopsis: testtool [OPTIONS] supp-file
+  OPTIONS:
+  -q level --- set quiet mode (default: 0)
+  -l depth --- set log depth (default: 0,0)
+  -h       --- print this help
+```
+
+Ao indicar um disco válido, obtemos:
+
+```
++================================================================+
+|                        testing functions                       |
++================================================================+
+|   q - exit                     |  sb - show block              |
+|  fd - format disk              | spd - set probe depths        |
++--------------------------------+-------------------------------+
+|  ai - alloc inode              |  fi - free inode              |
+|  ac - alloc cluster            |  fc - free cluster            |
+|   r - replenish                |   d - deplete                 |
++--------------------------------+-------------------------------+
+| gfc - get file cluster         | afc - alloc file cluster      |
+| ffc - free file clusters       |     - NOT USED                |
+| rfc - read file cluster        | wfc - write file cluster      |
++--------------------------------+-------------------------------+
+| gde - get dir entry            | ade - add dir entry           |
+| rde - rename dir entry         | dde - delete dir entry        |
+|  tp - traverse path            |     - NOT USED                |
++--------------------------------+-------------------------------+
++ cia - check inode access       | sia - set inode access        +
++ iil - increment inode lnkcnt   | dil - decrement inode lnkcnt  +
++================================================================+
+```
+
+Se o disco não estiver formatado, os campos está preenchidos com rubbish e não fazem sentido
+
+
+# showsizes
+usado para obter de forma rápida os valores para várias constantes/valores de campos definidas pelo filesystem sofs17
+
+```bash
+USAGE:
+./showsizes
+
+BlockSize: 512
+sizeof(SOSuperBlock): 512
+sizeof(SOInode): 64
+sizeof(SODirEntry): 64
+ReferencesPerCluster: 512
+ReferencesPerBitmapBlock: 4064
+ReferenceBytesPerBitmapBlock: 508
+InodesPerBlock: 8
+BlocksPerCluster: 4
+DirentriesPerCluster: 32
+ClusterSize: 2048
+```
 
 # showblock
 Usado para mostrar o conteudo dos blocos de acordo com a indicação
 Não sabe a estrutura interna. Vai formatar o que eu lhe der da forma que eu lhe peço
 
-## inodes
-- Cada inode tem dois campos que são reservados para fazer uma lista ligada
-- A lista é circular. 
-- Cada numero da lista paonta sempre para o seguinte. 
-- O previous aponta sempre para o elemento aterior.
-- Só preciso de saber a tail porque a previous do head é a tail
-- O número de inodes por default é [NUM_BLOCKS]/8
-
-
-```table
-in | name
-.. | ..
+```bash
+Sinopsis: showblock [ OPTION ] supp-file
+  OPTIONS:
+  -x range   --- show block(s) as hexadecimal data
+  -a range   --- show block(s) as ascii/hexadecimal data
+  -s range   --- show block(s) as superblock data
+  -i range   --- show block(s) as inode entries
+  -d range   --- show block(s) as directory entries
+  -r range   --- show block(s) as cluster references
+  -b range   --- show block(s) as bitmap references
+  -h         --- print this help
 ```
 
-Correspondência univoca entre o inode e o nome do ficheiro
-
-- stat <filename> : mostra a estatísticas do ficheiro (filesize, blocks, ID Block, device, inode, links e datas de aceso, modificação e change)
-	- Ficheiro `.` : diretório atual
-	- Ficheiro `..` : diretório atual
-
-Na raiz o `..` aponta para a raiz (não existem entradas anteriores
+[AQUI]
+Comentários
+- soWriteRawBlock
+	- char blk[blockSize]
+	- SOSuperblock sb;
+	- SOTnode it[inodesPerBlock]
+	- soWriteRawBlock(uint32_t n, void *buf)
+	- blk
+	- fsb
+	- it
 
 ## Comandos para executar
 ./showblock /tmp/zzz -i 1
-./createBlock
-./testtools
-
-## Retrieval Chache
-Se o disco tiver vazio, a referência deve ser max e não 0.
-o 0 significa que está cheio
-
-## Insertion cach
-Se o disco tiver vazio, a referência deve ser 0.
-o 0 significa que a insertion cahce esta vazia
-
-## Testtools
-Permite testar o sistema de ficheiros
 
 ## Notes
 função alloc cluster tem de verificar se ficou tudo bem no disco
 função replentish transfer da reference bitmao block para a retrieval cache
 
+----
+
+# HOW to use sofs17
+(so1718 - Aula prática 29 Sep)
+## Documentação
+
+```bash
+# Gerar documentação
+cd ./doc
+doxygen
+```
+
+A documentação fica na pasta `./doc/html/`
+
+# Make
+```bash
+# O make compila sempre tudo e não somente o conteudo da pasta
+make
+make -C <path_to_start> 	% indica o caminho onde o make começar
+```
+
+Na linkagem necessita da biblioteca fuse.h. Está contida na biblioteca libfuse-dev que pode ser instalada com:
+```bash
+sudo apt-get install libfuse-dev
+```
+
+[TODO] mksofs
+- msksofs : formatador para o sistema de ficheiros sofs17
+
+Para já as funções
+
+
+- compute structure:
+	- nao altera os dados no disco.
+	- Apenas calcula os blocos de inodes, clusters, etc.
+- cada função vai preencher a àrea do disco respetiva
+	- **fillInSuperBlock** : computes the structural division of the disk
+	- **fillInInodeTable** :
+
+
+## Criar um disco
+```bash
+./createDisk /tmp/so # a pasta tmp é dada reset a cada reboot
+```
+
+```bash
+# permite me olhar para uma sequência ou range de um disco da forma que eu quiser
+./showblock
+
+# conteudo interno do bloco 0 em hexadecimal formatado considerando que é um valor hexadecimal
+./showblock /tmp/so -x 0
+```
+
+|:----:|:-----:|
+| -h   | help |
+|  -x  | hex |
+| -s   | superblock |
+| -b   | bits
+
+## formatar o disco
+./mksofs.bin /tmp/zzz
+
+|:----:|:-----:|
+| -h   | help |
+| no args | default values |
+| -z   | clusters não alterados são colocados a zero |
+
+## Compute struxture
+Recebe como argumento o número de inodes e o número de blocos
+
+
+Tenho o disco com 1000 blocos
+Um dos blocos é usado para super bloco
+Quero 125 inodes    
+
+
+Variável em bytes
+Referências armazenadas dos clusters em uso: 1 bit
+
+
+Pela `./showsizes` tenho: \
+- InodesPerBlock: 8
+- BlockPerCluster: 
+
+# Inodes ?
+QUero gardar um array qyue seja binario
+Preciso de uma estrutura dinâmica que escreva sobre a inode
+
+Cada grupo tem 4 inode dentro de um cluster.
+NO inode, caso o tamanho do ficheiro ultrapssa os  
+bytes
+
+/ Cada referência sãp 4 b?
+
+Existe 6 bits no cluster para referencia ireta e 1 para apontar para um cluster com referênica indireta
+
+inode has 6 positions to save references d[0 to 5] : referência direta
+inode [i1] identifica o cluster C1; Extende o espaço de armazentamentom tempo 512 referências diretas para clusters. d[6, 517)
+inode [i2] identifica o cluster C2;
+inode [i3] extende o cluster C2 onde os elementos são referências diretas para clusters
+
+Capacidade: (6+ 2^9 + (2^9)^2)x 2^11
+
+NO mapa de bits posso ter 4064 bits para identificar clusters
+4064 bits posso identificar 4*4096 clusters, logo é mais do que suficiente (só tenho 999 clusters)
+
+# Number of blocks for 125 inodes
+125 / 8 
+45    15
+  1
+
+125 / 8 = 15.62 = 16
+
+1000 inodes - 16 inodes - 1 (superblock) = 983
+
+Número de clusters: 
+882 / 4 
+18    245
+ 22   
+   2
+
+No block tem 2 campos de dois bytes. 
+
+
+Cada ficheiro tem um inode. O número máximo de inode é o número máximo de ficheiros
+
+(ReferencePerBitmapBlock: 500
+
+Magic number representa se o sistema é big endian ou little endian
+
+Sofs17 é little endiam - bit menos significativo à esquerda
+
+## Exemplo
+disk with 1000 blocks
+1 superblock
+number of inodes = 125
+
+size per iNode = 64 bytes = 8 inodes per block
+how many blocks for 125 inodes -> 1254/8 = 15.62... = 16
+since 16 blocks can allocate 128 inodes
+Total block used so far = 1 for sb + 16 for inodeTable = 17
+
+clusters_per_bitmpa = 4064
+1 block for bit map allows 4064 clusters
+numberOfBlocks/4 =_ number_of_cluster REM (U_8) unused-blocks -> allocate has inodes
+128 inodes * U_8 * iNodesPerBlock = 128+16=144
+
+TOdos os nomes dos ficheiros são null terminated `('\0')`
+
+
+Na formatação não vale apenas só guardar ponto. Também é preciso guardar 
+
+
 
 ---
 
 26/09/17
-
-## Camada obrigadória:
-- ilayers :
-- freelist : lida com as listas livres 
-- fileclsuters : lida com os files clsters associado a um ficheiro
-- inodeatri : lida com a atribuição de atributos de forma especial
-- 
-
-## Camada opcional
-- dealers (caso pretenda ter notas mais altas)
-24 syscalls - cada grupo faz 6 (1 por cada um dos elementos)
-
 ## Tree view
 ### bin
 
@@ -519,6 +900,7 @@ função replentish transfer da reference bitmao block para a retrieval cache
 - Bibliotecas binárias para todos os ficherios
 
 ### src 
+
 ### dataypes
 
 ### dealers
@@ -618,7 +1000,8 @@ done
 ./sofsmount <disk_file> <mounting_point> 
 ```
 
-QUando monto o disco, o <mounting_point> é alterado para o tipo de filesystem e altera o número de inodes e clusters da pasta <mounting_point> para os que estõa no filesystem
+Quando monto o disco, o <mounting_point> é alterado para o tipo de filesystem e altera o número de inodes e clusters da pasta <mounting_point> para os que estõa no filesystem
+
 ## probing
 - printf que posso configurar ou não para não aparecer
 - as syscalls estão em camadas
@@ -640,7 +1023,7 @@ verde - código open-source que o professor dá
 
 	
 ## Dismount
-para desmonatr o disco
+para desmontar o disco
 ```bash
 # dismount 
 fusermount -u </mounting/point/>
@@ -653,8 +1036,35 @@ fusermount -u </mounting/point/>
 
 # Quando monto o disco o OS dá disown ao terminal e portanto o software não imprimir para o terminal
 ```
----
 
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+"matéria fora do sofs17"
 # 29 Sep 2017
 
 ## Typical Computational system
@@ -765,153 +1175,144 @@ Primórdios : Sistema Electromecânco
 // Inserir Slides
 ```
 
+----
+
+# 3/Oct/2017
+
+Multiprogrammed batch: \
+Purpouse: Optimize processor using
+
+## TIme sharing
+-Purpouse: Provide a user friendly interface, minimizing he response tim to external requests
+- Method:
+	- Keeping differents users, each on in a differnte terminal, in direct and simultaneous connection to the system
+	- TOdos os utilizadores pensam que têm o sistema para si, mas nã verdade os sistemas e os acesso estão multiplexados no tempo
+	- A resposta de um humano é lenta quando comparado com o computador
+
+## Real time system
+- Purpous: Use the computer in the online monitoring and control of physycal process
+	- Rstrinções temporais muito rigorosas: é preciso atuar no instante x e não no instante x+1
+- Method: varinat fo an intercative system taht allows to impose maiximun limits to the request times 
+
+## Networking operation systems
+	- Sistemas operativos de rede: a máquina é pessola mnas está dotada de um conjunto de primitavas qe permite a comunicação com outras maquinas:
+		- parulhas de ficheiros
+		- comunicação
+		-ca maquina mantem a sua individualidde
+	- Sistemas operativos distribuidos:
+		- o sistema operativo é que decisde com a sua logica de balancemaento de carga onde é que os programs vão correr 
+		- é transparetne ao utilizador
+		- Tem de ser toterante a falhas
+		 -Comuta no tempo a maquina que me responsde às instruções
+
+## _Multiprocesin_g vs _Multiprogramming_
+- Paralelism: Habilidade de um computador de simultaneamente executar um ou mais programas
+-	- É preciso mais do que um core ou um processador
+	- Pressupoe arquitectura multicore
+	- Pode ser uma estrutura distribuida
+- Se o sistema operativo suporta esta caracteristecia, suport multiprocessamento
+- Computadores de usaod pessoal: Arquitectura SMTP:
+	- vários processadores, a memória é a mesma (RAM)
+	- Apesar de cada core ter a sua cache própria
+	- Tem de existir mecanismos de exclusão mutua para o hardware de suporte ao multiprocessamento
+	- Cada processador vê que tem acesso a toda a memoria (memoria virtual)
+- Planar Mesh
+	- Cada processador liga a 4 memorias adjacentes
 
 
-# so1718 - Aula prática 29 Sep
-# Gerar documentação
-```bash
-cd ./doc
-doxygen
-```
+## Concurrency
+- Ilusão criada por um sistema computecional aparentemente ser capaz de simultaneamente correr mais do que um programa pelo numero de processos
+	- The existing processor(s) must be assigned to the different programs
 
-A documentação fica na pasta `./doc/html/`
-O make compila sempre tudo e não somente o conteudo da pasta
-
-# Make
-```bash
-make
-make -C <path_to_start> 	% indica o caminho onde o make começar
-```
-
-Na linkagem necessita da biblioteca fuse.h. Está contida na biblioteca libfuse-dev que pode ser instalada com:
-```bash
-sudo apt-get install libfuse-dev
-```
-
-[TODO] mksofs
-- msksofs : formatador para o sistema de ficheiros sofs17
-
-Para já as funções
+## INternal Strcuture
+- Sistema operativo simples: milhões de linhas de código
+	- implementados com um ambiente gráfico para interação com o utilizador
+	- Ser multiutilizador: permitir diferentes utilizadores (até ao mesmo tempo)
+	- ser multitarefas: permitir execturar vários programas ao mesmo tempo
+	- ter a memória virtual presente
+	- permitir o acesso, de forma indestingível, a sistemas de ficheiros locais e remotos, bem como dispositivos de I/O
+	- permitir a conexão a máquinas remotas
+	- ter uma grande coleação de device drivers
+	- permitir acesso dinâmico 
 
 
-- compute structure:
-	- nao altera os dados no disco.
-	- Apenas calcula os blocos de inodes, clusters, etc.
-- cada função vai preencher a àrea do disco respetiva
-	- **fillInSuperBlock** : computes the structural division of the disk
-	- **fillInInodeTable** :
+## Internal Structure _(revisited)_
+Em termos de arquitectura interna, os sistemas operativos podem ser: \
+- Sistemas Monolithic
+- Sistemas por camada
+
+### Monolithic system
+- A perspectiva mais ultizada
+- Um único programa corre em kernel mode
+	- Um único entry poitn
+	- COnjunto de rotinas que implementam uma system call
+	- conjunto de funções auxiliares para a system call
+- a set of services procedures that carry out the system calls
+- a set of auxiliary procedures
+- Every part of the operation system can see 
+
+### Internal global system 
+- Modular aproach
+- A camada de cima não pode chamar uma função da chamada de baixo. EM vez disso tem de chamar funções dos níveis imediatamente abaixo para que estas chamem as funções de baixo.
+
+- Fácild e testar e modficar, mas uma grande perda de eficiência (piora se a divisão de funções não for bem feita)
+- Fácil dividir funções entre o módulo de utilizador e o modulo de kernel space
+
+|Layer|Function|
+|:---:|:---:|
+| 1 | |
+| 2 | |
+
+### Microkernel approach
+- Posso ter modularidade sem ter camadas em níveis hierárquicos diferentes
+- Crio um conjuto de módulos
+	- apenas o microkernel core em kernel space
+	- todos os outros módulos correm em user space
+- Posso carregar os módulos no start-up 
+- Ou dinâmica:
+	- dispositivo plug-and-play
+	- start com um comando
+- SIstema robsto
+	- Manipulação de um filesystem corre em user space. Se houver problemas não afeta a integridade do sistem afísica
+
+time quantum: espaço de tempo alocado para ser multiplexado
 
 
-## Criar um disco
-```bash
-./createDisk /tmp/so # a pasta tmp é dada reset a cada reboot
-```
+### Virtual machine
+- Permitir instalar guess OSs
+- DOis tipos:
+	- Type-1 (native hypervisor): runs directly in the host\'s hardware
+	- Type-2 (hosted supervisor): runs on top of the host\'s operating system
 
-```bash
-# permite me olhar para uma sequência ou range de um discod da forma que eu quiser
-./showblock
+Type 1: HARDWARE -> HYPERVISOR -> OS
+Type 2: HARDWARE -> OS -> HYPERVISOR -> OS
 
-# conteudo interno do bloco 0 em hexadecimal formatado considerando que é um valor hexadecimal
-./showblock /tmp/so -x 0
-```
-
-|:----:|:-----:|
-| -h   | help |
-|  -x  | hex |
-| -s   | superblock |
-| -b   | bits
-
-## formatar o disco
-./mksofs.bin /tmp/zzz
-
-|:----:|:-----:|
-| -h   | help |
-| no args | default values |
-| -z   | clusters não alterados são colocados a zero |
-
-## Compute struxture
-Recebe como argumento o número de inodes e o número de blocos
+### Client Server Approach: 
+- Modular approach, based on clients and servers
 
 
-Tenho o disco com 1000 blocos
-Um dos blocos é usado para super bloco
-Quero 125 inodes    
+### Exokernels
+- Em vez de clonar a máquina virtual, divido-a
+- OS recursos são particionados
 
+### Tradicional Unix filesystem
 
-Variável em bytes
-Referências armazenadas dos clusters em uso: 1 bit
+Inserir fotos do professor
 
+trap - interrupção por software (unica instrução que muda o modo de execução)
+buffercache - espaço do disco onde são mantidos todos 
+desmontar um pen - forçar a escrita da buffe cache para o disco
 
-Pela `./showsizes` tenho: \
-- InodesPerBlock: 8
-- BlockPerCluster: 
+- system calls interface
+- process control:
+- unix considera tudo como sendo ficheiros:
+	- ou blocos (buffer cache)
+	- ou bytes  (
 
-# Inodes ?
-QUero gardar um array qyue seja binario
-Preciso de uma estrutura dinâmica que escreva sobre a inode
+Cap2
+Cpa3 - estado de memoria
+Cap5 - filesystem
+Cap6 - dispostivos de IO
 
-Cada grupo tem 4 inode dentro de um cluster.
-NO inode, caso o tamanho do ficheiro ultrapssa os  
-bytes
-
-/ Cada referência sãp 4 b?
-
-Existe 6 bits no cluster para referencia ireta e 1 para apontar para um cluster com referênica indireta
-
-inode has 6 positions to save references d[0 to 5] : referência direta
-inode [i1] identifica o cluster C1; Extende o espaço de armazentamentom tempo 512 referências diretas para clusters. d[6, 517)
-inode [i2] identifica o cluster C2;
-inode [i3] extende o cluster C2 onde os elementos são referências diretas para clusters
-
-Capacidade: (6+ 2^9 + (2^9)^2)x 2^11
-
-NO mapa de bits posso ter 4064 bits para identificar clusters
-4064 bits posso identificar 4*4096 clusters, logo é mais do que suficiente (só tenho 999 clusters)
-
-# Number of blocks for 125 inodes
-125 / 8 
-45    15
-  1
-
-125 / 8 = 15.62 = 16
-
-1000 inodes - 16 inodes - 1 (superblock) = 983
-
-Número de clusters: 
-882 / 4 
-18    245
- 22   
-   2
-
-No block tem 2 campos de dois bytes. 
-
-
-Cada ficheiro tem um inode. O número máximo de inode é o número máximo de ficheiros
-
-(ReferencePerBitmapBlock: 500
-
-Magic number representa se o sistema é big endian ou little endian
-
-Sofs17 é little endiam - bit menos significativo à esquerda
-
-## Gradim
-disk with 1000 blocks
-1 superblock
-number of inodes = 125
-
-size per iNode = 64 bytes = 8 inodes per block
-how many blocks for 125 inodes -> 1254/8 = 15.62... = 16
-since 16 blocks can allocate 128 inodes
-Total block used so far = 1 for sb + 16 for inodeTable = 17
-
-clusters_per_bitmpa = 4064
-1 block for bit map allows 4064 clusters
-numberOfBlocks/4 =_ number_of_cluster REM (U_8) unused-blocks -> allocate has inodes
-128 inodes * U_8 * iNodesPerBlock = 128+16=144
-
-TOdos os nomes dos ficheiros são null terminated `('\0')`
-
-
-Na formatação não vale apenas só guardar ponto. Também é preciso guardar 
-
+open, close, fork não são sistema call. São funções de biblioteca que acedem ao system call (os system cal estão implementados no kernel). Sâo um interface amigável para o utiliador 
 
