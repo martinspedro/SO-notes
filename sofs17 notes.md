@@ -273,8 +273,8 @@ Concretamente no sofs17: \
 ### Retrieval Chache
 Serve para guardar as referências após eliminar um ficheiro. Se o disco tiver vazio, a referência deve ser max e não 0. O valor 0 significa que está cheio a retrieval cach está cheia.
 
-### Insertion cach
-Serve para guardar as referências de ficheiros a inserir. Se o cache estiver vazia, a referência deve ser 0. O 0 significa que a insertion cahce esta cheia
+### Insertion cache
+Serve para guardar as referências de ficheiros a inserir. Se o cache estiver vazia, a referência deve ser 0. O valor 0 significa que a insertion cache está cheia.
 
 
 ![Caches and Reference bitmap blocks](pic/cache.png)
