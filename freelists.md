@@ -17,12 +17,17 @@ uint32_t soAllocCluster ( )
 - Devolve um cluster livre da retrieval cache
 - Se a cache estiver vazia, replenish
 - Devolve o número do cluster alocado
+- A cache tem o valor máximo quando está cheia
+- quando está vazia o replenish é que dá reset ao idx
+- o idx pode não ser 0 se não estirem referências para encher a retrieval cache
 
 - Tenho de incluir o dealer do superblock (sbdealer)
-	- preciso de abrir o superblock
+	- **Não preciso de abrir o superblock**
 	- obter pointeiro para o superblock
 	- com o ponteiro obter a retrieval cache
-	-
+- Tenho de decrementar o cfree do superblock
+- Só incremento o idx da cache quando tiro um valor
+- Tenho de escrever NullReference
 
 ### Tests
 1. Superblock view

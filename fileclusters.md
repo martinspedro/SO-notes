@@ -59,7 +59,7 @@ Function Documentation
           ih   inode handler
           ffcn first file cluster number
 
-   uint32_t soGetFileCluster ( int       ih,
+###   uint32_t soGetFileCluster ( int       ih,
                                uint32_t  fcn
                              )
 
@@ -70,12 +70,25 @@ Function Documentation
           ih  inode handler
           fcn file cluster number
 
-	[AQUI]
 
    Returns
           the number of the corresponding cluster
 
-   void soReadFileCluster ( int       ih,
+- Parece me que apenas tenho de retornar o endereço do cluster
+- Não é preciso retornar tudo
+- Mandar mail ao professor
+- Perguntar panda
+- Para que servem as fnções do prof??
+- Aquilo que faz é usar o inode handler para saber onde está no disk e o file cluster number para obter a referência
+- É preciso rever as duas estruturas
+	- superblock
+	- inode
+	- cluster
+
+
+---
+
+### void soReadFileCluster ( int       ih,
                             uint32_t  fcn,
                             void *    buf
                           )
