@@ -1,14 +1,3 @@
-[WIP]
-
-
-
-# **rawlevel**
-Manipulation of the disk at block level
-
-## Modules
-- **mksofs**  : Formatting functions
-- **rawdisk** : Access to disk blocks at raw level 
-                     
 ## **msksofs**
 Creates the sofs17 filesystem by formatting the disk
 Função responsável por formatar o disco para criar o sistem de ficheiros sofs17
