@@ -1,0 +1,12 @@
+# Inodes
+- Existem 6 posições para referência direta aos clusters do ficheiro
+	- d[0 ... 5]
+- Uma posição para referência indireta
+	- i1
+	- Extende o array de d[6 ... 517]
+- Uma posição para referência dupla indireta
+	- 
+- Cada ficheiro possui um inode
+	- O número máximo de ficheiros num disco é o número máximo de inodes
+- Um inode ocupa 64 bytes
+	- Logo num disco com 512 bytes por bloco, existem 8 inodes em cada bloco
