@@ -1,0 +1,15 @@
+#!/bin/bash
+# Script to generate a pdf using a markdown file
+#
+ 
+if [ $# -eq 1 ]
+then
+	pandoc -sS $1.md --latex-engine=xelatex -o pdf/$1.pdf
+elif [ $# -eq 2 ]
+then
+	pandoc -sS $1.md --latex-engine=xelatex -o pdf/$2.pdf
+else
+	echo "USAGE: md2pdf <md file>\nUSAGE: md2pdf <md file> <pdf name>"
+	exit 1
+fi
+

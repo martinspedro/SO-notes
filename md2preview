@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ $# -ne 1 ]
+then
+	echo "USAGE: md2preview <md filename>"
+	exit 1
+else
+	./md2pdf $1 && evince pdf/$1.pdf &>> /dev/null
+fi
