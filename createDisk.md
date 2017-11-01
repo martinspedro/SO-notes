@@ -1,25 +1,30 @@
-## createDisk
+# createDisk
 
-Cria um disco que serve de suporte ao sistema de ficheiros. O disco **não está formatado** apenas contém: \
-- o número desejado de clusters
-- o número desejado de bytes por cluster
+- Cria um disco **não formatado** que serve de suporte a um sistema de ficheiros.
+- Na prática, um disco é um ficheiro que possui uma estrutura de blocos fixa.
 
-Ainda falta formatar os clusters de acordo com o sistema de ficheiros, para este disco ser um sistema de ficheiros válido
+- Apenas é garantida que a estrutura do disco possui:
+	- o número desejado de clusters
+	- o número desejado de bytes por cluster
 
+- Para o disco ser um sistema de ficheiros válido é necessário formatá-lo com ferramentas adequadas para o tipo de sistemas de ficheiros pretendido 
+
+## Exemplo de utilização
 ```bash
-USAGE
 ./createDisk <diskfile> <numblocks>
 ```
 
-O output parece-se com o seguinte:
+O _output_ após a execução do script para um disco com 1000 blocos é:
+
 ```bash
 ./createDisk <diskfle> 1000
 1000+0 records in                               
 1000+0 records out
 512000 bytes (512 kB) copied, 0.05734 s, 8.9 MB/s
-```
+``` 
 
-O createDisk usa o `dd`para criar o disco e preenche-o com valores aleatórios.
+## Implementação
+O createDisk usa o comando [_dd_](https://en.wikipedia.org/wiki/Dd_(Unix) "Wikipedia page") para escrever para o disco/ficheiro e preenche-o com valores aleatórios obtidos do _/dev/urandom_.
 
 ```bash
 #!/bin/bash                
@@ -31,24 +36,5 @@ fi
  
 dd if=/dev/urandom of=$1 bs=512 count=$2
 ```
-
-## Criar um disco
-```bash
-./createDisk /tmp/so # a pasta tmp é dada reset a cada reboot
-```
-
-```bash
-# permite me olhar para uma sequência ou range de um disco da forma que eu quiser
-./showblock
-
-# conteudo interno do bloco 0 em hexadecimal formatado considerando que é um valor hexadecimal
-./showblock /tmp/so -x 0
-```
-
-|:----:|:-----:|
-| -h   | help |
-|  -x  | hex |
-| -s   | superblock |
-| -b   | bits
 
 
