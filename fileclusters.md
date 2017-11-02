@@ -85,7 +85,156 @@ Function Documentation
 	- inode
 	- cluster
 
+#### O que é preciso fazer:
+- Obter o inode
+- Se o cluster index estiver nos 6 primeiros
+	- Sai direto da estrutura de inodes
+- Se o cluster index for referenciado diretamente ($i_1$)
+	- está no cluster de referências
+	- Ler esse cluster do disco
+	- Calcular novo index (subtrair 6?)
+	- Ler Retornar a referência em que este está
+- Se o cluste index estiver no cluster de referências indiretas ($i_2$)
+	- Calcular dois novos indexes:
+		- index no cluster de referências indiretas
+		- index no cluster de referências diretas
+	- Ler a referência do disco
+	- Retornar o valor
+- A testtool já trata de fazer o iOpen
+- A soGetFileCluster é chamada com o indice do inode
+- É preciso usar a `iGetPointer` para obter o ponteiro para a estrutura
 
+
+#### Testes
+
++================================================================+
+|                        testing functions                       |
++================================================================+
+|   q - exit                     |  sb - show block              |
+|  fd - format disk              | spd - set probe depths        |
++--------------------------------+-------------------------------+
+|  ai - alloc inode              |  fi - free inode              |
+|  ac - alloc cluster            |  fc - free cluster            |
+|   r - replenish                |   d - deplete                 |
++--------------------------------+-------------------------------+
+| gfc - get file cluster         | afc - alloc file cluster      |
+| ffc - free file clusters       |     - NOT USED                |
+| rfc - read file cluster        | wfc - write file cluster      |
++--------------------------------+-------------------------------+
+| gde - get dir entry            | ade - add dir entry           |
+| rde - rename dir entry         | dde - delete dir entry        |
+|  tp - traverse path            |     - NOT USED                |
++--------------------------------+-------------------------------+
++ cia - check inode access       | sia - set inode access        +
++ iil - increment inode lnkcnt   | dil - decrement inode lnkcnt  +
++================================================================+
+
+Your command: gfc
+Inode number: 1
+File cluster index: 7
+(711)--> iOpen(1)
+(711)--> --iOpenBin(1)
+(403)--> soGetFileCluster(0, 7)
+(403)--> --soGetFileClusterBin(0, 7)
+(712)--> iGetPointer(0)
+(712)--> --iGetPointerBin(0)
+(714)--> iClose(0)
+(714)--> --iCloseBin(0)
+Cluster number (nil) retrieved
++================================================================+
+|                        testing functions                       |
++================================================================+
+|   q - exit                     |  sb - show block              |
+|  fd - format disk              | spd - set probe depths        |
++--------------------------------+-------------------------------+
+|  ai - alloc inode              |  fi - free inode              |
+|  ac - alloc cluster            |  fc - free cluster            |
+|   r - replenish                |   d - deplete                 |
++--------------------------------+-------------------------------+
+| gfc - get file cluster         | afc - alloc file cluster      |
+| ffc - free file clusters       |     - NOT USED                |
+| rfc - read file cluster        | wfc - write file cluster      |
++--------------------------------+-------------------------------+
+| gde - get dir entry            | ade - add dir entry           |
+| rde - rename dir entry         | dde - delete dir entry        |
+|  tp - traverse path            |     - NOT USED                |
++--------------------------------+-------------------------------+
++ cia - check inode access       | sia - set inode access        +
++ iil - increment inode lnkcnt   | dil - decrement inode lnkcnt  +
++================================================================+
+
+Your command: gfc
+Inode number: 1
+File cluster index: 8
+(711)--> iOpen(1)
+(711)--> --iOpenBin(1)
+(403)--> soGetFileCluster(0, 8)
+(403)--> --soGetFileClusterBin(0, 8)
+(712)--> iGetPointer(0)
+(712)--> --iGetPointerBin(0)
+(714)--> iClose(0)
+(714)--> --iCloseBin(0)
+Cluster number (nil) retrieved
++================================================================+
+|                        testing functions                       |
++================================================================+
+|   q - exit                     |  sb - show block              |
+|  fd - format disk              | spd - set probe depths        |
++--------------------------------+-------------------------------+
+|  ai - alloc inode              |  fi - free inode              |
+|  ac - alloc cluster            |  fc - free cluster            |
+|   r - replenish                |   d - deplete                 |
++--------------------------------+-------------------------------+
+| gfc - get file cluster         | afc - alloc file cluster      |
+| ffc - free file clusters       |     - NOT USED                |
+| rfc - read file cluster        | wfc - write file cluster      |
++--------------------------------+-------------------------------+
+| gde - get dir entry            | ade - add dir entry           |
+| rde - rename dir entry         | dde - delete dir entry        |
+|  tp - traverse path            |     - NOT USED                |
++--------------------------------+-------------------------------+
++ cia - check inode access       | sia - set inode access        +
++ iil - increment inode lnkcnt   | dil - decrement inode lnkcnt  +
++================================================================+
+
+Your command: gfc
+Inode number: 0
+File cluster index: 1
+(711)--> iOpen(0)
+(711)--> --iOpenBin(0)
+(851)--> sbGetPointer()
+(851)--> --sbGetPointerBin()
+(951)--> soReadRawBlock(1, 0x7fffd273b450)
+(403)--> soGetFileCluster(1, 1)
+(403)--> --soGetFileClusterBin(1, 1)
+(712)--> iGetPointer(1)
+(712)--> --iGetPointerBin(1)
+(714)--> iClose(1)
+(714)--> --iCloseBin(1)
+Cluster number (nil) retrieved
++================================================================+
+|                        testing functions                       |
++================================================================+
+|   q - exit                     |  sb - show block              |
+|  fd - format disk              | spd - set probe depths        |
++--------------------------------+-------------------------------+
+|  ai - alloc inode              |  fi - free inode              |
+|  ac - alloc cluster            |  fc - free cluster            |
+|   r - replenish                |   d - deplete                 |
++--------------------------------+-------------------------------+
+| gfc - get file cluster         | afc - alloc file cluster      |
+| ffc - free file clusters       |     - NOT USED                |
+| rfc - read file cluster        | wfc - write file cluster      |
++--------------------------------+-------------------------------+
+| gde - get dir entry            | ade - add dir entry           |
+| rde - rename dir entry         | dde - delete dir entry        |
+|  tp - traverse path            |     - NOT USED                |
++--------------------------------+-------------------------------+
++ cia - check inode access       | sia - set inode access        +
++ iil - increment inode lnkcnt   | dil - decrement inode lnkcnt  +
++================================================================+
+
+Your command:
 ---
 
 ### void soReadFileCluster ( int       ih,
