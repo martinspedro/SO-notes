@@ -279,4 +279,6 @@ Your command:
           fcn file cluster number
           buf pointer to the buffer containing data to be written
 
-
+## soFreeFileCLusters
+- Liberta todos os clusters do inode começando na posição atual
+- Se o inode ficar sem clusters, é apagado
