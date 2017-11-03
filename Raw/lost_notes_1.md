@@ -8,11 +8,10 @@ Comentários
 	- fsb
 	- it
 
-## Comandos para executar
-./showblock /tmp/zzz -i 1
 
 ## Notes
 função alloc cluster tem de verificar se ficou tudo bem no disco
 função replentish transfer da reference bitmao block para a retrieval cache
 
+Capacidade: (6+ 2^9 + (2^9)^2)x 2^11
 
