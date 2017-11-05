@@ -189,7 +189,7 @@ Isola-se a execução deste novo filesystem do kernel.
 	- Protótipos de funções (que devem ser desenvolvidas pelo user para criar o filesystem específico)
 	- Métodos para instanciar e integrar o novo filesystem com o kernel
 
-![FUSE diagram with sofs17](pic/fuse.jpeg)
+![FUSE diagram with sofs17](Pictures/fuse.jpeg)
 
 # 2 SOFS17 Architecture
 - Um disco é um conjunto de blocos numerados
@@ -213,7 +213,7 @@ Isola-se a execução deste novo filesystem do kernel.
 
 De forma geral, os N blocks de um disco formatado em sof17 organizam-se em 4 áreas:
 
-![Organização de um disco formatado em sofs17](pic/sofs17_disk.png)
+![Organização de um disco formatado em sofs17](Pictures/sofs17_disk.png)
 
 ## 2.1 List of free inodes
 - O número de inodes num disco sofs17 é **fixo após a formatação**.
@@ -277,7 +277,7 @@ Serve para guardar as referências após eliminar um ficheiro. Se o disco tiver 
 Serve para guardar as referências de ficheiros a inserir. Se o cache estiver vazia, a referência deve ser 0. O valor 0 significa que a insertion cache está cheia.
 
 
-![Caches and Reference bitmap blocks](pic/cache.png)
+![Caches and Reference bitmap blocks](Pictures/cache.png)
 
 ### Allocation
 1. Uma referência para um cluster livre é obtida da retrieval cache
@@ -404,7 +404,7 @@ A operação de formatação deve: \
 # 4. Code Structure
 A estrutura do código é apresentada abaixo:
 
-![Code Strucuture to be developed](pic/structure.png)
+![Code Strucuture to be developed](Pictures/structure.png)
 
 ## Rawdisk
 Implementa o acesso físico ao disco
