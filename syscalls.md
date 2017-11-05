@@ -16,4 +16,5 @@
 	- Remove também o ficheiro se o lnkcnt = 0
 - **soWrite:** Escreve dados num regular file previamente aberto
 
+## Other syscalls
 
