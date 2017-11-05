@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+
+cat "sofs17 notes.md"       	> sofs17Book.md
+cat "datatypes.md"              >> sofs17Book.md
+cat "createDisk.md"       	    >> sofs17Book.md
+cat "showblock.md"        	    >> sofs17Book.md
+cat "rawlevel.md"         	    >> sofs17Book.md
+cat "rawdisk.md"          	    >> sofs17Book.md
+cat "mksofs.md"           	    >> sofs17Book.md
+cat "computeStructure.md" 	    >> sofs17Book.md
+cat "fillInSuperBlock.md"       >> sofs17Book.md
+cat "fillInInodeTable.md"       >> sofs17Book.md
+cat "fillInFreeClusterTable.md" >> sofs17Book.md
+cat "fillInRootDir.md"          >> sofs17Book.md
+cat "resetClusters.md"          >> sofs17Book.md
+cat "freelists.md"              >> sofs17Book.md
+cat "allocInode.md"             >> sofs17Book.md
+cat "inode.md"			 	    >> sofs17Book.md
+cat "fileclusters.md"           >> sofs17Book.md
+cat "direntries.md"			    >> sofs17Book.md
+cat "itdealer.md"               >> sofs17Book.md
+cat "syscalls.md"			    >> sofs17Book.md
+cat "exceptions.md" 		    >> sofs17Book.md
+cat "Raw/[P]27-10.dot"   		>> sofs17Book.md
+cat "Raw/[P]27-10.md" 			>> sofs17Book.md
+cat "Raw/[P]29-9.md"			>> sofs17Book.md
+cat "Raw/teste.md"				>> sofs17Book.md
+cat "Raw/lost_notes_1.md"		>> sofs17Book.md
+
+pandoc -sS sofs17Book.md --latex-engine=xelatex -o pdf/sofs17Book.pdf
