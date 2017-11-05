@@ -42,4 +42,5 @@ A bunch of useful notes for Operative Systems course, in Aveiro University
 
 ---
 
-Soon a website will be available with all the notes. Until then you can check the [repository](https://github.com/k3rn3l-pan1c/SO-notes) for the notes.
+Soon a website will be available with all the notes. 
+Until then you can check the [repository](https://github.com/k3rn3l-pan1c/SO-notes) for the notes.
