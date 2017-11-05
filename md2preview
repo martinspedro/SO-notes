@@ -4,5 +4,5 @@ then
 	echo "USAGE: md2preview <md filename>"
 	exit 1
 else
-	./md2pdf $1 && evince pdf/$1.pdf &>> /dev/null
+	./md2pdf $1 && evince pdf/$(basename $1 .md).pdf &>> /dev/null
 fi
