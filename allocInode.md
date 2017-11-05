@@ -1,5 +1,11 @@
-uint32_t soAllocInode ( uint32_t  type )
+# AllocInode
+- Aloca um inode livre da estrutura de inodes
+-
 
+## Utilização 
+```c
+uint32_t soAllocInode ( uint32_t  type )
+```
    Allocate a free inode.
 
    An inode is retrieved from the list of free inodes, marked in use, associated to the legal file type passed as
