@@ -56,3 +56,9 @@ To ease the publish of an eye-candy pdf:
 Soon a website will be available with all the notes. 
 
 Until then you can check the [repository](https://github.com/k3rn3l-pan1c/SO-notes) for the notes.
+
+---
+
+## License
+The content of this project itself is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/) and the underlying source code is under the [MIT license](https://opensource.org/licenses/mit-license.php).
+
