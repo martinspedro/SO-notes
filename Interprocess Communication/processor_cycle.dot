@@ -1,0 +1,10 @@
+```dot
+a [label = "Run" ];
+b [label = "Blocked" ];
+c [label = "Ready" ];
+a -> b -> c -> a;
+c -> b -> a -> c;
+
+```
+
+
