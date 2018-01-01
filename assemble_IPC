@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Script to assemble all Interprocess Communication curayted notes in a single md file
+#
+
+cat "Interprocess Communication/IPC.md" 			 >  IPC_Book.md
+cat "Interprocess Communication/producer.md" 		 >> IPC_Book.md
+cat "Interprocess Communication/consumer.md" 		 >> IPC_Book.md
+cat "Interprocess Communication/semaphores.md" 		 >> IPC_Book.md
+cat "Interprocess Communication/monitors.md" 		 >> IPC_Book.md
+cat "Interprocess Communication/message-passing.md"  >> IPC_Book.md
+cat "Interprocess Communication/shared_memory.md" 	 >> IPC_Book.md
+cat "Interprocess Communication/deadlock.md"         >> IPC_Book.md
+
+# Replace Pictures directory (running at root dir)
+sed -i -e 's~../Pictures~Pictures~g' IPC_Book.md
+
