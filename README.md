@@ -6,7 +6,6 @@ A bunch of useful notes for Operative Systems course, in Aveiro University
 - [Sofs17](pdf/Sofs17_Book.pdf)
 - [Interprocess Communication](pdf/IPC_Book.pdf)
 - [All Notes](pdf/SO_Book.pdf)
-- [READ Online](SO_Book.md)
 
 ## Note taking process
  1. Notes are taken using pandoc markdown extended syntax
@@ -17,7 +16,7 @@ A bunch of useful notes for Operative Systems course, in Aveiro University
 3. Using an yaml header, some metadata and rendering options are provided
 
 ## From markdown to pdf
-To ease the rendering process, two bash script are available
+To provide a rapid view of the output pdf, two bash script are available in the _scripts_ folder
 ```bash
 # Generates a pdf file from a markdown file and saves it in pdf folder
 ./md2pdf <notes.md>
