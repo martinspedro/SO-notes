@@ -269,9 +269,3 @@ Existem três métodos para recuperar de deadlock:
 Alternativamente, existe sempre a opção de não fazer nada, entrando o processo em deadlock. Nestas situações, o utilizador é que é responsável por corrigir as situações de deadlock, por exemplo, terminando o programa com `CTRL + C`
 
 
-
-
-	
-
-
--

@@ -19,4 +19,6 @@ void consumer(unsigned int c)
 		consume_data(data);
 		do_something_else();
 	}
-}```
+}
+```
+

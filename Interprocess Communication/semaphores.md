@@ -252,29 +252,32 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 
 ## Semáforos em Unix/Linux
 
-- **POSIX**
-	- Suportam as operações de `down`e `up`
-		- `sem_wait`
-		- `sem_trywait`
-		- `sem_timedwait`
-		- `sem_post`
-	- Dois tipos de semáforos:
-		- **named semaphores:**
-			- São criados num sistema de ficheiros virtual (e.g. /dev/sem)
-			- Suportam as operações:
-				- `sem_open`
-				- `sem_close`
-				- `sem_unlink`
-		- **unnamed semaphores:**
-			- São _memory based_
-			- Suportam as operações
-				- `sem_init`
-				- `sem_destroy`
-- **System V** 
-	- Suporta as operações:
-		- `semget` : criação
-		- `semop` : as diretivas `up` e `down`
-		- `semctl` : outras operações
+**POSIX:**
+
+- Suportam as operações de `down` e `up`
+	- `sem_wait`
+	- `sem_trywait`
+	- `sem_timedwait`
+	- `sem_post`
+- Dois tipos de semáforos:
+	- **named semaphores:**
+		- São criados num sistema de ficheiros virtual (e.g. /dev/sem)
+		- Suportam as operações:
+			- `sem_open`
+			- `sem_close`
+			- `sem_unlink`
+	- **unnamed semaphores:**
+		- São _memory based_
+		- Suportam as operações
+			- `sem_init`
+			- `sem_destroy`
+
+**System V:** 
+
+- Suporta as operações:
+	- `semget` : criação
+	- `semop` : as diretivas `up` e `down`
+	- `semctl` : outras operações
 
 
 
