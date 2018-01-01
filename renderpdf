@@ -3,6 +3,21 @@
 # Script to render the pdf using and adaptation of eisvogel latex template for pandoc 
 # Orignal Template: https://github.com/Wandmalfarbe/pandoc-latex-template
 #
-pandoc "$1.md" SO.yaml -o "pdf/$1.pdf" --latex-engine=xelatex --template=eisvogel --toc --listings --highlight-style=tango -N  
 
-evince "pdf/$1.pdf" &
+
+# Get filename
+if [ $# -eq 0 ]; then
+	echo "USAGE: ./renderpdf <filename.md>"
+	echo "USAGE: ./renderpdf <filename.md> <metadata.yaml>"
+	exit 1
+
+elif [ $# -eq 1 ]; then
+	filename=$(basename $1 .md)
+	pandoc "metadata/$filename.yaml" $1 -o "pdf/$filename.pdf" --latex-engine=xelatex --template=eisvogel --toc --listings --highlight-style=tango -N
+
+elif [ $# -eq 2 ]; then
+	filename=$(basename $1 .md)
+	pandoc $2 $1 -o "pdf/$filename.pdf" --latex-engine=xelatex --template=eisvogel --toc --listings --highlight-style=tango -N
+fi
+
+evince "pdf/$filename.pdf" &

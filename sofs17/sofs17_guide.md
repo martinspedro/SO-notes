@@ -18,7 +18,7 @@
 - 0h30 : falar da próxima camada de software \
 
 
-#1. Introduction
+# Introduction
 - Durante a execução de um programa, ele manipula informação (produz, acede e/ou modifica).
 - Esta informação tem de ser guardada exteriormente (**mass storage**)
 	- discos magnéticos
@@ -79,7 +79,7 @@ Ou seja, operações de leitura e escrita **são sempre efetuadas no contexto de
 
 A interface de comunicação com o OS é a mesma, mas diferentes sistemas de ficheiros obrigam a diferentes técnicas e manipulação do filesystem, que são transparentes para o programador.
 
-##1.1  File as an abstract data type
+## File as an abstract data type
 
 Os atributos de um ficheiros dependem da implementação do sistema de ficheiros.
 
@@ -167,7 +167,7 @@ A descrição destas syscalls pode ser obtida executando num terminal o comando:
 man 2 <syscall>
 ```
 
-##1.2 FUSE
+## FUSE
 Inserir um novo filesystem num OS requer:
 1. Integração do software que implementa o novo filesystem no kernel
 2. Instanciação de um ou mais dispositivos que usam o formato do novo filesystem
@@ -191,7 +191,7 @@ Isola-se a execução deste novo filesystem do kernel.
 
 ![FUSE diagram with sofs17](Pictures/fuse.jpeg)
 
-# 2 SOFS17 Architecture
+# SOFS17 Architecture
 - Um disco é um conjunto de blocos numerados
 	- No sofs17 cada bloco tem 512 bytes
 - Os elementos principais na definição da arquitectura do sofs2017 são:
@@ -215,7 +215,7 @@ De forma geral, os N blocks de um disco formatado em sof17 organizam-se em 4 ár
 
 ![Organização de um disco formatado em sofs17](Pictures/sofs17_disk.png)
 
-## 2.1 List of free inodes
+## List of free inodes
 - O número de inodes num disco sofs17 é **fixo após a formatação**.
 - Quando um novo ficheiro é criado, deve-lhe ser atribuido um inode. Para isso é preciso:
 	- Definir uma política (conjunto de regras) para decidir que free inode será usado
@@ -247,7 +247,7 @@ Correspondência univoca entre o inode e o nome do ficheiro
 	- Ficheiro `..` : diretório atual
 
 
-## 2.2 List of free clusters
+## List of free clusters
 - Tal como os inodes, o número de clusters num disco é fixo após a formatação.
 - Para manipular a estrutura de clusters é necessário:
 	- Definir uma maneira de representar o estado (livre/usado) de todos os clusters no disco
@@ -291,7 +291,7 @@ Serve para guardar as referências de ficheiros a inserir. Se o cache estiver va
 	3. Se esta cache está cheia, então as referências para a cache são transferidas para o bit map, antes de se proceder como anteriormente
 
 
-## 2.3 List of clusters used by a file (inode)
+## List of clusters used by a file (inode)
 
 ---
 
@@ -361,7 +361,7 @@ O array _**d**_ não é guardado num único local: \
 	- se $i_1$, representando $i_1[0]$ é equal to NullReference, significa que entre d[6] até d[RPC+5] todos os indices são NullReference e o o ficheiro não contém estes indices
 	- se $i_2$ for uma NullReference, significa que entre $i_1[1]$ to $i_1[RPC]$ são NullReferences e portanto d[RPC+6] até d[RPC^2 + RPC+ 5] são NullReferences e o ficheiro não contém esses indices
 
-## 2.4 Directories
+## Directories
 - Um diretório pode ser visto como um array de entrada para diretórios.
 - No sofs17:
 	- Um diretório é uma estrutura de dados composta por um array de bytes com tamanho fixo. Usados para guardar:
@@ -377,7 +377,7 @@ O array _**d**_ não é guardado num único local: \
 		- O tamanho do diretório é sempre um múltiplo do tamanho de um cluster e nunca pode "encolher" (devido à forma como o delete está implementado
 		
 
-# 3. Formatting
+# Formatting
 A operação de formatação deve preencher todos os blocos do disco para criar um disco sofs17 vazio.
 
 Um disco formatado contém: \
@@ -401,7 +401,7 @@ A operação de formatação deve: \
 - Preencher com zeros todos os clusters livres, se especificado pela ferramenta de formatação
 
 
-# 4. Code Structure
+# Code Structure
 A estrutura do código é apresentada abaixo:
 
 ![Code Strucuture to be developed](Pictures/structure.png)

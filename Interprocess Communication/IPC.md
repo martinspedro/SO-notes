@@ -310,7 +310,7 @@ A solução é quase válida. Mesmo um dos processos a recuar ainda é possível
 
 A solução para **mediar os acessos** tem de ser **determinística** e não aleatória.
 
-## Mediar os acessos de forma determinística: **Dekker agorithm**
+## Mediar os acessos de forma determinística: _Dekker agorithm_
 
 ```c
 /* control data structure */
