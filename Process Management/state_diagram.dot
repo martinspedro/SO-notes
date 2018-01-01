@@ -1,0 +1,23 @@
+digraph StateDiagram3 {
+	rankdir=TB;
+	SUSPENDED_BLOCKED [label="SUSPENDED-BLOCKED"];
+	SUSPENDED_READY [label="SUSPENDED-READY"];
+
+	{ rank=same; NEW -> {READY ; SUSPENDED_READY} [label="admit"]; }
+	{ rank=same; RUN; TERMINATED;}
+	{ rank=same; READY; BLOCKED;}
+	{ rank=same; SUSPENDED_READY; SUSPENDED_BLOCKED;}
+	RUN -> TERMINATED [label="exit/abort"];
+	{READY; SUSPENDED_READY; SUSPENDED_BLOCKED; BLOCKED } -> TERMINATED [label="abort"];
+	RUN -> BLOCKED [label="event wait"];
+	BLOCKED -> READY [label="event occurs"];
+	READY -> RUN [label="dispatch"];
+	RUN -> READY [label="time-out / preempt"];
+	
+	BLOCKED -> SUSPENDED_BLOCKED [label="suspend"];
+	SUSPENDED_BLOCKED -> BLOCKED [label="activate"];
+	SUSPENDED_BLOCKED -> SUSPENDED_READY [label="event occurs"];
+	SUSPENDED_READY -> READY [label="activate"];
+	READY -> SUSPENDED_READY [label="suspend"];
+	
+}

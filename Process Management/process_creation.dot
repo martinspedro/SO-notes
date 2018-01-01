@@ -1,0 +1,18 @@
+
+digraph ProcessCreation1 {
+rankdir = TR
+
+parent -> wait
+parent -> child1 [label="fork(..)"]
+child1 -> child2 [label="exec(..)"]
+child2 -> wait [label="exit(..)"]
+wait -> inv [label="exit(..)"]
+
+parent [shape="circle", label="Process(parent)"]
+child1 [shape="circle", label="Process(child)"]
+child2 [shape="circle", label="Process(child)"]
+wait [label="wait(..)"]
+inv [shape="none", label=""]
+{rank=same parent child1}
+{rank=same child2 wait}
+}
