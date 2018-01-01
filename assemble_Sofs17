@@ -1,31 +1,32 @@
 #!/bin/bash
 #
+# Script to assemble all sofs17 related notes (curated or not) in a single md file
+#
 
-cat "sofs17 notes.md"       	> sofs17Book.md
-cat "datatypes.md"              >> sofs17Book.md
-cat "createDisk.md"       	    >> sofs17Book.md
-cat "showblock.md"        	    >> sofs17Book.md
-cat "rawlevel.md"         	    >> sofs17Book.md
-cat "rawdisk.md"          	    >> sofs17Book.md
-cat "mksofs.md"           	    >> sofs17Book.md
-cat "computeStructure.md" 	    >> sofs17Book.md
-cat "fillInSuperBlock.md"       >> sofs17Book.md
-cat "fillInInodeTable.md"       >> sofs17Book.md
-cat "fillInFreeClusterTable.md" >> sofs17Book.md
-cat "fillInRootDir.md"          >> sofs17Book.md
-cat "resetClusters.md"          >> sofs17Book.md
-cat "freelists.md"              >> sofs17Book.md
-cat "allocInode.md"             >> sofs17Book.md
-cat "inode.md"			 	    >> sofs17Book.md
-cat "fileclusters.md"           >> sofs17Book.md
-cat "direntries.md"			    >> sofs17Book.md
-cat "itdealer.md"               >> sofs17Book.md
-cat "syscalls.md"			    >> sofs17Book.md
-cat "exceptions.md" 		    >> sofs17Book.md
-cat "Raw/[P]27-10.dot"   		>> sofs17Book.md
-cat "Raw/[P]27-10.md" 			>> sofs17Book.md
-cat "Raw/[P]29-9.md"			>> sofs17Book.md
-cat "Raw/teste.md"				>> sofs17Book.md
-cat "Raw/lost_notes_1.md"		>> sofs17Book.md
+cat "sofs17/sofs17_guide.md" 	      	>  sofs17_Book.md
+cat "sofs17/datatypes.md"               >> sofs17_Book.md
+cat "sofs17/createDisk.md"       	    >> sofs17_Book.md
+cat "sofs17/showblock.md"        	    >> sofs17_Book.md
+cat "sofs17/rawlevel.md"         	    >> sofs17_Book.md
+cat "sofs17/rawdisk.md"          	    >> sofs17_Book.md
+cat "sofs17/mksofs.md"           	    >> sofs17_Book.md
+cat "sofs17/computeStructure.md" 	    >> sofs17_Book.md
+cat "sofs17/fillInSuperBlock.md"        >> sofs17_Book.md
+cat "sofs17/fillInInodeTable.md"        >> sofs17_Book.md
+cat "sofs17/fillInFreeClusterTable.md"  >> sofs17_Book.md
+cat "sofs17/fillInRootDir.md"           >> sofs17_Book.md
+cat "sofs17/resetClusters.md"           >> sofs17_Book.md
+cat "sofs17/freelists.md"               >> sofs17_Book.md
+cat "sofs17/allocInode.md"              >> sofs17_Book.md
+cat "sofs17/inode.md"			 	    >> sofs17_Book.md
+cat "sofs17/fileclusters.md"            >> sofs17_Book.md
+cat "sofs17/direntries.md"			    >> sofs17_Book.md
+cat "sofs17/itdealer.md"                >> sofs17_Book.md
+cat "sofs17/syscalls.md"			    >> sofs17_Book.md
+cat "sofs17/exceptions.md" 		  	 	>> sofs17_Book.md
+cat "Raw/[P]27-10.dot"   				>> sofs17_Book.md
+cat "Raw/[P]27-10.md" 					>> sofs17_Book.md
+cat "Raw/[P]29-9.md"					>> sofs17_Book.md
+cat "Raw/teste.md"						>> sofs17_Book.md
+cat "Raw/lost_notes_1.md"				>> sofs17_Book.md
 
-pandoc -sS sofs17Book.md --latex-engine=xelatex -o pdf/sofs17Book.pdf
