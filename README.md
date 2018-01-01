@@ -1,5 +1,7 @@
 # SO-notes
-A bunch of useful notes for Operative Systems course, in Aveiro University
+A collection of useful notes and pdfs for [Operative Systems course](http://www.ua.pt/deti/uc/2851), at [Aveiro University](https://www.ua.pt/).
+
+A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 
 ## Published Notes
 - [Shell Scripting](pdf/Shell_Scripting.pdf)
@@ -51,13 +53,6 @@ To ease the publish of an eye-candy pdf:
 - [ ] Improve Publish Template
 - [ ] Provide a static website with all the notes
 
----
-
-Soon a website will be available with all the notes. 
-
-Until then you can check the [repository](https://github.com/k3rn3l-pan1c/SO-notes) for the notes.
-
----
 
 ## License
 The content of this project itself is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/) and the underlying source code is under the [MIT license](https://opensource.org/licenses/mit-license.php).
