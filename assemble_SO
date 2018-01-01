@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Script to assemble all SO related notes (curated or not) in a single md file
+#
+
+./assemble_Sofs17
+./assemble_IPC
+
+
+cat "sofs17_Book.md"  >  SO_Book.md
+cat "IPC_Book.md"     >> SO_Book.md
+

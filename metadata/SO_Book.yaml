@@ -5,10 +5,12 @@ titlepage-text-color: "FFFFFF"
 titlepage-rule-color: "FFFFFF"
 titlepage-rule-height: 1
 
-fontsize: 10pt
 
 date: \today
+version: 0.1
 
+title: "Apontamentos de SO"
+subtitle: "Filesystems, Sofs17 e Programação concurrente"
 
 author: Pedro Martins
 email: martinspedro@ua.pt
@@ -28,6 +30,7 @@ toc-title: "Conteúdos"
 toc-depth: 5
 secnumdepth: 5
 
+fontsize: 10pt
 indent: true
 caption-justification: centering
 
