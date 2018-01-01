@@ -45,12 +45,13 @@ To ease the publish of an eye-candy pdf:
 ## Roadmap
 
 - [ ] Curate Raw notes
-	- [ ] Sofs17
+	- [ ] Bash Scripting 
+	- [ ] Filesystems & Sofs17
 	- [ ] Process Management
 	- [ ] Interprocess Communication 
-	- [ ] Memory
-- [ ] Improve Publish Scripts
-- [ ] Improve Publish Template
+	- [ ] Memory Management
+- [ ] Improve the pulishing scripts
+- [ ] Improve the publish template
 - [ ] Provide a static website with all the notes
 
 
