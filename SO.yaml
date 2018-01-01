@@ -1,14 +1,11 @@
 ---
-titlepage: false
-titlepage-color: "8BBEFF"
-titlepage-text-color: "B29F7A"
-titlepage-rule-color: "B29F7A"
+titlepage: true
+titlepage-color: 06386e
+titlepage-text-color: "FFFFFF"
+titlepage-rule-color: "FFFFFF"
+titlepage-rule-height: 1
 
-#mainfont: "Computer Modern"
-#sansfont: "Helvetica"
-#monofont: "Menlo"
 fontsize: 10pt
-
 
 date: \today
 
@@ -27,14 +24,18 @@ department:
     url: https://www.ua.pt/deti/
 
 
-toc-title: Conteúdos
+toc-title: "Conteúdos"
+toc-depth: 5
+secnumdepth: 5
+
 indent: true
 caption-justification: centering
+
 header-includes:
   - \usepackage{multirow}
   - \usepackage{booktabs}
   - \usepackage{float}
   - \usepackage{colortbl}
----
+...
 
 
