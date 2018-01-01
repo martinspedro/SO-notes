@@ -1,0 +1,40 @@
+---
+titlepage: false
+titlepage-color: "8BBEFF"
+titlepage-text-color: "B29F7A"
+titlepage-rule-color: "B29F7A"
+
+#mainfont: "Computer Modern"
+#sansfont: "Helvetica"
+#monofont: "Menlo"
+fontsize: 10pt
+
+
+date: \today
+
+
+author: Pedro Martins
+email: martinspedro@ua.pt
+
+acknowledgements: Prof. Artur Pereira
+
+university:
+    name: Aveiro University
+    url: http://www.ua.pt/
+
+department:
+    name: Departamento de Eletrónica, Telecomunicações e Informática
+    url: https://www.ua.pt/deti/
+
+
+toc-title: Conteúdos
+indent: true
+caption-justification: centering
+header-includes:
+  - \usepackage{multirow}
+  - \usepackage{booktabs}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+---
+
+

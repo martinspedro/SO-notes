@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Script to render the pdf using and adaptation of eisvogel latex template for pandoc 
+# Orignal Template: https://github.com/Wandmalfarbe/pandoc-latex-template
+#
+pandoc "$1.md" SO.yaml -o "pdf/$1.pdf" --latex-engine=xelatex --template=eisvogel --toc --listings --highlight-style=tango -N  
+
+evince "pdf/$1.pdf" &
