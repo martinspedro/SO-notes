@@ -84,3 +84,176 @@
 8. Fun()
 9. Sleep()
 
+# IPC
+- O logger aperece com a encessidasde de geiri os printfs
+	- é preciso porque existe atividade concorrente
+	.- todos eles enviam pedidos de atualização do estado para o logger
+	- 
+- Do lado do cliente só existem 3 funções a usar
+	- regist_logger
+	- é preciso definir o trabalho de comunicação e sincornização entre as entidades correntes
+	- é um pouco transformar as entidades em monitores
+
+- Garantir:
+	- race conditions
+		- Qualquer send log que um faz não vai colidir com o outro
+		- Basicamente: evitar exclusão mútua
+			- lock no incicio
+			- unlock no fim
+			- threads: mutex
+			- semáforo:  
+	- Ausência de busy waiting
+		- Só existe nos estudantes e não no logger
+	- Não pode ter deadlock
+		- Onde é que pdoe ocorrer deadlock
+			- verificar as 4 condições de deadlock
+				- Requisitar os livros com base no seu ID
+				- Garantir que os livros são requesitados apenas 1 vez
+			- Façam as coisas por ordem
+
+- O código sequencial está feito
+- O que falata é transofmramlas num monitor
+- Numa ou noutra vai ser encessário garantir as variáveis de condição
+- COmo cada entidade é um módulo, a interação com o logger é feita através de meoria partilahda
+- A libraira também é uma zona +artilhada
+- Quem está com processo existe um passo que é preciso
+	- registar a memóri apartilhada
+		- é preciso cirar e enviar para lá os dados
+	- Em semáforos não é preciso
+- Grupo como um todo pense na solução
+- Depois façam a implementação com threads e processos
+	- O de processos tem mais um passo
+		- SOlução com threads
+			- variável global é partilhada entre todas as threadas
+		- Solução com processos
+			- É preciso criar a memória partilhada
+			- É preciso que o módulo copie de forma rápida as variáveis locais para as variáveis em memória
+			- É preciso que o logger copie as mensagens para a sua memória interna
+
+- A interface de comunicação tem de 
+- 
+- Criar váriáveis de
+- O grau de paralelização da aplicação será avaliado
+
+# Reunião
+1 - logger
+2 - entidades ativadas
+3 - entidade biblioteca (estrutura de dados partilhada)
+4 - Bibliotecário
+5 - Estudante
+
+53 funções para fazer
+2/3 são triviais
+Funções do bibliotecário não são triviais
+Bibliotecário tem de ter duas listas
+Bibliotecário tem de fazer gestão dos livros 
+Se o estudante já estiver estudado uma cadeira pode mesmo assim 
+
+# Aula Prática 24-11
+
+```c
+void *(*start_routine) (void *)
+```
+
+- EM C um ponteiro é sempre um ponteiro para qq coisa
+- Se eu quiser um ponteiro genérico crio void* *p e posso passar o tipo de ponteiro que quiser
+- Não posso incrementar u ponteiro void
+	- O compilar não sabe a quantidade de endereços a incrementar
+- Variável do tipo estrutursa -> & antes do nome
+- Em C, o nomde de uma função é o seu endereço inicial
+	- k é o endereço da função
+		- Posso passar a outra função uma gunção que receb como endereço outra função
+	- k() é a invocação de uma função
+
+- AValiçaão de condições de locking é feita com a exclusão mútua
+
+# Consumidor - proodutor
+- Os dois digitos do id são os ultimos digitos do valor gerado
+- Os monitores que o POSIX define são Lampson-Rodel
+- Quando alguém é acordado é colocado na fila ready
+- A condiçãoq eu levou a fazer o while
+
+
+# pthread
+- É criada a estrutura de dados em causa
+- É feita a conversão do tipo de ponteiros void
+- Depois é precisa a conversão de 
+- manipulaçãpo de mutex
+	- senão reconehcer
+		- glibc-doc
+
+# Guião de hoje
+## Shared memory e semaphores
+- O espaço de endereçamento dos város processos são independentes
+	- O espaço de memória é virtual
+- POss é criar uma variável em mem+ória real e mapea-la no espaço de endereçamento em memória real
+
+```dot
+# gráfico de memória partilhado com uma variável real mapeada nas duas memórias virtuais dos processo
+a -> b -> c
+c -> b -> c
+```
+
+- QUando ciro o recuso tenho de indicar quais as permisssões do recurso
+pthread_cond_wait: unlock atomico da variável de condição 
+
+shmget -> alocar uma memória parilhada de sistema V
+shamt -> mapeamento de meória partilhada
+semget : criação de semáforos
+	- Usamos semáfoos de sistema 5
+		- Posso criar e manipular um array de semaforos
+semop : Maniuplação dos semáforos
+	- +1 : ip
+	- -1 : down
+	- Mascara-se criando uma biblioteca de suporte mais amigável
+
+A ideia é recriar o mapeador/manipulador de forma mapeada e que o mapeador crie uma das soluções
+	- Monitores
+	- Memória partilhada
+	- Semáforos
+	
+Modelo Posix
+- get para pere acesso/criar
+- EM condisequência do attach em posso obter acesso à zona partilhada de memória
+	- mapeada na heap memory
+- 
+
+- Quando crio recursos do tipo POSIX são mesmo criadas inode spara isso
+- Os segmentos de memoria partilhados são escritos no disco
+- /dev/shm/ : ZOna onde são guardados os devices de memoria partilhada
+
+```bash
+# Mostra os recursos ipc
+# OU são 
+# * semãfotos
+* segmentos de moemria partilhada
+# mensagens
+ipcs
+```
+
+# apagar recursos criados num contexto de um programa
+ipcrm
+```
+- Se entrar em deadlock 
+
+
+- Devo ter a maior região critica o menor possível
+
+```c
+// Solução sem prevenção de deadlock
+...
+val = value;
+val++;
+value = val;
+...
+
+// Com proteção de deadlock
+...
+lock
+val = value;
+val++;
+value = val;
+unlock
+...
+```
+
