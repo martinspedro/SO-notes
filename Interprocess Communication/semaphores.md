@@ -244,12 +244,17 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 
 
 ### Desvantagens
-- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**
+- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**, uma vez que são aplicadas numa filosofia _bottom-up_
 		- Facilmente ocorrem **race conditions**
 		- Facilmente se geram situações de **deadlock**, uma vez que **a ordem das operações atómicas são relevantes**
+- São tanto usados para implementar **exclusão mútua** como para **sincronizar processos**
 
+### Problemas do uso de semáforos
+Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regisões críticas.
 
-
+- Solução sujeita a erros, especialmente em situações complexas
+	- pode existir **mais do que um ponto de sincronismos** ao longo do programa
+	
 ## Semáforos em Unix/Linux
 
 **POSIX:**

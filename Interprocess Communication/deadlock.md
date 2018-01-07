@@ -61,7 +61,18 @@ Se **existir deadlock**, todas estas condições se verificam. _(A => B)_
 
 Se **uma delas não se verifica**, não há deadlock. _(~B => ~A)_
 
- 
+### O Problema da Exclusão Mútua 
+Dijkstra em 1965 enunciou um conjunto de regras para garantir o acesso **em exclusão mútua** por processo em competição por recursos de memória partilhados entre eles.[^1]
+
+1. **Exclusão Mútua:** Dois processos não podem entrar nas suas zonas críticas ao mesmo tempo
+2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualemnte algum processo (não necessariamento o que está a tentar entrar), mas entra na sua zona crítica
+3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, eentão eventualemnte esse processo entr na sua zona crítica
+4. **First-In-First-Out:** Nenhum processo qa iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu trunos para entrar na sua zona crítica
+
+
+
+[^1]: _"Concurrent Programming, Mutual Exclusion (1965; Dijkstra)"._ Gadi Taubenfeld, The Interdisciplinary Center, Herzliya, Israel
+
 ## Jantar dos Filósofos
 - 5 filósofos sentados à volta de uma mesa, com comida à sua frente
 	- Para comer, cada filósofo precisa de 2 garfos, um à sua esquerda e outro à sua direita

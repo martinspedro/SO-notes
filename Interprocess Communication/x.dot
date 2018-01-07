@@ -1,0 +1,32 @@
+digraph lampson_redell{
+
+compound=true;
+{rank=top Blocked}
+rankdir=TB
+Signal -> Run1 [label="signal"]
+Blocked -> Signal
+Signal -> Ready
+subgraph cluster_thread1{
+	label="Thread #1"
+	rankdir=LR
+	Run1 [label= "Run"]
+	Run1 -> Ready [label="Thread 1 Ended"]
+}
+
+subgraph cluster_thread_2 {
+	//  [label="Wake up"]
+Blocked [label="Blocked"];
+	subgraph running{
+	node [style=filled, color=white];
+		run [label="Run"];
+	}
+
+	subgraph blocked{
+		blocked [label="Blocked"];
+	}
+	Ready -> run [label="thread\lacordada"];
+	Ready -> blocked [label="thread\nbloqueada"];
+}
+
+
+}
