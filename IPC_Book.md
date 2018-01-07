@@ -909,12 +909,17 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 
 
 ### Desvantagens
-- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**
+- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**, uma vez que são aplicadas numa filosofia _bottom-up_
 		- Facilmente ocorrem **race conditions**
 		- Facilmente se geram situações de **deadlock**, uma vez que **a ordem das operações atómicas são relevantes**
+- São tanto usados para implementar **exclusão mútua** como para **sincronizar processos**
 
+### Problemas do uso de semáforos
+Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regisões críticas.
 
-
+- Solução sujeita a erros, especialmente em situações complexas
+	- pode existir **mais do que um ponto de sincronismos** ao longo do programa
+	
 ## Semáforos em Unix/Linux
 
 **POSIX:**
@@ -946,15 +951,327 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 
 
 
-# Monitors
-**NOT YET IMPLEMENTED**
+# Monitores
+Mecanismo de sincronização de alto nível para resolver os problemas de sincronização entre processos, numa perspetiva __top-down__. Propostos independentemente por Hoare e Brinch Hansen
 
-\newpage
+Seguindo esta filosofia, a **exclusão mútua** e **sincronização** são tratadas **separadamente**, devendo os processos:
 
-# Messag-passing
-**NOT YET IMPLEMENTED**
+1. Entrar na sua zona crítica
+2. Bloquear caso nao possuam condições para continuar
 
-\newpage
+
+Os monitores são uma solução que suporta nativamente a exclusão mútua, onde uma aplicação é vista como um conjunto de _threads_ que competem para terem acesso a uma estrutura de dados partilhada, sendo que esta estrutura só pode ser acedida pelos métodos do monitor.
+
+Um monitor assume que todos os seus métodos **têm de ser executados em exclusão mútua**:
+
+- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a exceutar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
+
+A sincronização entre threads é obtida usando **variáveis condicionais**:
+
+- `wait`: A _thread_ é bloqueada e colocada fora do monitor
+- `signal`: Se existirem outras _threads_ bloqueadas, uma é escolhida para ser "acordada"
+
+
+## Implementação
+```cpp
+	monitor example
+	{
+	/* internal shared data structure */
+	DATA data;
+	
+	condition c; /* condition variable */
+	
+	/* access methods */
+	method_1 (...)
+	{
+		...
+	}
+	method_2 (...)
+	{
+		...
+	}
+	
+	...
+
+	/* initialization code */
+	...
+```
+
+## Tipos de Monitores
+
+### Hoare Monitor
+![Diagrama da estrutura interna de um Monitor de Hoare](Pictures/hoare_monitor.png)
+
+- Monitor de aplicação geral
+- Precisa de uma stack para os processos que efetuaram um `wait` e são colocados em espera
+- Dentro do monitor só se encontra a _thread_ a ser executada por ele
+- Quando existe um `signal`, uma _thread_ é **acordada** e posta em execução
+
+
+### Brinch Hansen Monitor
+![Diagrama da estrutura interna de um Monitor de Brinch Hansen](Pictures/brinch_hansen_monitor.png)
+
+- A última instrução dos métodos do monitor é `signal`
+	- Após o `signal` a  _thread_ sai do monitor
+- **Fácil de implementar:** não requer nenhuma estrutura externa ao monitor
+- **Restritiva:** **Obriga** a que cada método só possa possuir uma instrução de `signal`
+
+
+### Lampson/Redell Monitors
+![Diagrama da estrutura interna de um Monitor de Lampson/Redell](Pictures/lampson_redell_monitor.png)
+
+- A _thread_ que faz o `signal` é a que continua a sua execução (entrando no monitor)
+- A _thread_ que é acordada devido ao `signal` fica fora do monitor, **competindo pelo acesso** ao monitor
+- Pode causar **starvation**.
+	- Não existem garantias que a __thread__ que foi acordada e fica em competição por acesso vá ter acesso
+	- Pode ser **acordada** e voltar a **bloquear**
+	- Enquanto está em `ready` nada garante que outra _thread_ não dê um `signal` e passe para o estado `ready`
+	- A _thread_ que ti nha sido acordada volta a ser **bloqueada**
+
+
+## Bounded-Buffer Problem usando Monitores
+```c
+shared FIFO fifo;			 /* fixed-size FIFO memory */
+shared mutex access;		 /* mutex to control mutual exclusion */
+shared cond nslots;		 /* condition variable to control availability of slots*/
+shared cond nitems;		 /* condition variable to control availability of items */
+
+/* producers - p = 0, 1, ..., N-1 */
+void producer(unsigned int p)
+{
+	DATA data;
+	forever
+	{
+		produce_data(&data);
+		lock(access);
+		if/while (fifo.isFull())
+		{
+			wait(nslots, access);
+		}
+		fifo.insert(data);
+		unlock(access);
+		signal(nitems);
+		do_something_else();
+	}
+}
+
+/* consumers - c = 0, 1, ..., M-1 */
+void consumer(unsigned int c)
+{
+	DATA data;
+	forever
+	{
+		lock(access);
+		if/while (fifo.isEmpty())
+		{
+			wait(nitems, access);
+		}
+		fifo.retrieve(&data);
+		unlock(access);
+		signal(nslots);
+		consume_data(data);
+		do_something_else();
+	}
+}
+```
+
+O uso de `if/while` deve-se às diferentes implementações de monitores:
+
+- `if`: **Brinch Hansen** 
+	- quando a _thread_ efetua o `signal` sai imediatamente do monitor, podendo entrar logo outra _thread_
+- `while`: **Lamson Redell**
+	- A _thread_ acordada fica à espera que a _thread_ que deu o `signal` termine para que possa **disputar** o acesso
+	
+
+- O `wait` internamente vai **largar a exlcusão mútua**
+	- Se não larga a exclusão mútua, mais nenhum processo consegue entrar
+	- Um wait na verdade é um  `lock(..)` seguid de `unlock(...)`
+- Depois de efetuar uma **inserção**, é preciso efetuar um `signal` do nitems
+- Depois de efetuar um **retrieval** é preciso fazer um `signal` do nslots
+	- Em comparação, num semáforo quando faço o up é sempre incrementado o seu valor
+- Quando uma _thread_ emite um `signal` relativo a uma variável de transmissão, ela só **emite** quando alguém está à escuta
+	- O `wait` só pode ser feito se a FIFO estiver cheia
+	- O `signal` pode ser sempre feito
+	
+É necessário existir a `fifo.empty()` e a `fifo.full()` porque as variáveis de controlo não são semáforos binários.
+
+O valor inicial do **mutex** é 0.
+
+
+## POSIX support for monitors
+A criação e sincronização de _threads_ usa o _Standard POSIX, IEEE 1003.1c_.
+
+O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em unix pela biblioteca _pthread_
+
+O conceito de monitor **não existe**, mas a biblioteca permite ser usada para criar monitores _Lampsom/Redell_ em C/C++, usando:
+
+- `mutexes`
+- `variáveis de condição`
+
+	
+As funções disponíveis são:
+
+- `ptread_create`: **cria** uma nova _thread_ (similar ao _fork_)
+- `ptread_exit`: equivalente à `exit`
+- `ptread_join`: equivalente à `waitpid`
+- `ptread_self`: equivalente à `getpid`
+- `pthread_mutex_*`: manipulação de **mutexes**
+- `ptread_cond_*`: manipulação de **variáveis condicionais**
+- `ptread_once`: inicialização
+
+# Message-passing
+
+Os processos podem comunicar entre si usando **mensagens**. 
+
+- Não existe a necessidade de possuirem memória partilhada
+- Mecanismos válidos quer para sistemas **uniprocessador** quer para sistemas **multiprocessador**
+
+	
+A **comunicação** é efetuada através de **duas operações**:
+
+- `send`
+- `receive`
+
+Requer a existência de um **canal de comunicação**. Existem 3 implementações possíveis:
+
+1. **Endereçamento direto/indireto**
+2. Comunicação **síncrona/assíncrona**
+	- Só o `sender` é que indica o **destinatário**
+	- O destinatário **não indica** o `sender`
+	- Quando existem **caixas partilhadas**, normalmente usam-se mecanismos com políticas de **round-robin**
+		1. Lê o processo $N$
+		2. Lê o processo $N+1$
+		3. etc...
+	- No entanto, outros métodos podem ser usados
+3. **Automatic or expliciting buffering**
+
+## Direct vs Indirect
+
+### Symmetric direct communication
+O processo que pretende comunicar deve **explicitar o nome do destinatário/remetente:**
+
+- Quando o `sender` envia uma mensagem tem de indicar o **destinatário**
+	- `send(P, message`
+- O destinatário tem de indicar de quem **quer receber** (`sender`)
+	- `receive(P, message)`
+
+
+A comunicação entre os **dois processos** envolvidos é **peer-to-peer**, e é estabelecida automaticamente entre entre um conjunto de processos comunicantes, só existindo **um canal de comunicação**
+
+## Assymetric direct communications
+Só o `sender` tem de explicitar o destinatário:
+
+- `send(P, message`: 
+- `receive(id, message)`: receve mensagens de qualquer processo
+
+## Comunicação Indireta
+As mensagens são enviadas para uma **mailbox** (caixa de mensagens) ou **ports**, e o `receiver` vai buscar as mensagens a uma `poll`
+
+- `send(M, message`
+- `receive(M, message)`
+
+
+O canal de comunicação possui as seguintes propriedades:
+
+- Só é estabelecido se o **par de processos** comunicantes possui uma **`mailbox` partilhada**
+- Pode estar associado a **mais do que dois processos**
+- Entre um par de processos pode existir **mais do que um link** (uma mailbox por cada processo)
+
+
+Questões que se levantam. Se **mais do que um processo** tentar **receber uma mensagem da mesma `mailbox`**...
+
+- ... é permitido?
+	- Se sim. qual dos processos deve ser bem sucedido em ler a mensagem?
+
+
+## Implementação
+Existem várias opções para implementar o **send** e **receive**, que podem ser combinadas entre si:
+
+- **blocking send:** o `sender` **envia** a mensagem e fica **bloquedo** até a mensagem ser entregue ao processo ou mailbox destinatária
+- **nonblocking send:** o `sender` após **enviar** a mensagem, **continua** a sua execução
+- **blocking receive:** o `receiver` bloqueia-se até estar disponível uma mensagem para si
+- **nonblocking receiver:** o `receiver` devolve a uma mensagem válida quando tiver ou uma indicação de que não existe uma mensagem válida quando não tiver
+
+## Buffering
+O link pode usar várias políticas de implementação:
+
+- **Zero Capacity:** 
+	- Não existe uma `queue`
+	- O `sender` só pode enviar uma mensagem de cada vez. e o envio é **bloqueante**
+	- O `receiver` lê uma mensagem de cada vez, podendo ser bloqueante ou não
+- **Bounded Capacity:**
+	- A `queue` possui uma capacidade finita
+	- Quando está cheia, o `sender` bloqueia o envio até possuir espaço disponível
+- **Unbounded Capacity:**
+	- A `queue` possui uma capacidade (potencialmente) infinita
+	- Tanto o `sender` como o `receiver` podem ser **não bloqueantes**
+ 
+## Bound-Buffer Problem usando mensanges
+```c
+shared FIFO fifo;			 /* fixed-size FIFO memory */
+shared mutex access;		 /* mutex to control mutual exclusion */
+shared cond nslots;		 /* condition variable to control availability of slots*/
+shared cond nitems;		 /* condition variable to control availability of items */
+
+/* producers - p = 0, 1, ..., N-1 */
+void producer(unsigned int p)
+{
+	DATA data;
+	MESSAGE msg;
+
+	forever
+	{
+		produce_data(&val);
+		make_message(msg, data);
+		send(msg);
+		do_something_else();
+	}
+}
+
+/* consumers - c = 0, 1, ..., M-1 */
+void consumer(unsigned int c)
+{
+	DATA data;
+	MESSAGE msg;
+
+	forever
+	{
+		receive(msg);
+		extract_data(data, msg);
+		consume_data(data);
+		do_something_else();
+	}
+}
+```
+
+## Message Passing in Unix/Linux
+**System V:**
+
+- Existe uma fila de mensagens de **diferentes tipos**, representados por um inteiro
+- `send` **bloqueante** se **não existir espaço disponível**
+- A receção possui um argumento para espcificar o **tipo de mensagem a receber**:
+	- Um tipo específico
+	- Qualquer tipo
+	- Um conjunto de tipos
+- Qualquer que seja a política de receção de mensagens:
+	- É sempre **obtida** a mensagem **mais antiga** de uma dado tipo(s)
+	- A implementação do `receive` pode ser **blocking** ou **nonblocking**
+- System calls:
+	- `msgget`
+	- `msgsnd`
+	- `msgrcv`
+	- `msgctl`
+
+**POSIX**
+
+- Existe uma **priority `queue`**
+- `send` **bloqueante** se **não existir espaço disponível**
+- `receive` obtêm a mensagem **mais antiga** com a **maior prioridade**
+	- Pode ser blocking ou nonblocking
+- Funções:
+	- `mq_open`
+	- `mq_send`
+	- `mq_receive`
 
 ---
 title: Shared Memory
@@ -1052,7 +1369,18 @@ Se **existir deadlock**, todas estas condições se verificam. _(A => B)_
 
 Se **uma delas não se verifica**, não há deadlock. _(~B => ~A)_
 
- 
+### O Problema da Exclusão Mútua 
+Dijkstra em 1965 enunciou um conjunto de regras para garantir o acesso **em exclusão mútua** por processo em competição por recursos de memória partilhados entre eles.[^1]
+
+1. **Exclusão Mútua:** Dois processos não podem entrar nas suas zonas críticas ao mesmo tempo
+2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualemnte algum processo (não necessariamento o que está a tentar entrar), mas entra na sua zona crítica
+3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, eentão eventualemnte esse processo entr na sua zona crítica
+4. **First-In-First-Out:** Nenhum processo qa iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu trunos para entrar na sua zona crítica
+
+
+
+[^1]: _"Concurrent Programming, Mutual Exclusion (1965; Dijkstra)"._ Gadi Taubenfeld, The Interdisciplinary Center, Herzliya, Israel
+
 ## Jantar dos Filósofos
 - 5 filósofos sentados à volta de uma mesa, com comida à sua frente
 	- Para comer, cada filósofo precisa de 2 garfos, um à sua esquerda e outro à sua direita
