@@ -8,9 +8,10 @@ titlepage-rule-height: 1
 
 date: \today
 version: 0.1
+#lang: portuguese
 
 title: "Apontamentos de SO"
-subtitle: "Filesystems, Sofs17 e Programação concurrente"
+subtitle: "Bash Scripting, Filesystems, Sofs17 e Programação concorrente"
 
 author: Pedro Martins
 email: martinspedro@ua.pt
@@ -26,7 +27,6 @@ department:
     url: https://www.ua.pt/deti/
 
 
-toc-title: "Conteúdos"
 toc-depth: 5
 secnumdepth: 5
 

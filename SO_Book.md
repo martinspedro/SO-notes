@@ -1,3 +1,272 @@
+# Shell Scripting
+
+## Exercise 1 - Command Overview
+* **man <arg>** : Documentação dos comandos  
+* **ls**        : Listar ficheiros de uma pasta  
+* **mkdir**     : Criar uma pasta  
+* **pwd**	  : Caminho absoluto do diretório corrente  
+* **rm**        : Remover ficheiros  
+* **mv** 	  : Renomear ficheiros ou mover ficheiros/pastas entre pastas  
+* **cat**	  : Imprimir um ficheiro para o stdout  
+* **echo**	  : Imprimir para o stdout uma mensagem  
+* **less**	  : paginar um ficheiro (não mostra o texto literal)  
+* **head**	  : mostrar as primeiras 10 linhas de um ficheiro  
+* **tail**	  : mostrar as ultimas 10 linhas de m ficheiro  
+* **cp**	  : copiar ficheiros  
+* **diff**      : mostrar as diferenças linha a linha entre dois ficheiros  
+* **wc**        : contar linhas, palavras e caracteres de um ficheiro  
+* **sort**	  : ordenar ficheiros  
+* **grep** 	  : pesquisa de padroes em ficheiros  
+* **sed**       : transformacoes de texto  
+* **tr**	  : substituir, modificar ou apagar caracteres do stdin e imprimir no stdout  
+* **cut**	  : imprimir partes de um ficheiro para o stdout  
+* **paste**	  : imprimir linhas de um ficheiro separadas por tabs para o stdout  
+* **tee**       : Redireciona para o nome do ficheiro passado como argumento e para o stdout
+
+## Exercise 2 - Redirect input and output
+### 1
+`>`  : redirecionar o output do comando anterior do stdout para um ficheiro  
+`>>` : append do output do comando anterior do stdout para um ficheiro  
+
+### 2
+`2>` : redireciona o stderror para um ficheiro  
+
+### 3
+`|` : redireciona o stdout de um comando para o stdin do comando seguinte  
+
+### 4
+`2>&1` : redireciona o stderror para o stdout  
+`1>&2` : redireciona o stdout para o stderror  
+
+## Exercise 3 - Using special characters
+
+### 1  
+touch : criar ficheiros caso o ficheiro não exista. Alterar a data de modificação caso o ficheiro exista  
+a\*    : [REGEX] Lista todos os ficheiros que o primeiro caracter seja um a, independentemente do número de ficheiros  
+a?    : [REGEX] Lista todos os ficheiros começados por a e com mais 1 caracter  
+\\*     : [REGEX] Lista qualquer ficheiro independentemente do numero de caracteres  
+
+### 2
+\[ac\]  : [REGEX] Lista os ficheiros com os caracteres entre []  
+\[a-c\] : [REGEX] Lista os ficheiros com os caracteres entre a e c  
+\[ab\]\* : [REGEX] Lista os ficheiros com os caracteres \{a, b\} independentemente do número de caracteres  
+
+### 3
+o \\ antes de um caracter especial desativa as capacidades especiais do stdout  
+
+a\*  : [REGEX] Lista todos os ficheiros começados por a independentemente do número de caracteres  
+a\\\* : Lista o ficheiro com o nome a*  
+a?  : [REGEX] Lista todos os ficheiros começados por a e com mais um caracter  
+a\\? : Lista o ficheiro com o nome a?  
+a\\\[ : Lista o ficheiro com o nome a[  
+a\\\\ : Lista o ficheiro com o nome a\  
+
+### 4 
+Usando `''` ou `""` podemos desativar o significado de caracteres especiais  
+`a*`   : [REGEX] Lista todos os ficheiros começados por a independentemente do número de caracteres  
+`'a*'` : Seleciona o ficheiro a*  
+`"a*"` : Seleciona o ficheiro a*  
+
+## Exercise 4 - Declaring and using variables 
+
+### 1
+\<variable name>=.... : Atribuição de variáveis em bash. Não deve ter espaço entre o nome da variável e a atribuição  
+`$<variable name>` : lê o valor da variável (em bash existe diferença entre atribuir um valor a uma variável e ler o valor da variável). Pode se atribuir nome de ficheiros e usar REGEX (p.e. z=a*)  \
+`${<variable name>}` : lê o valor da variável (em bash existe diferença entre atribuir m valor a uma variável e ler o valor da variável)  
+`${<variable name>}<etc>` : Concatena o valor da variável com o que está à frente (<etc>)  
+
+### 2
+- `$<variable name>` : Acede ao valor da variável  
+- `"$<varibale name>"` : Acede ao valor da variável (não aplica quaisquer caracteres especiais). P.e. se v=a*, `"$v"` será igual a a* em vez de todos os ficheiros começados por a com mais um caracter adicional  \
+- `'$<variable name>'` : Ignora a leitura da variável e de um possível REGEX, devolvendo `$<variable name>` \
+
+
+### 3 
+- `${<variable name>:start:numero de caracteres}` : trata a variável como string, criando uma substring começando no caracter start com o numero de caracteres especificado. Pode ter espaços entre os :  
+- `${<variable name\>/<search substring\>/<replace substring>}` : Procura uma substring na variable name e substitui por outra substring indicada  
+
+## Exercise 5 - Declaring and using functions
+
+### 1 
+Para declarar uma função:
+```bash
+<nome_da_funcao>()
+{
+	# corpo da função
+}
+```
+### 2
+`$#` : Número de argumentos de uma função \
+`$1` : Primeiro argumento \
+`$2` : Segundo argumento \
+`$*` : Todos os argumentos - Ignora sequencias de white space dentro das aspas na passagem de argumentos da bash \
+`$@` : Todos os argumentos - Ignora sequencias de white space dentro das aspas na passagem de argumentos da bash \
+`"$*"` : Todos os argumentos - Preserva a forma dos argumentos passados entre aspas (i.e., o white space) \
+`"$@"` : Todos os argumentos - Preserva a forma dos argumentos passados entre aspas (i.e., o white space)  \ 
+
+## Exercise 6
+### 1, 2 e 3 
+- `{ .......\}` : Agrupar commandos (pode ser redirecionado o stdout usando | ou >). A lista de comandos é executada na mesma instância da bash em que é chamada (contexto global de execução, com variáveis globais) \
+- ( ....... ) : Agrupar comandos (pode ser redirecionado o stdout usando | ou >). O grupo de comandos é executado noutra instância da bash (contexto próprio de execução, com variáveis locais) \
+
+## Exercise 7
+### 1
+`$?` : Valor de retorno de um comando (semelhante a C/C++). Se for `'1'` existe um erro na execução do comando. Se for `'0'` está tudo bem
+
+### 2 
+```bash
+echo -e : Faz parse de códigos de cores
+
+"e\33m ... \e[0m" : Código de cores que define a cor de sucesso
+"e\31m ... \e[0m" : Código de cores que define a cor de erro 
+```
+Estrutura de um if:
+```bash
+if <cond>
+then
+	<statment>
+else
+	<statment>
+fi
+```
+
+### 3
+Os parentesis retos na condição do if (p.e. `if [ -f $1]`) que chamam a função test devem estar com pelo menos um espaço entre os outros caracteres
+
+### 4 
+Os operadores têm de estar com pelo menos um espaço de intervalo \
+! : Operador not
+
+### 5
+&& : Operador and \
+`||` : Operador or \
+
+
+## Exercise 8 - The multiple choice case construction
+
+### 1 Case stament
+```bash
+case <variavel para selecionar> in
+	<cond1>) <statment 1>;;
+	<cond2>) <statment 2>;;
+	<cond3>) <statment 3>;;
+	....
+esac
+```
+Onde: \
+- A <variavel para selecionar> pode ser `$#`, `$*` ou `$1` \
+- O ;; no final da `<ação #>` equivale ao fim da branch (break em C) \
+- O | permite a definição de uma várias alternativas (condições) para o mesmo case (e consequentemente ação) \
+- O \* segnifica qualquer valor. Ao ser colocado em último permite selecionar todas as outras opções que ainda não forma cobertas (equivalente ao default em C) \
+
+## Exercise 9 - The repetitive for contruction
+
+### 1 
+A syntax de um for é:
+```bash
+for <variavel de iteracao> in <lista de objectos para iterar>
+do
+	<statment>
+done
+```
+Onde `<lista de objectos para iterar>` podem ser ficheiros e/ou pastas e podem ser usados caracteres especiais como `a*`
+
+### 2
+
+## 10 - The repetitive while and until constructions
+
+### 1
+Estrutura de um while:
+```bash
+while [ <condicao de paragem> ]
+do
+	<statment>
+	shift
+done
+```
+Estrutura de um until
+```bash
+until [ <condição de paragem> ]
+do
+	<statment>
+	shift
+done 
+```
+Onde a condição de paragem pode ser escrita como:
+`<variable> <condição de teste> <fim> `
+
+As condições de teste podem ser:
+```bash
+-gt : greater than
+-eq : equal
+-lt : less than
+-le : less or equal than
+-ge : greater or equal than
+```
+`shift` é uma palavra equivalente ao continue em C
+
+## Exercise 11 - Script Files
+#1 
+
+O cabeçalho do ficheiro de script é:
+```bash
+#!/bin/bash
+# The previous line (comment) tells the operating system that
+#  this script is to be executed in bash
+#
+```
+Condições usadas:
+```bash
+[ $# -ne 1 ] : número de argumentos diferente de 1
+! [ -f $1 ] : O primeiro argumento dado não é um ficheiro
+1>&2 - Redirecionar o stderror para o stdout
+```
+## Exercise 12 - Bash supports both indexed and associative arrays
+### 1
+Os indices de um array não são continuos e não podem ser negativos
+
+A declaração explicita dos arrays pode ser feita fazendo: `declare -a <array>[<idx>]=<value>` \
+
+Outras operações: \
+- **Atribuição**: `<array>[<idx>]=<valor>` \
+- **Leitura**: `${<array>[<idx]}` \
+- **Leitura de todos os elementos do array**: `${a[*]}` \
+- **Número de elementos do array**: `${#a[*]}` \
+- **Lista dos indices do array** : `${!a[*]}` \
+
+
+Os indices podem ser obtidos com expressões aritméticas \
+A iteração pelos indices é feita da mesma forma que em python \
+- **Iterar na lista de elementos**: `for <variavel> in ${<array>[*]}` \
+- **Iterar na lista de indices**: `for <variavel> in ${!a[*]}` \
+
+Exemplo de código para imprimir os indices e os elementos
+```bash
+for v in ${!a[*]}
+do
+	echo "a[$i] = ${a[$i]}"
+done
+```
+### 2
+
+A declaração de arrays associativos tem de ser feita de forma explicita
+`declare -A <array>`
+
+- A **atribuição de valores** para um **array associativo**: `<array>["<key>"]=<value>`
+- **Listar os elementos no array** : `${<array>[*]}`
+- **Listar o número de elementos no array** : `${#<array>[*]}`
+- **Listar os indices usados no array** : `${!<array>[*]}`
+
+Exemplo de código para percorrer as keys e imprimir as keys e os values
+```bash
+for i in ${!arr[*]}
+do
+	echo "Key = $i | Value = ${arr[$i]}\"
+done
+```
+
+\newpage
+
 # **sofs2017**
 
 ---
@@ -2054,6 +2323,9 @@ O dec devolve o devolve
 ```bash
 ln: 'ddd/': hard link not allowwd for directory
 ```
+
+\newpage
+
 ---
 title: "Interprocess Communication"
 ---
@@ -2965,12 +3237,17 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 
 
 ### Desvantagens
-- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**
+- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**, uma vez que são aplicadas numa filosofia _bottom-up_
 		- Facilmente ocorrem **race conditions**
 		- Facilmente se geram situações de **deadlock**, uma vez que **a ordem das operações atómicas são relevantes**
+- São tanto usados para implementar **exclusão mútua** como para **sincronizar processos**
 
+### Problemas do uso de semáforos
+Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regisões críticas.
 
-
+- Solução sujeita a erros, especialmente em situações complexas
+	- pode existir **mais do que um ponto de sincronismos** ao longo do programa
+	
 ## Semáforos em Unix/Linux
 
 **POSIX:**
@@ -3002,15 +3279,327 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 
 
 
-# Monitors
-**NOT YET IMPLEMENTED**
+# Monitores
+Mecanismo de sincronização de alto nível para resolver os problemas de sincronização entre processos, numa perspetiva __top-down__. Propostos independentemente por Hoare e Brinch Hansen
 
-\newpage
+Seguindo esta filosofia, a **exclusão mútua** e **sincronização** são tratadas **separadamente**, devendo os processos:
 
-# Messag-passing
-**NOT YET IMPLEMENTED**
+1. Entrar na sua zona crítica
+2. Bloquear caso nao possuam condições para continuar
 
-\newpage
+
+Os monitores são uma solução que suporta nativamente a exclusão mútua, onde uma aplicação é vista como um conjunto de _threads_ que competem para terem acesso a uma estrutura de dados partilhada, sendo que esta estrutura só pode ser acedida pelos métodos do monitor.
+
+Um monitor assume que todos os seus métodos **têm de ser executados em exclusão mútua**:
+
+- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a exceutar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
+
+A sincronização entre threads é obtida usando **variáveis condicionais**:
+
+- `wait`: A _thread_ é bloqueada e colocada fora do monitor
+- `signal`: Se existirem outras _threads_ bloqueadas, uma é escolhida para ser "acordada"
+
+
+## Implementação
+```cpp
+	monitor example
+	{
+	/* internal shared data structure */
+	DATA data;
+	
+	condition c; /* condition variable */
+	
+	/* access methods */
+	method_1 (...)
+	{
+		...
+	}
+	method_2 (...)
+	{
+		...
+	}
+	
+	...
+
+	/* initialization code */
+	...
+```
+
+## Tipos de Monitores
+
+### Hoare Monitor
+![Diagrama da estrutura interna de um Monitor de Hoare](Pictures/hoare_monitor.png)
+
+- Monitor de aplicação geral
+- Precisa de uma stack para os processos que efetuaram um `wait` e são colocados em espera
+- Dentro do monitor só se encontra a _thread_ a ser executada por ele
+- Quando existe um `signal`, uma _thread_ é **acordada** e posta em execução
+
+
+### Brinch Hansen Monitor
+![Diagrama da estrutura interna de um Monitor de Brinch Hansen](Pictures/brinch_hansen_monitor.png)
+
+- A última instrução dos métodos do monitor é `signal`
+	- Após o `signal` a  _thread_ sai do monitor
+- **Fácil de implementar:** não requer nenhuma estrutura externa ao monitor
+- **Restritiva:** **Obriga** a que cada método só possa possuir uma instrução de `signal`
+
+
+### Lampson/Redell Monitors
+![Diagrama da estrutura interna de um Monitor de Lampson/Redell](Pictures/lampson_redell_monitor.png)
+
+- A _thread_ que faz o `signal` é a que continua a sua execução (entrando no monitor)
+- A _thread_ que é acordada devido ao `signal` fica fora do monitor, **competindo pelo acesso** ao monitor
+- Pode causar **starvation**.
+	- Não existem garantias que a __thread__ que foi acordada e fica em competição por acesso vá ter acesso
+	- Pode ser **acordada** e voltar a **bloquear**
+	- Enquanto está em `ready` nada garante que outra _thread_ não dê um `signal` e passe para o estado `ready`
+	- A _thread_ que ti nha sido acordada volta a ser **bloqueada**
+
+
+## Bounded-Buffer Problem usando Monitores
+```c
+shared FIFO fifo;			 /* fixed-size FIFO memory */
+shared mutex access;		 /* mutex to control mutual exclusion */
+shared cond nslots;		 /* condition variable to control availability of slots*/
+shared cond nitems;		 /* condition variable to control availability of items */
+
+/* producers - p = 0, 1, ..., N-1 */
+void producer(unsigned int p)
+{
+	DATA data;
+	forever
+	{
+		produce_data(&data);
+		lock(access);
+		if/while (fifo.isFull())
+		{
+			wait(nslots, access);
+		}
+		fifo.insert(data);
+		unlock(access);
+		signal(nitems);
+		do_something_else();
+	}
+}
+
+/* consumers - c = 0, 1, ..., M-1 */
+void consumer(unsigned int c)
+{
+	DATA data;
+	forever
+	{
+		lock(access);
+		if/while (fifo.isEmpty())
+		{
+			wait(nitems, access);
+		}
+		fifo.retrieve(&data);
+		unlock(access);
+		signal(nslots);
+		consume_data(data);
+		do_something_else();
+	}
+}
+```
+
+O uso de `if/while` deve-se às diferentes implementações de monitores:
+
+- `if`: **Brinch Hansen** 
+	- quando a _thread_ efetua o `signal` sai imediatamente do monitor, podendo entrar logo outra _thread_
+- `while`: **Lamson Redell**
+	- A _thread_ acordada fica à espera que a _thread_ que deu o `signal` termine para que possa **disputar** o acesso
+	
+
+- O `wait` internamente vai **largar a exlcusão mútua**
+	- Se não larga a exclusão mútua, mais nenhum processo consegue entrar
+	- Um wait na verdade é um  `lock(..)` seguid de `unlock(...)`
+- Depois de efetuar uma **inserção**, é preciso efetuar um `signal` do nitems
+- Depois de efetuar um **retrieval** é preciso fazer um `signal` do nslots
+	- Em comparação, num semáforo quando faço o up é sempre incrementado o seu valor
+- Quando uma _thread_ emite um `signal` relativo a uma variável de transmissão, ela só **emite** quando alguém está à escuta
+	- O `wait` só pode ser feito se a FIFO estiver cheia
+	- O `signal` pode ser sempre feito
+	
+É necessário existir a `fifo.empty()` e a `fifo.full()` porque as variáveis de controlo não são semáforos binários.
+
+O valor inicial do **mutex** é 0.
+
+
+## POSIX support for monitors
+A criação e sincronização de _threads_ usa o _Standard POSIX, IEEE 1003.1c_.
+
+O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em unix pela biblioteca _pthread_
+
+O conceito de monitor **não existe**, mas a biblioteca permite ser usada para criar monitores _Lampsom/Redell_ em C/C++, usando:
+
+- `mutexes`
+- `variáveis de condição`
+
+	
+As funções disponíveis são:
+
+- `ptread_create`: **cria** uma nova _thread_ (similar ao _fork_)
+- `ptread_exit`: equivalente à `exit`
+- `ptread_join`: equivalente à `waitpid`
+- `ptread_self`: equivalente à `getpid`
+- `pthread_mutex_*`: manipulação de **mutexes**
+- `ptread_cond_*`: manipulação de **variáveis condicionais**
+- `ptread_once`: inicialização
+
+# Message-passing
+
+Os processos podem comunicar entre si usando **mensagens**. 
+
+- Não existe a necessidade de possuirem memória partilhada
+- Mecanismos válidos quer para sistemas **uniprocessador** quer para sistemas **multiprocessador**
+
+	
+A **comunicação** é efetuada através de **duas operações**:
+
+- `send`
+- `receive`
+
+Requer a existência de um **canal de comunicação**. Existem 3 implementações possíveis:
+
+1. **Endereçamento direto/indireto**
+2. Comunicação **síncrona/assíncrona**
+	- Só o `sender` é que indica o **destinatário**
+	- O destinatário **não indica** o `sender`
+	- Quando existem **caixas partilhadas**, normalmente usam-se mecanismos com políticas de **round-robin**
+		1. Lê o processo $N$
+		2. Lê o processo $N+1$
+		3. etc...
+	- No entanto, outros métodos podem ser usados
+3. **Automatic or expliciting buffering**
+
+## Direct vs Indirect
+
+### Symmetric direct communication
+O processo que pretende comunicar deve **explicitar o nome do destinatário/remetente:**
+
+- Quando o `sender` envia uma mensagem tem de indicar o **destinatário**
+	- `send(P, message`
+- O destinatário tem de indicar de quem **quer receber** (`sender`)
+	- `receive(P, message)`
+
+
+A comunicação entre os **dois processos** envolvidos é **peer-to-peer**, e é estabelecida automaticamente entre entre um conjunto de processos comunicantes, só existindo **um canal de comunicação**
+
+## Assymetric direct communications
+Só o `sender` tem de explicitar o destinatário:
+
+- `send(P, message`: 
+- `receive(id, message)`: receve mensagens de qualquer processo
+
+## Comunicação Indireta
+As mensagens são enviadas para uma **mailbox** (caixa de mensagens) ou **ports**, e o `receiver` vai buscar as mensagens a uma `poll`
+
+- `send(M, message`
+- `receive(M, message)`
+
+
+O canal de comunicação possui as seguintes propriedades:
+
+- Só é estabelecido se o **par de processos** comunicantes possui uma **`mailbox` partilhada**
+- Pode estar associado a **mais do que dois processos**
+- Entre um par de processos pode existir **mais do que um link** (uma mailbox por cada processo)
+
+
+Questões que se levantam. Se **mais do que um processo** tentar **receber uma mensagem da mesma `mailbox`**...
+
+- ... é permitido?
+	- Se sim. qual dos processos deve ser bem sucedido em ler a mensagem?
+
+
+## Implementação
+Existem várias opções para implementar o **send** e **receive**, que podem ser combinadas entre si:
+
+- **blocking send:** o `sender` **envia** a mensagem e fica **bloquedo** até a mensagem ser entregue ao processo ou mailbox destinatária
+- **nonblocking send:** o `sender` após **enviar** a mensagem, **continua** a sua execução
+- **blocking receive:** o `receiver` bloqueia-se até estar disponível uma mensagem para si
+- **nonblocking receiver:** o `receiver` devolve a uma mensagem válida quando tiver ou uma indicação de que não existe uma mensagem válida quando não tiver
+
+## Buffering
+O link pode usar várias políticas de implementação:
+
+- **Zero Capacity:** 
+	- Não existe uma `queue`
+	- O `sender` só pode enviar uma mensagem de cada vez. e o envio é **bloqueante**
+	- O `receiver` lê uma mensagem de cada vez, podendo ser bloqueante ou não
+- **Bounded Capacity:**
+	- A `queue` possui uma capacidade finita
+	- Quando está cheia, o `sender` bloqueia o envio até possuir espaço disponível
+- **Unbounded Capacity:**
+	- A `queue` possui uma capacidade (potencialmente) infinita
+	- Tanto o `sender` como o `receiver` podem ser **não bloqueantes**
+ 
+## Bound-Buffer Problem usando mensanges
+```c
+shared FIFO fifo;			 /* fixed-size FIFO memory */
+shared mutex access;		 /* mutex to control mutual exclusion */
+shared cond nslots;		 /* condition variable to control availability of slots*/
+shared cond nitems;		 /* condition variable to control availability of items */
+
+/* producers - p = 0, 1, ..., N-1 */
+void producer(unsigned int p)
+{
+	DATA data;
+	MESSAGE msg;
+
+	forever
+	{
+		produce_data(&val);
+		make_message(msg, data);
+		send(msg);
+		do_something_else();
+	}
+}
+
+/* consumers - c = 0, 1, ..., M-1 */
+void consumer(unsigned int c)
+{
+	DATA data;
+	MESSAGE msg;
+
+	forever
+	{
+		receive(msg);
+		extract_data(data, msg);
+		consume_data(data);
+		do_something_else();
+	}
+}
+```
+
+## Message Passing in Unix/Linux
+**System V:**
+
+- Existe uma fila de mensagens de **diferentes tipos**, representados por um inteiro
+- `send` **bloqueante** se **não existir espaço disponível**
+- A receção possui um argumento para espcificar o **tipo de mensagem a receber**:
+	- Um tipo específico
+	- Qualquer tipo
+	- Um conjunto de tipos
+- Qualquer que seja a política de receção de mensagens:
+	- É sempre **obtida** a mensagem **mais antiga** de uma dado tipo(s)
+	- A implementação do `receive` pode ser **blocking** ou **nonblocking**
+- System calls:
+	- `msgget`
+	- `msgsnd`
+	- `msgrcv`
+	- `msgctl`
+
+**POSIX**
+
+- Existe uma **priority `queue`**
+- `send` **bloqueante** se **não existir espaço disponível**
+- `receive` obtêm a mensagem **mais antiga** com a **maior prioridade**
+	- Pode ser blocking ou nonblocking
+- Funções:
+	- `mq_open`
+	- `mq_send`
+	- `mq_receive`
 
 ---
 title: Shared Memory
@@ -3108,7 +3697,18 @@ Se **existir deadlock**, todas estas condições se verificam. _(A => B)_
 
 Se **uma delas não se verifica**, não há deadlock. _(~B => ~A)_
 
- 
+### O Problema da Exclusão Mútua 
+Dijkstra em 1965 enunciou um conjunto de regras para garantir o acesso **em exclusão mútua** por processo em competição por recursos de memória partilhados entre eles.[^1]
+
+1. **Exclusão Mútua:** Dois processos não podem entrar nas suas zonas críticas ao mesmo tempo
+2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualemnte algum processo (não necessariamento o que está a tentar entrar), mas entra na sua zona crítica
+3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, eentão eventualemnte esse processo entr na sua zona crítica
+4. **First-In-First-Out:** Nenhum processo qa iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu trunos para entrar na sua zona crítica
+
+
+
+[^1]: _"Concurrent Programming, Mutual Exclusion (1965; Dijkstra)"._ Gadi Taubenfeld, The Interdisciplinary Center, Herzliya, Israel
+
 ## Jantar dos Filósofos
 - 5 filósofos sentados à volta de uma mesa, com comida à sua frente
 	- Para comer, cada filósofo precisa de 2 garfos, um à sua esquerda e outro à sua direita
