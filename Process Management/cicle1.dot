@@ -1,0 +1,7 @@
+digraph StateDiagram1 {
+RUN -> BLOCKED [label="event wait"]
+BLOCKED -> READY [label="event occurs"]
+READY -> RUN [label="dispatch"]
+RUN -> READY [label="time-out / preempt"]
+}
+

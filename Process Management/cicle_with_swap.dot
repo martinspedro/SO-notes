@@ -1,0 +1,12 @@
+digraph StateDiagram2 {
+RUN -> BLOCKED [label="event wait"]
+BLOCKED -> READY [label="event occurs"]
+READY -> RUN [label="dispatch"]
+RUN -> READY [label="time-out / preempt"]
+
+BLOCKED -> SUSPENDED-BLOCKED [label="suspend"]
+SUSPENDED-BLOCKED -> BLOCKED [label="activate"]
+SUSPENDED-BLOCKED -> SUSPENDED-READY [label="event occurs"]
+SUSPENDED-READY -> READY [label="activate"]
+READY -> SUSPENDED-READY [label="suspend"]
+}
