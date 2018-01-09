@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Script to assemble all SO related notes (curated or not) in a single md file
+#
+
+./assemble_IPC
+./assemble_PM
+
+cat "IPC_Book.md"       					  >  Theoretical_SO_Book.md
+echo -ne "\n\\\newpage\n\n"			     >> Theoretical_SO_Book.md
+cat "PM_Book.md"    	   					  >> Theoretical_SO_Book.md
+

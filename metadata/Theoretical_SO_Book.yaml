@@ -1,0 +1,43 @@
+---
+titlepage: true
+titlepage-color: 06386e
+titlepage-text-color: "FFFFFF"
+titlepage-rule-color: "FFFFFF"
+titlepage-rule-height: 1
+
+
+date: \today
+version: 0.1
+
+title: "Sebenta de SO"
+subtitle: "Programação concorrente, Process switching e Processor Scheduling"
+
+author: Pedro Martins
+email: martinspedro@ua.pt
+
+acknowledgements: Prof. Artur Pereira
+
+university:
+    name: Aveiro University
+    url: http://www.ua.pt/
+
+department:
+    name: Departamento de Eletrónica, Telecomunicações e Informática
+    url: https://www.ua.pt/deti/
+
+
+toc-depth: 5
+secnumdepth: 5
+
+fontsize: 10pt
+indent: true
+caption-justification: centering
+
+header-includes:
+  - \usepackage{multirow}
+  - \usepackage{booktabs}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+...
+
+
