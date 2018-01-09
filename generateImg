@@ -5,4 +5,4 @@ pdflatex -output-directory=Pictures Process\ Management/processor_scheduling_sol
 pdflatex -output-directory=Pictures Process\ Management/processor_scheduling_solution_RR.tex -output-directory=Pictures
 
 # Remove unnecessary files
-rm *.aux *.log
+rm Pictures/*.aux Pictures/*.log
