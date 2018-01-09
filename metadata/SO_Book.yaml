@@ -10,8 +10,8 @@ date: \today
 version: 0.1
 #lang: portuguese
 
-title: "Apontamentos de SO"
-subtitle: "Bash Scripting, Filesystems, Sofs17 e Programação concorrente"
+title: "Sebenta de SO"
+subtitle: "Bash Scripting, Filesystems, Sofs17, Programação concorrente, Process switching e Processor Scheduling"
 
 author: Pedro Martins
 email: martinspedro@ua.pt

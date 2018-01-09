@@ -13,7 +13,7 @@ Comentários
 função alloc cluster tem de verificar se ficou tudo bem no disco
 função replentish transfer da reference bitmao block para a retrieval cache
 
-Capacidade: (6+ 2^9 + (2^9)^2)x 2^11
+Capacidade: $(6+ 2^9 + (2^9)^2) \cdot 2^11$
 
 # 3 Nov 2017
 - As direntries não mexem no lnkcnt
