@@ -5,7 +5,7 @@ A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 
 ## Published Notes
 - [Shell Scripting](pdf/Shell_Scripting.pdf)
-- [Sofs17](pdf/Sofs17_Book.pdf)
+- [Sofs17](pdf/sofs17_Book.pdf)
 - [Interprocess Communication](pdf/IPC_Book.pdf)
 - [Process Management](pdf/PM_Book.pdf)
 - [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
