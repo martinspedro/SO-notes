@@ -38,6 +38,7 @@ header-includes:
   - \usepackage{multirow}
   - \usepackage{booktabs}
   - \usepackage{float}
+  - \usepackage{colortbl}
 ...
 
 
