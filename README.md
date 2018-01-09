@@ -7,15 +7,18 @@ A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 - [Shell Scripting](pdf/Shell_Scripting.pdf)
 - [Sofs17](pdf/Sofs17_Book.pdf)
 - [Interprocess Communication](pdf/IPC_Book.pdf)
+- [Process Management](pdf/PM_Book.pdf)
+- [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
 - [All Notes](pdf/SO_Book.pdf)
 
 ## Note taking process
- 1. Notes are taken using pandoc markdown extended syntax
+ 1. Notes are taken using pandoc markdown extended synt ax
 	- Check [Adam cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) or [Wikipedia](https://en.wikipedia.org/wiki/Markdown) for more information and useful tips
 2. Using [pandoc](https://pandoc.org/), the notes are converted into a eye-candy pdf, using tex as an intermediary filetype
 	- The latex compiler used is xelatex
 	- The [Eisvogel](https://github.com/Wandmalfarbe/pandoc-latex-template) template is used with small modifications
 3. Using an yaml header, some metadata and rendering options are provided
+4. Some diagrams are generated using dot or tikz
 
 ## From markdown to pdf
 To provide a rapid view of the output pdf, two bash script are available in the _scripts_ folder
@@ -47,10 +50,10 @@ To ease the publish of an eye-candy pdf:
 - [ ] Curate Raw notes
 	- [ ] Bash Scripting 
 	- [ ] Filesystems & Sofs17
-	- [ ] Process Management
-	- [ ] Interprocess Communication 
+	- [X] Process Management
+	- [X] Interprocess Communication 
 	- [ ] Memory Management
-- [ ] Improve the pulishing scripts
+- [X] Improve the pulishing scripts
 - [ ] Improve the publish template
 - [ ] Provide a static website with all the notes
 
