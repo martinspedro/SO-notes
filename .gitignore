@@ -1,4 +1,14 @@
+# Compressed files
 *.tar
 *.tar.bz2
+
+# Vim swap files
 *.swp
 *.swo
+
+# Tex compilations results
+*.aux
+*.log
+
+# Temporary hidden files from open files
+.fuse_hidden*

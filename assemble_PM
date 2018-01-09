@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Script to assemble all Process Management curated notes in a single md file
+#
+
+cat "Process Management/Processes.md" 			 	  >  PM_Book.md
+cat "Process Management/Threads.md"					  >> PM_Book.md
+cat "Process Management/Process Switching.md" 	  >> PM_Book.md
+cat "Process Management/Processor Scheduling.md"  >> PM_Book.md
+
+# Generate Tikz Images
+./generateImg > /dev/null
+
+# Replace Pictures directory (running at root dir)
+sed -i -e 's~../Pictures~Pictures~g' PM_Book.md
+

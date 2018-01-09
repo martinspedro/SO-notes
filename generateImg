@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pdflatex -output-directory=Pictures Process\ Management/processor_scheduling_problem.tex 
+pdflatex -output-directory=Pictures Process\ Management/processor_scheduling_solution_FCFS.tex -output-directory=Pictures
+pdflatex -output-directory=Pictures Process\ Management/processor_scheduling_solution_RR.tex -output-directory=Pictures
+
+# Remove unnecessary files
+rm *.aux *.log

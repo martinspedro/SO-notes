@@ -1,0 +1,23 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{tikz-timing}
+
+\begin{document}
+\begin{tikztimingtable}[%
+    timing/slope=0,
+    timing/.style={x=2ex,y=2ex},
+    x=2ex,
+    timing/rowdist=3ex,
+]
+\small{P3}      & 5S G 2H G 5S G 1H G 1S \\
+\small{P2}      & 2S G 10H G 2S \\
+\small{P1}      & G 3H G 1S G 3H G 1S G 3H G 1S\\
+\extracode
+\begin{pgfonlayer}{background}
+\begin{scope}[semitransparent ,semithick]
+\vertlines[line width=0.1pt]{0,1,...,13}
+\horlines[semitransparent, line width=0.1pt]{1,2 ,...,3}
+\end{scope}
+\end{pgfonlayer}
+\end{tikztimingtable}
+\end{document}
