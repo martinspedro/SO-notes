@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Script to assemble all Operating Systems curayted notes in a single md file
+#
+
+
+cat "Operating Systems/Introduction.md" 	 >  OS_Book.md
+cat "Operating Systems/Taxonomy.md" 		 >> OS_Book.md
+cat "Operating Systems/OS_Structure.md" 	 >> OS_Book.md
+
+# Replace Pictures directory (running at root dir)
+sed -i -e 's~../Pictures~Pictures~g' OS_Book.md
+
