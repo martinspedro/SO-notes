@@ -4,6 +4,7 @@ A collection of useful notes and pdfs for [Operative Systems course](http://www.
 A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 
 ## Published Notes
+- [Operating Systems: Introductory Concepts](pdf/OS_Book.pdf)
 - [Shell Scripting](pdf/Shell_Scripting.pdf)
 - [Sofs17](pdf/sofs17_Book.pdf)
 - [Interprocess Communication](pdf/IPC_Book.pdf)
@@ -59,10 +60,19 @@ To ease the publish of an eye-candy pdf:
 ./renderpdf <notes.md> <metadata_file.yaml>
 
 ```
-	
+## Disclaimer
+
+Currently this work is **highly experimental and not yet scientific reviewed**.
+**Do not trust this notes by themselves**. They are meant to complete other materials, **not replace them**
+
+## :bug: Known bugs
+
+:red_circle: Some footnotes are duplicated and don't correspond to their correct footnote 
+
 ## Roadmap
 
 - [ ] Curate Raw notes
+	- [X] Operative Systems: Introductory Concepts
 	- [ ] Bash Scripting 
 	- [ ] Filesystems & Sofs17
 	- [X] Process Management
