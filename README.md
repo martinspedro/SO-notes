@@ -65,10 +65,6 @@ To ease the publish of an eye-candy pdf:
 Currently this work is **highly experimental and not yet scientific reviewed**.
 **Do not trust this notes by themselves**. They are meant to complete other materials, **not replace them**
 
-## :bug: Known bugs
-
-:red_circle: Some footnotes are duplicated and don't correspond to their correct footnote 
-
 ## Roadmap
 
 - [ ] Curate Raw notes
