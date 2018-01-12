@@ -3,11 +3,14 @@
 # Script to assemble all SO related notes (curated or not) in a single md file
 #
 
+./assemble_OS
 ./assemble_Sofs17
 ./assemble_IPC
 ./assemble_PM
 
-cat "Shell Scripting/Shell_Scripting.md" > SO_Book.md
+cat "OS_Book.md" 								  > SO_Book.md
+echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
+cat "Shell Scripting/Shell_Scripting.md" >> SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
 cat "sofs17_Book.md"     					  >> SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
