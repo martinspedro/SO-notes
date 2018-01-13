@@ -50,7 +50,7 @@ O sistema operativo fornece **níveis de abstração** (APIs) para que os progra
 	- Todas as chamadas ao sistema são interrupções
 	- Interface uniforme com o `hardware`
 	- Permite as aplicações serem **portáteis** entre sistemas de computação **estruturalmente diferentes**
-- O sistema operativo controla o **espaço de endereçamento fisico** criando uma camada de abstração **(memória virtual)**
+- O sistema operativo controla o **espaço de endereçamento físico** criando uma camada de abstração **(memória virtual)**
 		
 ![Visão de um sistema operativo do tipo Extended Machine](Pictures/extended_machine.png)
 
@@ -59,7 +59,7 @@ O sistema operativo fornece **níveis de abstração** (APIs) para que os progra
 - Criar um ambiente interativo que sirva de interface máquina-utilizador
 - Disponibilizar mecanismos para desenvolver, testar e validar programas
 - Disponibilizar mecanismos que controlem e monitorizem a execução de programas, incluindo a sua intercomunicação e e sincronização
-- Isolar os espaços de endereçamento de cada programa e geriri o espaço de cada um deles tendo em conta as limitações físicas da memória principal do sistema
+- Isolar os espaços de endereçamento de cada programa e gerir o espaço de cada um deles tendo em conta as limitações físicas da memória principal do sistema
 - Organizar a memória secundária [^2] em sistema de ficheiros 
 - Definir um modelo geral de acesso aos dispositivos de I/O, independentemente das suas características individuais
 - Detetar situações de erros e estabelecer protocolos para lidar com essas situações
@@ -83,19 +83,19 @@ O sistema operativo é visto como um programa que gere todos estes recursos, efe
  
 ## Evolução dos Sistemas Operativos
  
-Primórdios : Sistema Electromecânco
+Primórdios : Sistema Electromecânico
 
 - 1ª Geração: 1945 - 1955
 	- Vacuum tubes
 	- electromechanical relays
 	-No operating system
 	-programed in system
-	- Program has fukk control of the machine
+	- Program has full control of the machine
 	- Cartões perfurada (ENIAC)
-- 2ª geração: Transisteosres individuais
+- 2ª geração: Transistores individuais
 
 
-- 4ª Generação (1980 - presente)
+- 4ª Geração (1980 - presente)
 
 	|Technology|Notes|
 	|:----:|:-----:|
@@ -105,7 +105,7 @@ Primórdios : Sistema Electromecânco
 
 
 
-- 5ª Generação (1990 - presente)
+- 5ª Geração (1990 - presente)
 
 |Technology|Notes|
 |:----:|:---:|
@@ -129,7 +129,7 @@ Primórdios : Sistema Electromecânco
 
 
 ### Multiprogrammed batch
-- **Propósito:** Otmizar a utilização do processador
+- **Propósito:** Otimizar a utilização do processador
 - **Método de Otimização:** Enquanto um programa está à espera pela conclusão de uma operação de I/O, outro programa usa o processador
 
 	
@@ -141,9 +141,9 @@ Primórdios : Sistema Electromecânco
 	- Proporcionar uma interface `user-friendly` 
 	- Minimizar o tempo de resposta a pedidos externos
 - **Método:**
-	- Vários utilizadors mas cada um no seu terminal
+	- Vários utilizadores mas cada um no seu terminal
 	- Todos os terminais têm comunicação direta e em simultâneo com o sistema
-	- Usando multiprogramação, o uso do processador é multiplexado no tempo, sendo atribuído um time-quantuma cada utilizador
+	- Usando multiprogramação, o uso do processador é multiplexado no tempo, sendo atribuído um time-quantum a cada utilizador
 	- No `macrotempo` é criada a ilusão ao utilizador que possui o sistema só para si
 
 
@@ -156,7 +156,7 @@ Primórdios : Sistema Electromecânco
 
 ![Real Time System](Pictures/real_time_system.png)
 
-### Network Operaing System
+### Network Operating System
 -  **Propósito:** Obter vantagem com as interconexões de `hardware` existentes de sistemas computacionais para estabelecer um conjunto de serviços comuns a uma comunidade.
 
 A máquina é mantêm a sua individualidade mas está dotada de um conjunto de primitivas que permite a comunicação com outras máquinas da mesma rede:
@@ -191,7 +191,7 @@ A máquina é mantêm a sua individualidade mas está dotada de um conjunto de p
 - Multiprocessador
 - Computador Pessoal
 - Real time
-- Handhled
+- Handheld
 - Sistemas Embutidos
 - Nós de sensores
 - Smart Card
@@ -213,25 +213,25 @@ Se um sistema suporta este tipo de arquitectura, suporta **multiprocessamento**
 
 O **multiprocessamento** pode ser feito com diferentes arquitecturas:
 
-- **SMTP** - symetric processing (SMP)
+- **SMTP** - symmetric processing (SMP)
 	- Computadores de uso pessoal
 	- Vários processadores
 	- A memória principal é partilhada por todos os processadores
 	- Cada core possui cache própria
-	- Tem de exisitir **mecanismos de exclusão mútua** para o hardware de suporte ao multiprocessamento
+	- Tem de existir **mecanismos de exclusão mútua** para o hardware de suporte ao multiprocessamento
 	- Cada processador vê toda a memória (como memória virtual) apesar de ter o acesso limitado
 - **Planar Mesh** 
 	- Cada processador liga a 4 memória adjacentes
 
  
-## Concurrência 
+## Concorrência 
 -  Ilusão criada por um sistema computacional de "aparentemente" ser capaz de executar mais programas em simultâneo do que o seu número de processadores
 - Os processador(es) devem ser atribuídos a diferentes programas de forma multiplexada no tempo
 
 
 Se um sistema suporta este tipo de arquitectura suporta **multiprogramação**
 
-![Exemplo de multiplexing temporal: Os programas A e B estão a ser executados de forma concurrente num sistema single processor](Pictures/multiprogramming_time_diagram.png)
+![Exemplo de multiplexing temporal: Os programas A e B estão a ser executados de forma concorrente num sistema single processor](Pictures/multiprogramming_time_diagram.png)
 
 
  
@@ -262,7 +262,7 @@ Um sistema operativo deve:
 - Virtual Machines
 - Exokernels
 
-[^1]: Dispositivos plug-and -play são dispositivos que podem ser ligados e desligados _"a quente"_, enquanto o computar está ligado
+[^1]: Dispositivos plug-and-play são dispositivos que podem ser ligados e desligados _"a quente"_, enquanto o computar está ligado
 
 
 
@@ -270,7 +270,7 @@ Um sistema operativo deve:
 - A perspectiva mais utilizada
 - Só existe um **único programa** a ser executado em `kernel mode`
 - Um **único entry point**
-	- Todos os pedidos ao sistem são feitos usando este `entry-point`
+	- Todos os pedidos ao sistema são feitos usando este `entry-point`
 - Comunicação com o sistema através de `syscall` [^2]
 	- Implementadas por um conjunto de rotinas 
 	- Existe ainda outro conjunto de funções auxiliares para a system call
@@ -285,7 +285,7 @@ Um sistema operativo deve:
 [^3]: Imagem retirada do livro Modern Operating Systems, Andrew Tanenbaum & Herbert Bos
 
  
-### Layered Aprroach: Divisão por camadas
+### Layered Approach: Divisão por camadas
 -  Perspetiva modular
 	- O sistema operativo é constituído por um conjunto de camadas, com diferentes níveis hierárquicos
 - A interação **só é possível entre camadas adjacentes**
@@ -293,7 +293,7 @@ Um sistema operativo deve:
 	- Tem de chamar uma função da camada imediatamente abaixo que irá tratar de chamar funções das camadas mais abaixo (estilo `sofs`)
 - Não é simples de projetar
 	- É preciso definir claramente que funcionalidades em que camada, o que pode ser difícil de decidir
-- **Fácil de testar e modficar**, mas uma **grande perda de eficiência**
+- **Fácil de testar e modificar**, mas uma **grande perda de eficiência**
 	- A eficiência pode piorar se a divisão de funções não for bem feita
 	- Existe um `overhead` adicional causado pelo chamada de funções entre as várias camadas
 - Facilita a divisão de funções entre o modo de utilizador e o modo de `kernel`
@@ -313,17 +313,17 @@ Um sistema operativo deve:
 
 ### Microkernel
 -  Posso ter **modularidade** sem ser obrigado a usar camadas em níveis hierárquicos diferentes
-- Defino um conjuto de módulos de "pequena dimensão", com funcionalidades bem definidas
+- Defino um conjunto de módulos de "pequena dimensão", com funcionalidades bem definidas
 	- apenas o `microkernel` é executado em `kernel space`, com permissões de `root`
 	- todos os outros módulos são executados em `user space` e comunicam entre si usando os mecanismos de comunicação providenciados pelo `microkernel`
-	- Os módulos que são executados em `user space` podem ser lançados no startup ou dinâmicamente à medida que são precisos (dispositivos `plug-and-play` [^1])
+	- Os módulos que são executados em `user space` podem ser lançados no startup ou dinamicamente à medida que são precisos (dispositivos `plug-and-play` [^1])
 - O `microkernel` é responsável por:
 	- Gestão de Processos
 	- Gestão da Memória
-	- Implementar sistemas simples de comunicação interprocesso
+	- Implementar sistemas simples de comunicação interprocess
 	- Escalonamento do Processador (Processor Scheduling)
 	- Tratar das interrupções
-- Sistema robsto
+- Sistema robusto
 	- Manipulação de um filesystem é feita em `user space`. Se houver problemas a integridade do sistema físico não é afetada
 
 ![Estrutura de um sistema operativo que usa microkernel - Retirada do livro _Modern Operating Systems, Andrew Tanenbaum & Herbert Bos_](Pictures/microkernel.png)
@@ -337,7 +337,7 @@ Um sistema operativo deve:
 		- Xen
 		- Hyper-V
 		- VMware ESX
-	- Type-2 (`hosted supervisor`): executa o `guest OS` **indiretamente** no `hardware` da máquina, sendo a máquina virtual executada "em cima" do sistema operatico do `host`. Exemplos:
+	- Type-2 (`hosted supervisor`): executa o `guest OS` **indiretamente** no `hardware` da máquina, sendo a máquina virtual executada "em cima" do sistema operativo do `host`. Exemplos:
 		- VirtualBox
 		- VMware Workstation
 		- Parallels
@@ -363,7 +363,7 @@ Um sistema operativo deve:
 	- Os recursos são **divididos em partições**, em vez de clonados
 	- Os recursos são alocados às `virtual machines` e a sua utilização é controlada pelo `microkernel`
 - Permite a implementação de **camadas de abstração personalizadas** consoante as necessidades
-- **Eficiente:** Poupa uma camada destinada a efeutar o mapeamento
+- **Eficiente:** Poupa uma camada destinada a efetuar o mapeamento
 
 
 ## Estruturas Internas do Unix/Linux e Windows
@@ -374,7 +374,7 @@ Um sistema operativo deve:
 
 Legenda:
 
-- `trap`: interrupção por software (unica instrução que muda o modo de execução)
+- `trap`: interrupção por software (única instrução que muda o modo de execução)
 - `buffercache:` espaço do disco onde são mantidos todos os ficheiros em cache (aka abertos)
 	- **desmontar uma pen:** forçar a escrita da buffer cache para a pen
 
@@ -383,7 +383,7 @@ Unix considera tudo como sendo ficheiros:
 	- ou bytes 
 
 
-`open`, `close`, `fork` **não são system calls**. São funções de biblioteca que acedem às `system call` (implementadas no `kernel`). Sâo um interface amigável para o utilizador ter acesso a estas funcionalidades.
+`open`, `close`, `fork` **não são system calls**. São funções de biblioteca que acedem às `system call` (implementadas no `kernel`). São um interface amigável para o utilizador ter acesso a estas funcionalidades.
  
 ### Estrutura Global do Unix
  
@@ -2743,7 +2743,7 @@ Num ambiente multiprogramado, os processos podem ser:
 		- e.g.: jobs num sistema bacth, processos de diferentes utilizadores
 	- É da responsabilidade do sistema operativo garantir que a atribuição de recursos é feita de forma controlada
 		- É preciso garantir que não ocorre perda de informação
-		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Acess**_
+		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Access**_
 - Cooperativos:
 	- **Partilham Informação** e/ou **Comunicam** entre si
 	- Para **partilharem** informação precisam de ter acesso a um **espaço de endereçamento comum**
@@ -2751,13 +2751,13 @@ Num ambiente multiprogramado, os processos podem ser:
 		- Endereço de memória comum
 		- Canal de comunicação que liga os processos
 	- É da **responsabilidade do processo** garantir que o acesso à zona de memória partilhada ou ao canal de comunicação é feito de forma controlada para não ocorrerem perdas de informação
-		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Acess**_
+		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Access**_
 		- Tipicamente, o canal de comunicação é um recurso do sistema, pelo quais os **processos competem**
 
-O acesso a um recurso/área partilhada é efetuada através de código. Para evitar a perda de informação, o código de acesso (também denominado zona cŕitica) deve evitar incorrer em **race conditions**.
+O acesso a um recurso/área partilhada é efetuada através de código. Para evitar a perda de informação, o código de acesso (também denominado zona crítica) deve evitar incorrer em **race conditions**.
 
 ## Exclusão Mútua
-Ao forçar a ocorrência de exclusão mútua no acesso a um recurso/àrea partilhada, podemos originar:
+Ao forçar a ocorrência de exclusão mútua no acesso a um recurso/área partilhada, podemos originar:
 
 - **deadlock:**
 	- Vários processos estão em espera **eternamente** pelas condições/eventos que lhe permitem aceder à sua respetiva **zona crítica**
@@ -2795,7 +2795,7 @@ void acess_resource(unsigned int p)
 # Acesso a Memória Partilhada
 O acesso à memória partilhada é muito semelhante ao aceso a um recurso (podemos ver a memória partilhada como um recurso partilhado entre vários processos).
 
-Assim, à semelhança do acesso a um recurso, é preciso **bloquear o acesso de outros processos à memória partilhada** antes de aceder ao recurso e após aceder, **re-ativar o acesso a memória partilhada** pelos outros processos.
+Assim, à semelhança do acesso a um recurso, é preciso **bloquear o acesso de outros processos à memória partilhada** antes de aceder ao recurso e após aceder, **reativar o acesso a memória partilhada** pelos outros processos.
 
 ```c
 /* shared data structure */
@@ -2899,7 +2899,7 @@ Ao aceder a uma zona crítica devem ser verificados as seguintes condições:
 
 - **Efective Mutual Exclusion:** O **acesso** a uma **zona crítica** associada com o mesmo recurso/memória partilhada só pode ser **permitida a um processo de cada vez** entre **todos os processos** a competir pelo acesso a esse mesmo recurso/memória partilhada
 - **Independência** do número de processos intervenientes e na sua velocidade relativa de execução
-- Um processo fora da sua zona cŕitica não pode impedir outro processo de entrar na sua zona crítica
+- Um processo fora da sua zona crítica não pode impedir outro processo de entrar na sua zona crítica
 - Um processo **não deve ter de esperar indefinidamente** após pedir acesso ao recurso/memória partilhada para que possa aceder à sua zona crítica
 - O período de tempo que um processo está na sua **zona crítica** deve ser **finito**
 
@@ -2908,7 +2908,7 @@ Para controlar o acesso às zonas críticas normalmente é usado um endereço de
 
 - **Software:**
 	- A solução é baseada nas instruções típicas de acesso à memória
-	- Leitura e Escrita são indepentes e correspondem a instruções diferentes
+	- Leitura e Escrita são independentes e correspondem a instruções diferentes
 - **Hardware:**
 	- A solução é baseada num conjunto de instruções especiais de acesso à memória
 	- Estas instruções permitem ler e de seguida escrever na memória, de forma **atómica**
@@ -3058,11 +3058,11 @@ void enter_critical_section(unsigned int own_pid)
 	want_enter[own_pid] = true;
 	while (want_enter[other_pid])
 	{
-		if (own_pid != p_w_priority)			// If the process is not the prioritary process
+		if (own_pid != p_w_priority)			// If the process is not the priority process
 		{
 			want_enter[own_pid] = false;		// go back
-			while (own_pid != p_w_priority);	// waits to acess to his critical section while
-												//  its is not the prioritary process 
+			while (own_pid != p_w_priority);	// waits to access to his critical section while
+												//  its is not the priority process 
 			want_enter[own_pid] = true;			// attempt to go to his critical section
 		}
 	}
@@ -3101,7 +3101,7 @@ void enter_critical_section(uint own_pid)
 	do
 	{
 		want_enter[own_pid] = WANT;					// attempt to access to the critical section
-		while (own_pid != p_w_priority)				// While the process is not the prioritary process
+		while (own_pid != p_w_priority)				// While the process is not the priority process
 		{
 			if (want_enter[p_w_priority] == NO)		// Wait for the priority process to leave its critical section
 				p_w_priority = own_pid;
@@ -3125,7 +3125,7 @@ void leave_critical_section(unsigned int own_pid)
 }
 ```
 
-Pode sofrer de **starvation** se quando um processo iniciar a saída da zona crítica e alterar `p_w_priority`, atribuindo a prioridade a outro processo, outro processo tentar aceder à zona crítica, sendo a sua execução interompida no for. Em situações "especiais", este fenómeno pode ocorrer sempre para o mesmo processo, o que faz com que ele nunca entre na sua zona crítica
+Pode sofrer de **starvation** se quando um processo iniciar a saída da zona crítica e alterar `p_w_priority`, atribuindo a prioridade a outro processo, outro processo tentar aceder à zona crítica, sendo a sua execução interrompida no for. Em situações "especiais", este fenómeno pode ocorrer sempre para o mesmo processo, o que faz com que ele nunca entre na sua zona crítica
 
 
 ## Peterson Algorithm (1981)
@@ -3296,9 +3296,9 @@ void unlock(bool * flag)
 ## Busy Waiting
 Ambas as funções anteriores são suportadas nos _Instruction Sets_ de alguns processadores, implementadas de forma atómica
 
-No entanto, ambas as soluções anteriores sofrem de **busy waiting**. A primitva lock está no seu **estado ON** (usando o CPU) **enquanto espera** que se verifique a condição de acesso à zona crítica. Este tipo de soluções são conhecidas como **spinlocks**, porque o processo oscila em torno da variável enquanto espera pelo acesso
+No entanto, ambas as soluções anteriores sofrem de **busy waiting**. A primitiva lock está no seu **estado ON** (usando o CPU) **enquanto espera** que se verifique a condição de acesso à zona crítica. Este tipo de soluções são conhecidas como **spinlocks**, porque o processo oscila em torno da variável enquanto espera pelo acesso
 
-Em sistemas **uniprocessador**, o **busy_waiting** é **indesejado** porque causa:
+Em sistemas **uniprocessor**, o **busy_waiting** é **indesejado** porque causa:
 
 - **Perda de eficiência:** O **time quantum** de um processo está a ser desperdiçado porque não está a ser usado para nada
 - ** Risco de deadlock**: Se um **processo mais prioritário** tenciona efetuar um **lock** enquanto um processo menos prioritário está na sua zona crítica, **nenhum deles pode prosseguir**.
@@ -3325,7 +3325,7 @@ A implementação das funções `enter_critical_section` e `leave_critical_secti
 ```c
 #define  R ... /* process id = 0, 1, ..., R-1 */
 
-shared unsigned int access = 1;		// Note that access is an integer, not a boolena
+shared unsigned int access = 1;		// Note that access is an integer, not a boolean
 
 void enter_critical_section(unsigned int own_pid)
 {
@@ -3403,10 +3403,10 @@ title: Semáforos
 No ficheiro `IPC.md` são indicadas as condições e informação base para:
 
 - Sincronizar a entrada na zona crítica
-- Para serem usadas em programação concurrente
+- Para serem usadas em programação concorrente
 - Criar zonas que garantam a exclusão mútua
 
-Semáforos são **mecanismos** que permitem por implementar estas condições e **sincronizar a atividade** de **entidades concurrentes em ambiente multiprogramado**
+Semáforos são **mecanismos** que permitem por implementar estas condições e **sincronizar a atividade** de **entidades concorrentes em ambiente multiprogramado**
 
 Não são nada mais do que **mecanismos de sincronização**.
 
@@ -3469,9 +3469,9 @@ void sem_up(unsigned int semid)
 }
 ```
 
-A solução apresentada é típica de um sistema _uniprocessor_ porque recorre à diretivas **disable_interrutions** e **enable_interruptions** para garantir a exclusão mútua no acesso à zona crítica.
+A solução apresentada é típica de um sistema _uniprocessor_ porque recorre à diretivas **disable_interruptions** e **enable_interruptions** para garantir a exclusão mútua no acesso à zona crítica.
 
-Só é possível garantir a exclusão mútua nestas condições se o sistema só possuir um único processador, poruqe as diretivas irão impedir a interrupção do processo que está na posse do processador devido a eventos externos. Esta solução não funciona para um sistema multi-processador porque ao  executar a diretiva **disable_interrutions**, só estamos a **desativar as interrupções para um único processador**. Nada impede que noutro processador esteja a correr um processo que vá aceder à mesma zona de memória partilhada, não sendo garantida a exclusão mútua para sistemas multi-processador.
+Só é possível garantir a exclusão mútua nestas condições se o sistema só possuir um único processador, porque as diretivas irão impedir a interrupção do processo que está na posse do processador devido a eventos externos. Esta solução não funciona para um sistema multiprocessador porque ao  executar a diretiva **disable_interruptions**, só estamos a **desativar as interrupções para um único processador**. Nada impede que noutro processador esteja a correr um processo que vá aceder à mesma zona de memória partilhada, não sendo garantida a exclusão mútua para sistemas multiprocessador.
 
 Uma solução alternativa seria a extensão do **disable_interruptions** a todos os processadores. No entanto, iriamos estar a impedir a troca de processos noutros processadores do sistema que poderiam nem sequer tentar aceder às variáveis de memória partilhada.
 
@@ -3637,17 +3637,17 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 	- São disponibilizadas aos utilizadores através de _system_calls_
 - São **genéricos** e **modulares**
 	- por serem implementações de baixo nível, ganham **versatilidade**
-	- Podem ser usados em qualquer tipo de situação de programão concurrente
+	- Podem ser usados em qualquer tipo de situação de programação concorrente
 
 
 ### Desvantagens
-- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**, uma vez que são aplicadas numa filosofia _bottom-up_
+- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concorrente**, uma vez que são aplicadas numa filosofia _bottom-up_
 		- Facilmente ocorrem **race conditions**
 		- Facilmente se geram situações de **deadlock**, uma vez que **a ordem das operações atómicas são relevantes**
 - São tanto usados para implementar **exclusão mútua** como para **sincronizar processos**
 
 ### Problemas do uso de semáforos
-Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regisões críticas.
+Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regiões críticas.
 
 - Solução sujeita a erros, especialmente em situações complexas
 	- pode existir **mais do que um ponto de sincronismos** ao longo do programa
@@ -3689,14 +3689,14 @@ Mecanismo de sincronização de alto nível para resolver os problemas de sincro
 Seguindo esta filosofia, a **exclusão mútua** e **sincronização** são tratadas **separadamente**, devendo os processos:
 
 1. Entrar na sua zona crítica
-2. Bloquear caso nao possuam condições para continuar
+2. Bloquear caso não possuam condições para continuar
 
 
 Os monitores são uma solução que suporta nativamente a exclusão mútua, onde uma aplicação é vista como um conjunto de _threads_ que competem para terem acesso a uma estrutura de dados partilhada, sendo que esta estrutura só pode ser acedida pelos métodos do monitor.
 
 Um monitor assume que todos os seus métodos **têm de ser executados em exclusão mútua**:
 
-- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a exceutar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
+- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a executar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
 
 A sincronização entre threads é obtida usando **variáveis condicionais**:
 
@@ -3758,7 +3758,7 @@ A sincronização entre threads é obtida usando **variáveis condicionais**:
 	- Não existem garantias que a __thread__ que foi acordada e fica em competição por acesso vá ter acesso
 	- Pode ser **acordada** e voltar a **bloquear**
 	- Enquanto está em `ready` nada garante que outra _thread_ não dê um `signal` e passe para o estado `ready`
-	- A _thread_ que ti nha sido acordada volta a ser **bloqueada**
+	- A _thread_ que tinha sido acordada volta a ser **bloqueada**
 
 
 ## Bounded-Buffer Problem usando Monitores
@@ -3815,9 +3815,9 @@ O uso de `if/while` deve-se às diferentes implementações de monitores:
 	- A _thread_ acordada fica à espera que a _thread_ que deu o `signal` termine para que possa **disputar** o acesso
 	
 
-- O `wait` internamente vai **largar a exlcusão mútua**
+- O `wait` internamente vai **largar a exclusão mútua**
 	- Se não larga a exclusão mútua, mais nenhum processo consegue entrar
-	- Um wait na verdade é um  `lock(..)` seguid de `unlock(...)`
+	- Um wait na verdade é um  `lock(..)` seguido de `unlock(...)`
 - Depois de efetuar uma **inserção**, é preciso efetuar um `signal` do nitems
 - Depois de efetuar um **retrieval** é preciso fazer um `signal` do nslots
 	- Em comparação, num semáforo quando faço o up é sempre incrementado o seu valor
@@ -3833,7 +3833,7 @@ O valor inicial do **mutex** é 0.
 ## POSIX support for monitors
 A criação e sincronização de _threads_ usa o _Standard POSIX, IEEE 1003.1c_.
 
-O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em unix pela biblioteca _pthread_
+O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em Unix pela biblioteca _pthread_
 
 O conceito de monitor **não existe**, mas a biblioteca permite ser usada para criar monitores _Lampsom/Redell_ em C/C++, usando:
 
@@ -3855,8 +3855,8 @@ As funções disponíveis são:
 
 Os processos podem comunicar entre si usando **mensagens**. 
 
-- Não existe a necessidade de possuirem memória partilhada
-- Mecanismos válidos quer para sistemas **uniprocessador** quer para sistemas **multiprocessador**
+- Não existe a necessidade de possuírem memória partilhada
+- Mecanismos válidos quer para sistemas **uniprocessor** quer para sistemas **multiprocessador**
 
 	
 A **comunicação** é efetuada através de **duas operações**:
@@ -3875,7 +3875,7 @@ Requer a existência de um **canal de comunicação**. Existem 3 implementaçõe
 		2. Lê o processo $N+1$
 		3. etc...
 	- No entanto, outros métodos podem ser usados
-3. **Automatic or expliciting buffering**
+3. **Automatic or explicit buffering**
 
 ## Direct vs Indirect
 
@@ -3890,11 +3890,11 @@ O processo que pretende comunicar deve **explicitar o nome do destinatário/reme
 
 A comunicação entre os **dois processos** envolvidos é **peer-to-peer**, e é estabelecida automaticamente entre entre um conjunto de processos comunicantes, só existindo **um canal de comunicação**
 
-## Assymetric direct communications
+## Asymmetric direct communications
 Só o `sender` tem de explicitar o destinatário:
 
 - `send(P, message`: 
-- `receive(id, message)`: receve mensagens de qualquer processo
+- `receive(id, message)`: receive mensagens de qualquer processo
 
 ## Comunicação Indireta
 As mensagens são enviadas para uma **mailbox** (caixa de mensagens) ou **ports**, e o `receiver` vai buscar as mensagens a uma `poll`
@@ -3919,7 +3919,7 @@ Questões que se levantam. Se **mais do que um processo** tentar **receber uma m
 ## Implementação
 Existem várias opções para implementar o **send** e **receive**, que podem ser combinadas entre si:
 
-- **blocking send:** o `sender` **envia** a mensagem e fica **bloquedo** até a mensagem ser entregue ao processo ou mailbox destinatária
+- **blocking send:** o `sender` **envia** a mensagem e fica **bloqueado** até a mensagem ser entregue ao processo ou mailbox destinatária
 - **nonblocking send:** o `sender` após **enviar** a mensagem, **continua** a sua execução
 - **blocking receive:** o `receiver` bloqueia-se até estar disponível uma mensagem para si
 - **nonblocking receiver:** o `receiver` devolve a uma mensagem válida quando tiver ou uma indicação de que não existe uma mensagem válida quando não tiver
@@ -3938,7 +3938,7 @@ O link pode usar várias políticas de implementação:
 	- A `queue` possui uma capacidade (potencialmente) infinita
 	- Tanto o `sender` como o `receiver` podem ser **não bloqueantes**
  
-## Bound-Buffer Problem usando mensanges
+## Bound-Buffer Problem usando mensagens
 ```c
 shared FIFO fifo;			 /* fixed-size FIFO memory */
 shared mutex access;		 /* mutex to control mutual exclusion */
@@ -3981,11 +3981,11 @@ void consumer(unsigned int c)
 
 - Existe uma fila de mensagens de **diferentes tipos**, representados por um inteiro
 - `send` **bloqueante** se **não existir espaço disponível**
-- A receção possui um argumento para espcificar o **tipo de mensagem a receber**:
+- A recepção possui um argumento para especificar o **tipo de mensagem a receber**:
 	- Um tipo específico
 	- Qualquer tipo
 	- Um conjunto de tipos
-- Qualquer que seja a política de receção de mensagens:
+- Qualquer que seja a política de recepção de mensagens:
 	- É sempre **obtida** a mensagem **mais antiga** de uma dado tipo(s)
 	- A implementação do `receive` pode ser **blocking** ou **nonblocking**
 - System calls:
@@ -4044,7 +4044,7 @@ author: Pedro Martins
 ---
 
 # Deadlock
-- **recurso:** algo que um processo precisa para proseeguir com a sua execução. Podem ser:
+- **recurso:** algo que um processo precisa para prosseguir com a sua execução. Podem ser:
 	- **componentes físicos** do sistema computacional, como:
 		- processador
 		- memória
@@ -4093,7 +4093,7 @@ Existem 4 condições necessárias para a ocorrência de **deadlock:**
 2. **hold and wait:**
 	- Um processo mantêm em posse pelo menos um recurso enquanto espera por outro recurso que está na posse de outro processo
 3. **no preemption:**
-	- Os recursos em causa são non-preemptive, o que implica que só o processo na posse do recurso o pode libertar
+	- Os recursos em causa são non preemptive, o que implica que só o processo na posse do recurso o pode libertar
 4. **espera circular:**
 	- é necessário um conjunto de processos em espera tais que cada um deles precise de um recurso que está na posse de outro processo nesse conjunto
 
@@ -4105,9 +4105,9 @@ Se **uma delas não se verifica**, não há deadlock. _(~B => ~A)_
 Dijkstra em 1965 enunciou um conjunto de regras para garantir o acesso **em exclusão mútua** por processo em competição por recursos de memória partilhados entre eles.[^1]
 
 1. **Exclusão Mútua:** Dois processos não podem entrar nas suas zonas críticas ao mesmo tempo
-2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualemnte algum processo (não necessariamento o que está a tentar entrar), mas entra na sua zona crítica
-3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, eentão eventualemnte esse processo entr na sua zona crítica
-4. **First-In-First-Out:** Nenhum processo qa iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu trunos para entrar na sua zona crítica
+2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualmente algum processo (não necessariamente o que está a tentar entrar), mas entra na sua zona crítica
+3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, então eventualmente esse processo entra na sua zona crítica
+4. **First In First Out:** Nenhum processo a iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu turno para entrar na sua zona crítica
 
 
 
@@ -4158,7 +4158,7 @@ A solução **pode sofrer de deadlock:**
 2. **hold and wait:**
 	- Se conseguir adquirir o `left_fork`, o filósofo fica no estado `holding_left_fork` até conseguir obter o `right_fork` e não liberta o `left_fork`
 3. **no preemption:**
-	- Os garfos são recursos non-preemptive. Só o filósofo é que pode libertar os seus garfos após obter a sua posse e no fim de comer
+	- Os garfos são recursos non preemptive. Só o filósofo é que pode libertar os seus garfos após obter a sua posse e no fim de comer
 4. **espera circular:**
 	- Os garfos são partilhados por todos os filósofos de forma circular
 		- O garfo à esquerda de um filósofo, `left_fork` é o garfo à direita do outro, `right_fork`
@@ -4171,28 +4171,28 @@ Se uma das condições necessárias para a ocorrência de deadlock não se verif
 As **políticas de prevenção de deadlock** são bastantes **restritas**, **pouco efetivas** e **difíceis de aplicar** em várias situações.
 
 - **Negar a exclusão mútua** só pode ser aplicada a **recursos partilhados**
-- **Negar _hold-and-wait_** requer **conhecimento _a priori_ dos recursos necessários** e considera sempre o pior caso, no qual os recursos são todos necessários em simultâneo (o que pode não ser verdade)
-- **Negar _no preemption_**, impondo a libertação (e posterior re-aquisição) de recursos adquiridos por processos que não têm condições (aka, todos os recursos que precisam) para continuar a execução pode originar grandes atrasos na execução da tarefa
+- **Negar _hold and wait_** requer **conhecimento _a priori_ dos recursos necessários** e considera sempre o pior caso, no qual os recursos são todos necessários em simultâneo (o que pode não ser verdade)
+- **Negar _no preemption_**, impondo a libertação (e posterior reaquisição) de recursos adquiridos por processos que não têm condições (aka, todos os recursos que precisam) para continuar a execução pode originar grandes atrasos na execução da tarefa
 - **Negar a _circular wait_** pode resultar numa má gestão de recursos
 
 ### Negar a exclusão mútua
 - Só é possível se os recursos puderem ser partilhados, senão podemos incorrer em **race conditions**
-- Não é possível no jantar dos filśofos, porque os garfos não podem ser partilhados entre os filósofos
+- Não é possível no jantar dos filósofos, porque os garfos não podem ser partilhados entre os filósofos
 - Não é a condição mais vulgar a negar para prevenir _deadlock_
 
-### Negar _hold-and-wait_
+### Negar _hold and wait_
 - É possível fazê-lo se um processo é obrigado a pedir todos os recursos que vai precisar antes de iniciar, em vez de ir obtendo os recursos à medida que precisa deles
-- Pode ocurrer **starvation**, porque um processo pode nunca ter condições para obter nenhum recurso
+- Pode ocorrer **starvation**, porque um processo pode nunca ter condições para obter nenhum recurso
 	- É comum usar _aging mechanisms_ to para resolver este problema
 - No jantar dos filósofos, quando um filósofo quer comer, passa a adquirir os dois garfos ao mesmo tempo
 	- Se estes não tiverem disponíveis, o filósofo espera no `hungry state`, podendo ocorrer **starvation**
 
-![Negar _hold-and-wait_](Pictures/hold_and_wait_denial.png)
+![Negar _hold and wait_](Pictures/hold_and_wait_denial.png)
 
 Solução equivalente à proposta por Dijkstra.
 
 ### Negar _no preemption_
-- A condição de os recursos serem _non-preemptive_ pode ser implementada fazendo um processo libertar o(s) recurso(s) que possui se não conseguir adquirir o próximo recurso que precisa para continuar em execução
+- A condição de os recursos serem _non preemptive_ pode ser implementada fazendo um processo libertar o(s) recurso(s) que possui se não conseguir adquirir o próximo recurso que precisa para continuar em execução
 - Posteriormente o processo tenta novamente adquirir esses recursos
 - Pode ocorrer **starvation** and **busy waiting**
 	- podem ser usados _aging mechanisms_ para resolver a starvation
@@ -4209,11 +4209,11 @@ Solução equivalente à proposta por Dijkstra.
 ### Negar a espera circular
 - Através do uso de IDs atribuídos a cada recurso e impondo uma ordem de acesso (ascendente ou descendente) é possível evitar sempre a espera em círculo
 - Pode ocorrer **starvation**
-- No jantar dos filósofos, isto implica que nalgumas situações, um dos filśofos vai precisar de adquirir primeiro o `right_fork` e de seguida o `left_fork`
+- No jantar dos filósofos, isto implica que nalgumas situações, um dos filósofos vai precisar de adquirir primeiro o `right_fork` e de seguida o `left_fork`
 	- A cada filósofo é atribuído um número entre 0 e N
 	- A cada garfo é atribuído um ID (e.g., igual ao ID do filósofo à sua direita ou esquerda)
-	- Cada filśofo adquire primeiro o garfo com o menro ID
-	- obriga a que os filósofos 0 a N-2 adquiram primeiro o `left_fork` enquanto o filósofo N-1 adquir primeiro o `right_fork`
+	- Cada filósofo adquire primeiro o garfo com o menor ID
+	- obriga a que os filósofos 0 a N-2 adquiram primeiro o `left_fork` enquanto o filósofo N-1 adquirir primeiro o `right_fork`
 
 ![Negar a condição de espera circular no acesso aos recursos](Pictures/circular_wait_denial.png)
 
@@ -4237,7 +4237,7 @@ Considerando:
 - $NTR_i$ - o número total de recursos do tipo `i` _(i = 0, 1, ..., N-1)_
 - $R_{i, j}$: o número de recursos do tipo `i` requeridos pelo processo `j`, _(i=0, 1, ..., N-1 e j=0, 1, ..., M-1)_
 
-O sistema pode impedir um novo processo, `M`, de ser exectuado se a sua terminação não pode ser garantida. Para que existam certezas que um novo processo pode ser terminado após ser lançado, tem de se verificar:
+O sistema pode impedir um novo processo, `M`, de ser executado se a sua terminação não pode ser garantida. Para que existam certezas que um novo processo pode ser terminado após ser lançado, tem de se verificar:
 
 $$ NTR_i \geq R_{i, M} + \sum_{j=0}^{M-1} R_{i, j} $$
 
@@ -4412,13 +4412,13 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- Do conjunto de processos prontos a serem executados, tem de ser escolhido **um** para ser executado, sendo lhe atribuído o processador.
 	- A escolha feita pelo `dispatcher` pode basear-se em:
 		- um sistema de prioridades
-		- requesitos temporais
-		- aletoriedade
-		- divisao igual do CPU
+		- requisitos temporais
+		- aleatoriedade
+		- divisão igual do CPU
 - **event wait:** 
 	- O processo que estava a ser executado sai do estado `run`, não estando em execução no processador. 
 		- Ou porque é impedido de continuar pelo scheduler
-		- Ou por iniciativa do proprio processo.
+		- Ou por iniciativa do próprio processo.
 			- _scanf_ 
 			- _printf_ 
 	- O CPU guarda o estado de execução do processo
@@ -4428,9 +4428,9 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- O processo transita do estado `blocked` para o estado `ready`, ficando em fila de espera para que lhe seja atribuído o processador
 - **time_out:** 
 	- O processo esgotou a sua janela temporal, `time quantum`
-	- Atraves de uma interrupção em _hardware_, o sistema operativo vai forçar a saída do processo do processador
+	- Através de uma interrupção em _hardware_, o sistema operativo vai forçar a saída do processo do processador
 	- Transita para o estado _ready_ até lhe ser atribuído um novo `time-quantum` do CPU
-	- A transição por time-out ocorre em qualquer momento do código. 
+	- A transição por time out ocorre em qualquer momento do código. 
 	- Os sistemas podem ter `time quantum` diferentes e os `time slots` alocados não têm de ser necessariamente iguais entre dois sistemas.
 - **preempt**: 
 	- O processo que possui a posse do processador tem uma prioridade mais baixa do que um processo que acordou e está pronto a correr (estado `ready`) 
@@ -4438,7 +4438,7 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- Passa a ser **executado** o processo de **maior prioridade**
 
 ### Swap Area
-O diagram de estados apresentado não leva em consideração que a **memória principal** (RAM) é **finita**. Isto implica que o número de **processos coexistents em memória é limitado**.
+O diagram de estados apresentado não leva em consideração que a **memória principal** (RAM) é **finita**. Isto implica que o número de **processos coexistentes em memória é limitado**.
 
 É necessário usar a **memória secundária** (Disco Rígido) para **extender a memória principal** e aumentar a capacidade de armazenamento dos estados dos processos.
 
@@ -4471,7 +4471,7 @@ O diagrama assume que os processos são **intemporais**. Excluindo alguns proces
 Para introduzi a temporalidade no diagrama de estados, são necessários dois novos estados:
 - **new:** 
 	- O processo foi criado
-	- Ainda não foi atribuido à `pool` de processos a serem executados
+	- Ainda não foi atribuído à `pool` de processos a serem executados
 	- A estrutura de dados associado ao processo é inicializada
 - **terminated:** 
 	- O processo foi descartado da fila de processos executáveis
@@ -4507,7 +4507,7 @@ As três diferenças entre o diagrama de estados de um processo e o diagrama de 
 3. A transição de `time-out` que existe no diagrama dos estados de um processo em UNIX é coberta pela transição `preempted`
 
 ## Supervisor preempting
-Tradicionalmente, a **execução** de um processo **em modo supervisor** (`root`) implicava que a execução do processo **não pudesse ser** interrompida, ou seja, o processo não pudesser ser **`preempted`**. Ou seja, o UNIX não permitia **real-time processing**
+Tradicionalmente, a **execução** de um processo **em modo supervisor** (`root`) implicava que a execução do processo **não pudesse ser** interrompida, ou seja, o processo não pode ser **`preempted`**. Ou seja, o UNIX não permitia **real-time processing**
 
 Nas novas versões o código está dividido em **regiões atómicas**, onde a **execução não pode ser interrompida** para  garantir a **preservação de informação das estruturas de dados a manipular**. Fora das regiões atómicas é seguro interromper a execução do código
 
@@ -4699,7 +4699,7 @@ O `fork` pode **não ser bem sucedido**, ocorrendo um `fork failure`.
 - Quando o processo é clonado, o espaço de dados só é clonado quando um processo escreve numa variável, ou seja, após a modificação é que são efetuadas as cópias dos dados
 
 - O programa acede a um endereço de memória virtual e depois existe hardware que trata de alocar esse endereço de memória de virtual num endereço de memória física
-- Posso ter dois processos com memmorias virtuais distintas mas fisicamente estarem ligados *ao mesmo endereço de memória*
+- Posso ter dois processos com memórias virtuais distintas mas fisicamente estarem ligados *ao mesmo endereço de memória*
 - Quando faço um `fork` não posso assumir que existem variáveis partilhadas entre os processos 
 
 
@@ -4740,7 +4740,7 @@ Existem duas stacks no sistema operativo:
 
 Podendo estes dois componentes serem **geridos de forma independente**.
 
-Visto que uma `thread` é apenas um **componente de execução** dentro de um processo, várias `threads` **independentes** podem coexisitir no mesmo processo, **partilhando** o mesmo **espaço de endereçamento** e o mesmo contexto de **acesso aos dispositivos de I/O**. Isto é **`multithreading`**.
+Visto que uma `thread` é apenas um **componente de execução** dentro de um processo, várias `threads` **independentes** podem coexistir no mesmo processo, **partilhando** o mesmo **espaço de endereçamento** e o mesmo contexto de **acesso aos dispositivos de I/O**. Isto é **`multithreading`**.
 
 Na prática, as `threads` podem ser vistas como _light weight processes_
 
@@ -4760,7 +4760,7 @@ O diagrama de estados de um `thread` é  mais simplificado do que o de um proces
 
 Os estados `suspend-ready` e `suspended-blocked` estão relacionados com o **espaço de endereçamento** do **processo** e com a zona onde estes dados estão guardados, dizendo respeito ao **processo e não à thread**
 
-Os estado `new` e `terminated`não estão presentes, porque a a gestão do ambiente multiprogramado prende-se com a restrição do número de `threads` que um processo pode ter, logo dizem respeito ao processo
+Os estado `new` e `terminated`não estão presentes, porque a gestão do ambiente multiprogramado prende-se com a restrição do número de `threads` que um processo pode ter, logo dizem respeito ao processo
 
 ## Vantagens de Multithreading
 
@@ -4908,8 +4908,8 @@ Revisitando a o diagrama de estados de um processador `multithreading`
 Os processadores atuais possuem **dois modos de funcionamento:**
 
 1. `supervisor mode`
-	- Todas as intruções podem ser executadas
-	- É um modo **priveligiado**, **reservado para o sistema operativo**
+	- Todas as instruções podem ser executadas
+	- É um modo **privilegiado**, **reservado para o sistema operativo**
 	- O modo em que o **sistema operativo devia funcionar**, para garantir que pode aceder a todas as funcionalidades do processador
 	
 2. `user mode`
@@ -4937,7 +4937,7 @@ As **funções do `kernel`**, incluindo as `system calls` só podem ser lançada
 O ambiente de operação nestas condições é denominado de `exception handling`
 
 ## Exception Handling
-![Algoritmo a seguir para tratar de exeções normais](Pictures/normal_exception_handling.png)
+![Algoritmo a seguir para tratar de exceções normais](Pictures/normal_exception_handling.png)
 
 A **troca do contexto de execução** é feita guardando o estado dos registos PC e PSW na stack do sistema, saltando para a rotina de interrupção e em seguida salvaguardando os registos que a rotina de tratamento da exceção vai precisar de modificar. No fim, os valores dos registos são restaurados e o programa resume a sua execução
 
@@ -4946,7 +4946,7 @@ A **troca do contexto de execução** é feita guardando o estado dos registos P
 
 O algoritmo é bastante parecido com o tratamento de exceções:
 
-1. Salvaguardar todos os dados relacioandos com o processo atual
+1. Salvaguardar todos os dados relacionados com o processo atual
 2. Efetuar a troca para um novo processo
 3. Correr esse novo processo
 4. Restaurar os dados e a execução do processo anterior
@@ -4955,7 +4955,7 @@ O algoritmo é bastante parecido com o tratamento de exceções:
 # Processor Scheduling
 A execução de um processo é uma sequência alternada de períodos de:
 
-- `CPU burst`, causado pela execuçao de intruções do CPU 
+- `CPU burst`, causado pela execução de instruções do CPU 
 - `I/O burst`, causados pela espera do resultado de pedidos a dispositivos de I/O
 
 
@@ -5032,7 +5032,7 @@ Decide qual o **próximo processo a executar**
 - Intervalo de tempo que decorre desde a submissão de um pedido até a resposta começa a ser produzida
 - Medida apropriada para sistemas/processos interativo
 - Deve ser minimizada para este tipo de sistemas/processos
-- O número de processos interativos deve ser máximizado desde que seja garantido um tempo de resposta aceitável
+- O número de processos interativos deve ser maximizado desde que seja garantido um tempo de resposta aceitável
 
 
 **Deadlines:**
@@ -5060,7 +5060,7 @@ Decide qual o **próximo processo a executar**
 
 - Medida do número de processos completados por unidade de tempo ("taxa de transferência" de processos)
 - Mede a quantidade de trabalho a ser executada pelos processos
-- Deve ser máximizado
+- Deve ser maximizado
 - Depende do tamanho dos processos e da **política de escalonamento**
 
 
@@ -5130,7 +5130,7 @@ Em função do scheduling pode ser definido como:
 
 Segue o princípio de que atribuir a mesma importância a todos os processos pode ser uma solução errada. Um sistema injusto _per se_ não é necessariamente mau.
 
-- A **minimização do tempo de resposta** (`response time`) exigue que os processos `I/O-bound` sejam **priveligiados**
+- A **minimização do tempo de resposta** (`response time`) exige que os processos `I/O-bound` sejam **privilegiados**
 - Em **sistemas de tempo real**, os processos associados a **eventos/alarmes** e **ações do sistema operativo** sofrem de várias **limitações e exigências temporais**
 
 	 
@@ -5140,7 +5140,7 @@ Para resolver este problema os processos são **agrupados** em grupos de **difer
 - Processos de menor prioridade podem sofrer `starvation`
 
 #### Prioridades Estáticas
-As prio ridades a atribuir a cada processo são determinadas _a priori_ de forma **determinística**
+As prioridades a atribuir a cada processo são determinadas _a priori_ de forma **determinística**
 
 - Os processos são **agrupados em classes de prioridade fixa**, de acordo com a sua importância relativa
 - Existe risco de os processos menos prioritários sofrerem `starvation`
@@ -5159,7 +5159,7 @@ Alternativamente, pode se fazer:
 	
 Previnem-se as situações de `starvation` impedindo que o processo não acaba por ficar com uma prioridade tão baixa que nunca mais consegue ganhar acesso
 
-#### Prioridades Dinãmicas
+#### Prioridades Dinâmicas
 - As classes de prioridades estão definidas de forma funcional _a priori_
 - A mudança de um processo de classe é efetuada com base na utilização última janela de execução temporal que foi atribuída ao processo
 
@@ -5277,7 +5277,7 @@ No Linux existem 3 classes de prioridades:
 
 
 1. **FIFO**, `SCHED_FIFO`
-	- `real-time threads`, com politíca de prioridades
+	- `real-time threads`, com política de prioridades
 	- uma `thread` em execução é `preempted` apenas se um processo de **mais alta prioridade da mesma classe** transita para o estado `ready`
 	- uma `thread` em execução pode **voluntariamente abandonar o processador**, executando a primitiva `sched_yeld`
 	- dentro da mesma classe de prioridade a política escolhida é `First Come, First Serve` (FCFS)
