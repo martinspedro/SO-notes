@@ -1,7 +1,7 @@
 # Processor Scheduling
 A execução de um processo é uma sequência alternada de períodos de:
 
-- `CPU burst`, causado pela execuçao de intruções do CPU 
+- `CPU burst`, causado pela execução de instruções do CPU 
 - `I/O burst`, causados pela espera do resultado de pedidos a dispositivos de I/O
 
 
@@ -78,7 +78,7 @@ Decide qual o **próximo processo a executar**
 - Intervalo de tempo que decorre desde a submissão de um pedido até a resposta começa a ser produzida
 - Medida apropriada para sistemas/processos interativo
 - Deve ser minimizada para este tipo de sistemas/processos
-- O número de processos interativos deve ser máximizado desde que seja garantido um tempo de resposta aceitável
+- O número de processos interativos deve ser maximizado desde que seja garantido um tempo de resposta aceitável
 
 
 **Deadlines:**
@@ -106,7 +106,7 @@ Decide qual o **próximo processo a executar**
 
 - Medida do número de processos completados por unidade de tempo ("taxa de transferência" de processos)
 - Mede a quantidade de trabalho a ser executada pelos processos
-- Deve ser máximizado
+- Deve ser maximizado
 - Depende do tamanho dos processos e da **política de escalonamento**
 
 
@@ -176,7 +176,7 @@ Em função do scheduling pode ser definido como:
 
 Segue o princípio de que atribuir a mesma importância a todos os processos pode ser uma solução errada. Um sistema injusto _per se_ não é necessariamente mau.
 
-- A **minimização do tempo de resposta** (`response time`) exigue que os processos `I/O-bound` sejam **priveligiados**
+- A **minimização do tempo de resposta** (`response time`) exige que os processos `I/O-bound` sejam **privilegiados**
 - Em **sistemas de tempo real**, os processos associados a **eventos/alarmes** e **ações do sistema operativo** sofrem de várias **limitações e exigências temporais**
 
 	 
@@ -186,7 +186,7 @@ Para resolver este problema os processos são **agrupados** em grupos de **difer
 - Processos de menor prioridade podem sofrer `starvation`
 
 #### Prioridades Estáticas
-As prio ridades a atribuir a cada processo são determinadas _a priori_ de forma **determinística**
+As prioridades a atribuir a cada processo são determinadas _a priori_ de forma **determinística**
 
 - Os processos são **agrupados em classes de prioridade fixa**, de acordo com a sua importância relativa
 - Existe risco de os processos menos prioritários sofrerem `starvation`
@@ -205,7 +205,7 @@ Alternativamente, pode se fazer:
 	
 Previnem-se as situações de `starvation` impedindo que o processo não acaba por ficar com uma prioridade tão baixa que nunca mais consegue ganhar acesso
 
-#### Prioridades Dinãmicas
+#### Prioridades Dinâmicas
 - As classes de prioridades estão definidas de forma funcional _a priori_
 - A mudança de um processo de classe é efetuada com base na utilização última janela de execução temporal que foi atribuída ao processo
 
@@ -323,7 +323,7 @@ No Linux existem 3 classes de prioridades:
 
 
 1. **FIFO**, `SCHED_FIFO`
-	- `real-time threads`, com politíca de prioridades
+	- `real-time threads`, com política de prioridades
 	- uma `thread` em execução é `preempted` apenas se um processo de **mais alta prioridade da mesma classe** transita para o estado `ready`
 	- uma `thread` em execução pode **voluntariamente abandonar o processador**, executando a primitiva `sched_yeld`
 	- dentro da mesma classe de prioridade a política escolhida é `First Come, First Serve` (FCFS)

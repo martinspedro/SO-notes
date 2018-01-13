@@ -87,13 +87,13 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- Do conjunto de processos prontos a serem executados, tem de ser escolhido **um** para ser executado, sendo lhe atribuído o processador.
 	- A escolha feita pelo `dispatcher` pode basear-se em:
 		- um sistema de prioridades
-		- requesitos temporais
-		- aletoriedade
-		- divisao igual do CPU
+		- requisitos temporais
+		- aleatoriedade
+		- divisão igual do CPU
 - **event wait:** 
 	- O processo que estava a ser executado sai do estado `run`, não estando em execução no processador. 
 		- Ou porque é impedido de continuar pelo scheduler
-		- Ou por iniciativa do proprio processo.
+		- Ou por iniciativa do próprio processo.
 			- _scanf_ 
 			- _printf_ 
 	- O CPU guarda o estado de execução do processo
@@ -103,9 +103,9 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- O processo transita do estado `blocked` para o estado `ready`, ficando em fila de espera para que lhe seja atribuído o processador
 - **time_out:** 
 	- O processo esgotou a sua janela temporal, `time quantum`
-	- Atraves de uma interrupção em _hardware_, o sistema operativo vai forçar a saída do processo do processador
+	- Através de uma interrupção em _hardware_, o sistema operativo vai forçar a saída do processo do processador
 	- Transita para o estado _ready_ até lhe ser atribuído um novo `time-quantum` do CPU
-	- A transição por time-out ocorre em qualquer momento do código. 
+	- A transição por time out ocorre em qualquer momento do código. 
 	- Os sistemas podem ter `time quantum` diferentes e os `time slots` alocados não têm de ser necessariamente iguais entre dois sistemas.
 - **preempt**: 
 	- O processo que possui a posse do processador tem uma prioridade mais baixa do que um processo que acordou e está pronto a correr (estado `ready`) 
@@ -113,7 +113,7 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- Passa a ser **executado** o processo de **maior prioridade**
 
 ### Swap Area
-O diagram de estados apresentado não leva em consideração que a **memória principal** (RAM) é **finita**. Isto implica que o número de **processos coexistents em memória é limitado**.
+O diagram de estados apresentado não leva em consideração que a **memória principal** (RAM) é **finita**. Isto implica que o número de **processos coexistentes em memória é limitado**.
 
 É necessário usar a **memória secundária** (Disco Rígido) para **extender a memória principal** e aumentar a capacidade de armazenamento dos estados dos processos.
 
@@ -146,7 +146,7 @@ O diagrama assume que os processos são **intemporais**. Excluindo alguns proces
 Para introduzi a temporalidade no diagrama de estados, são necessários dois novos estados:
 - **new:** 
 	- O processo foi criado
-	- Ainda não foi atribuido à `pool` de processos a serem executados
+	- Ainda não foi atribuído à `pool` de processos a serem executados
 	- A estrutura de dados associado ao processo é inicializada
 - **terminated:** 
 	- O processo foi descartado da fila de processos executáveis
@@ -182,7 +182,7 @@ As três diferenças entre o diagrama de estados de um processo e o diagrama de 
 3. A transição de `time-out` que existe no diagrama dos estados de um processo em UNIX é coberta pela transição `preempted`
 
 ## Supervisor preempting
-Tradicionalmente, a **execução** de um processo **em modo supervisor** (`root`) implicava que a execução do processo **não pudesse ser** interrompida, ou seja, o processo não pudesser ser **`preempted`**. Ou seja, o UNIX não permitia **real-time processing**
+Tradicionalmente, a **execução** de um processo **em modo supervisor** (`root`) implicava que a execução do processo **não pudesse ser** interrompida, ou seja, o processo não pode ser **`preempted`**. Ou seja, o UNIX não permitia **real-time processing**
 
 Nas novas versões o código está dividido em **regiões atómicas**, onde a **execução não pode ser interrompida** para  garantir a **preservação de informação das estruturas de dados a manipular**. Fora das regiões atómicas é seguro interromper a execução do código
 
@@ -374,7 +374,7 @@ O `fork` pode **não ser bem sucedido**, ocorrendo um `fork failure`.
 - Quando o processo é clonado, o espaço de dados só é clonado quando um processo escreve numa variável, ou seja, após a modificação é que são efetuadas as cópias dos dados
 
 - O programa acede a um endereço de memória virtual e depois existe hardware que trata de alocar esse endereço de memória de virtual num endereço de memória física
-- Posso ter dois processos com memmorias virtuais distintas mas fisicamente estarem ligados *ao mesmo endereço de memória*
+- Posso ter dois processos com memórias virtuais distintas mas fisicamente estarem ligados *ao mesmo endereço de memória*
 - Quando faço um `fork` não posso assumir que existem variáveis partilhadas entre os processos 
 
 
@@ -415,7 +415,7 @@ Existem duas stacks no sistema operativo:
 
 Podendo estes dois componentes serem **geridos de forma independente**.
 
-Visto que uma `thread` é apenas um **componente de execução** dentro de um processo, várias `threads` **independentes** podem coexisitir no mesmo processo, **partilhando** o mesmo **espaço de endereçamento** e o mesmo contexto de **acesso aos dispositivos de I/O**. Isto é **`multithreading`**.
+Visto que uma `thread` é apenas um **componente de execução** dentro de um processo, várias `threads` **independentes** podem coexistir no mesmo processo, **partilhando** o mesmo **espaço de endereçamento** e o mesmo contexto de **acesso aos dispositivos de I/O**. Isto é **`multithreading`**.
 
 Na prática, as `threads` podem ser vistas como _light weight processes_
 
@@ -435,7 +435,7 @@ O diagrama de estados de um `thread` é  mais simplificado do que o de um proces
 
 Os estados `suspend-ready` e `suspended-blocked` estão relacionados com o **espaço de endereçamento** do **processo** e com a zona onde estes dados estão guardados, dizendo respeito ao **processo e não à thread**
 
-Os estado `new` e `terminated`não estão presentes, porque a a gestão do ambiente multiprogramado prende-se com a restrição do número de `threads` que um processo pode ter, logo dizem respeito ao processo
+Os estado `new` e `terminated`não estão presentes, porque a gestão do ambiente multiprogramado prende-se com a restrição do número de `threads` que um processo pode ter, logo dizem respeito ao processo
 
 ## Vantagens de Multithreading
 
@@ -583,8 +583,8 @@ Revisitando a o diagrama de estados de um processador `multithreading`
 Os processadores atuais possuem **dois modos de funcionamento:**
 
 1. `supervisor mode`
-	- Todas as intruções podem ser executadas
-	- É um modo **priveligiado**, **reservado para o sistema operativo**
+	- Todas as instruções podem ser executadas
+	- É um modo **privilegiado**, **reservado para o sistema operativo**
 	- O modo em que o **sistema operativo devia funcionar**, para garantir que pode aceder a todas as funcionalidades do processador
 	
 2. `user mode`
@@ -612,7 +612,7 @@ As **funções do `kernel`**, incluindo as `system calls` só podem ser lançada
 O ambiente de operação nestas condições é denominado de `exception handling`
 
 ## Exception Handling
-![Algoritmo a seguir para tratar de exeções normais](Pictures/normal_exception_handling.png)
+![Algoritmo a seguir para tratar de exceções normais](Pictures/normal_exception_handling.png)
 
 A **troca do contexto de execução** é feita guardando o estado dos registos PC e PSW na stack do sistema, saltando para a rotina de interrupção e em seguida salvaguardando os registos que a rotina de tratamento da exceção vai precisar de modificar. No fim, os valores dos registos são restaurados e o programa resume a sua execução
 
@@ -621,7 +621,7 @@ A **troca do contexto de execução** é feita guardando o estado dos registos P
 
 O algoritmo é bastante parecido com o tratamento de exceções:
 
-1. Salvaguardar todos os dados relacioandos com o processo atual
+1. Salvaguardar todos os dados relacionados com o processo atual
 2. Efetuar a troca para um novo processo
 3. Correr esse novo processo
 4. Restaurar os dados e a execução do processo anterior
@@ -630,7 +630,7 @@ O algoritmo é bastante parecido com o tratamento de exceções:
 # Processor Scheduling
 A execução de um processo é uma sequência alternada de períodos de:
 
-- `CPU burst`, causado pela execuçao de intruções do CPU 
+- `CPU burst`, causado pela execução de instruções do CPU 
 - `I/O burst`, causados pela espera do resultado de pedidos a dispositivos de I/O
 
 
@@ -707,7 +707,7 @@ Decide qual o **próximo processo a executar**
 - Intervalo de tempo que decorre desde a submissão de um pedido até a resposta começa a ser produzida
 - Medida apropriada para sistemas/processos interativo
 - Deve ser minimizada para este tipo de sistemas/processos
-- O número de processos interativos deve ser máximizado desde que seja garantido um tempo de resposta aceitável
+- O número de processos interativos deve ser maximizado desde que seja garantido um tempo de resposta aceitável
 
 
 **Deadlines:**
@@ -735,7 +735,7 @@ Decide qual o **próximo processo a executar**
 
 - Medida do número de processos completados por unidade de tempo ("taxa de transferência" de processos)
 - Mede a quantidade de trabalho a ser executada pelos processos
-- Deve ser máximizado
+- Deve ser maximizado
 - Depende do tamanho dos processos e da **política de escalonamento**
 
 
@@ -805,7 +805,7 @@ Em função do scheduling pode ser definido como:
 
 Segue o princípio de que atribuir a mesma importância a todos os processos pode ser uma solução errada. Um sistema injusto _per se_ não é necessariamente mau.
 
-- A **minimização do tempo de resposta** (`response time`) exigue que os processos `I/O-bound` sejam **priveligiados**
+- A **minimização do tempo de resposta** (`response time`) exige que os processos `I/O-bound` sejam **privilegiados**
 - Em **sistemas de tempo real**, os processos associados a **eventos/alarmes** e **ações do sistema operativo** sofrem de várias **limitações e exigências temporais**
 
 	 
@@ -815,7 +815,7 @@ Para resolver este problema os processos são **agrupados** em grupos de **difer
 - Processos de menor prioridade podem sofrer `starvation`
 
 #### Prioridades Estáticas
-As prio ridades a atribuir a cada processo são determinadas _a priori_ de forma **determinística**
+As prioridades a atribuir a cada processo são determinadas _a priori_ de forma **determinística**
 
 - Os processos são **agrupados em classes de prioridade fixa**, de acordo com a sua importância relativa
 - Existe risco de os processos menos prioritários sofrerem `starvation`
@@ -834,7 +834,7 @@ Alternativamente, pode se fazer:
 	
 Previnem-se as situações de `starvation` impedindo que o processo não acaba por ficar com uma prioridade tão baixa que nunca mais consegue ganhar acesso
 
-#### Prioridades Dinãmicas
+#### Prioridades Dinâmicas
 - As classes de prioridades estão definidas de forma funcional _a priori_
 - A mudança de um processo de classe é efetuada com base na utilização última janela de execução temporal que foi atribuída ao processo
 
@@ -952,7 +952,7 @@ No Linux existem 3 classes de prioridades:
 
 
 1. **FIFO**, `SCHED_FIFO`
-	- `real-time threads`, com politíca de prioridades
+	- `real-time threads`, com política de prioridades
 	- uma `thread` em execução é `preempted` apenas se um processo de **mais alta prioridade da mesma classe** transita para o estado `ready`
 	- uma `thread` em execução pode **voluntariamente abandonar o processador**, executando a primitiva `sched_yeld`
 	- dentro da mesma classe de prioridade a política escolhida é `First Come, First Serve` (FCFS)

@@ -87,13 +87,13 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- Do conjunto de processos prontos a serem executados, tem de ser escolhido **um** para ser executado, sendo lhe atribuído o processador.
 	- A escolha feita pelo `dispatcher` pode basear-se em:
 		- um sistema de prioridades
-		- requesitos temporais
-		- aletoriedade
-		- divisao igual do CPU
+		- requisitos temporais
+		- aleatoriedade
+		- divisão igual do CPU
 - **event wait:** 
 	- O processo que estava a ser executado sai do estado `run`, não estando em execução no processador. 
 		- Ou porque é impedido de continuar pelo scheduler
-		- Ou por iniciativa do proprio processo.
+		- Ou por iniciativa do próprio processo.
 			- _scanf_ 
 			- _printf_ 
 	- O CPU guarda o estado de execução do processo
@@ -103,9 +103,9 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- O processo transita do estado `blocked` para o estado `ready`, ficando em fila de espera para que lhe seja atribuído o processador
 - **time_out:** 
 	- O processo esgotou a sua janela temporal, `time quantum`
-	- Atraves de uma interrupção em _hardware_, o sistema operativo vai forçar a saída do processo do processador
+	- Através de uma interrupção em _hardware_, o sistema operativo vai forçar a saída do processo do processador
 	- Transita para o estado _ready_ até lhe ser atribuído um novo `time-quantum` do CPU
-	- A transição por time-out ocorre em qualquer momento do código. 
+	- A transição por time out ocorre em qualquer momento do código. 
 	- Os sistemas podem ter `time quantum` diferentes e os `time slots` alocados não têm de ser necessariamente iguais entre dois sistemas.
 - **preempt**: 
 	- O processo que possui a posse do processador tem uma prioridade mais baixa do que um processo que acordou e está pronto a correr (estado `ready`) 
@@ -113,7 +113,7 @@ Existem diferentes políticas que permitem controlar a execução destas transi�
 	- Passa a ser **executado** o processo de **maior prioridade**
 
 ### Swap Area
-O diagram de estados apresentado não leva em consideração que a **memória principal** (RAM) é **finita**. Isto implica que o número de **processos coexistents em memória é limitado**.
+O diagram de estados apresentado não leva em consideração que a **memória principal** (RAM) é **finita**. Isto implica que o número de **processos coexistentes em memória é limitado**.
 
 É necessário usar a **memória secundária** (Disco Rígido) para **extender a memória principal** e aumentar a capacidade de armazenamento dos estados dos processos.
 
@@ -146,7 +146,7 @@ O diagrama assume que os processos são **intemporais**. Excluindo alguns proces
 Para introduzi a temporalidade no diagrama de estados, são necessários dois novos estados:
 - **new:** 
 	- O processo foi criado
-	- Ainda não foi atribuido à `pool` de processos a serem executados
+	- Ainda não foi atribuído à `pool` de processos a serem executados
 	- A estrutura de dados associado ao processo é inicializada
 - **terminated:** 
 	- O processo foi descartado da fila de processos executáveis
@@ -182,7 +182,7 @@ As três diferenças entre o diagrama de estados de um processo e o diagrama de 
 3. A transição de `time-out` que existe no diagrama dos estados de um processo em UNIX é coberta pela transição `preempted`
 
 ## Supervisor preempting
-Tradicionalmente, a **execução** de um processo **em modo supervisor** (`root`) implicava que a execução do processo **não pudesse ser** interrompida, ou seja, o processo não pudesser ser **`preempted`**. Ou seja, o UNIX não permitia **real-time processing**
+Tradicionalmente, a **execução** de um processo **em modo supervisor** (`root`) implicava que a execução do processo **não pudesse ser** interrompida, ou seja, o processo não pode ser **`preempted`**. Ou seja, o UNIX não permitia **real-time processing**
 
 Nas novas versões o código está dividido em **regiões atómicas**, onde a **execução não pode ser interrompida** para  garantir a **preservação de informação das estruturas de dados a manipular**. Fora das regiões atómicas é seguro interromper a execução do código
 
@@ -374,7 +374,7 @@ O `fork` pode **não ser bem sucedido**, ocorrendo um `fork failure`.
 - Quando o processo é clonado, o espaço de dados só é clonado quando um processo escreve numa variável, ou seja, após a modificação é que são efetuadas as cópias dos dados
 
 - O programa acede a um endereço de memória virtual e depois existe hardware que trata de alocar esse endereço de memória de virtual num endereço de memória física
-- Posso ter dois processos com memmorias virtuais distintas mas fisicamente estarem ligados *ao mesmo endereço de memória*
+- Posso ter dois processos com memórias virtuais distintas mas fisicamente estarem ligados *ao mesmo endereço de memória*
 - Quando faço um `fork` não posso assumir que existem variáveis partilhadas entre os processos 
 
 
