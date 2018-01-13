@@ -6,10 +6,10 @@ title: Semáforos
 No ficheiro `IPC.md` são indicadas as condições e informação base para:
 
 - Sincronizar a entrada na zona crítica
-- Para serem usadas em programação concurrente
+- Para serem usadas em programação concorrente
 - Criar zonas que garantam a exclusão mútua
 
-Semáforos são **mecanismos** que permitem por implementar estas condições e **sincronizar a atividade** de **entidades concurrentes em ambiente multiprogramado**
+Semáforos são **mecanismos** que permitem por implementar estas condições e **sincronizar a atividade** de **entidades concorrentes em ambiente multiprogramado**
 
 Não são nada mais do que **mecanismos de sincronização**.
 
@@ -72,9 +72,9 @@ void sem_up(unsigned int semid)
 }
 ```
 
-A solução apresentada é típica de um sistema _uniprocessor_ porque recorre à diretivas **disable_interrutions** e **enable_interruptions** para garantir a exclusão mútua no acesso à zona crítica.
+A solução apresentada é típica de um sistema _uniprocessor_ porque recorre à diretivas **disable_interruptions** e **enable_interruptions** para garantir a exclusão mútua no acesso à zona crítica.
 
-Só é possível garantir a exclusão mútua nestas condições se o sistema só possuir um único processador, poruqe as diretivas irão impedir a interrupção do processo que está na posse do processador devido a eventos externos. Esta solução não funciona para um sistema multi-processador porque ao  executar a diretiva **disable_interrutions**, só estamos a **desativar as interrupções para um único processador**. Nada impede que noutro processador esteja a correr um processo que vá aceder à mesma zona de memória partilhada, não sendo garantida a exclusão mútua para sistemas multi-processador.
+Só é possível garantir a exclusão mútua nestas condições se o sistema só possuir um único processador, porque as diretivas irão impedir a interrupção do processo que está na posse do processador devido a eventos externos. Esta solução não funciona para um sistema multiprocessador porque ao  executar a diretiva **disable_interruptions**, só estamos a **desativar as interrupções para um único processador**. Nada impede que noutro processador esteja a correr um processo que vá aceder à mesma zona de memória partilhada, não sendo garantida a exclusão mútua para sistemas multiprocessador.
 
 Uma solução alternativa seria a extensão do **disable_interruptions** a todos os processadores. No entanto, iriamos estar a impedir a troca de processos noutros processadores do sistema que poderiam nem sequer tentar aceder às variáveis de memória partilhada.
 
@@ -240,17 +240,17 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 	- São disponibilizadas aos utilizadores através de _system_calls_
 - São **genéricos** e **modulares**
 	- por serem implementações de baixo nível, ganham **versatilidade**
-	- Podem ser usados em qualquer tipo de situação de programão concurrente
+	- Podem ser usados em qualquer tipo de situação de programação concorrente
 
 
 ### Desvantagens
-- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**, uma vez que são aplicadas numa filosofia _bottom-up_
+- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concorrente**, uma vez que são aplicadas numa filosofia _bottom-up_
 		- Facilmente ocorrem **race conditions**
 		- Facilmente se geram situações de **deadlock**, uma vez que **a ordem das operações atómicas são relevantes**
 - São tanto usados para implementar **exclusão mútua** como para **sincronizar processos**
 
 ### Problemas do uso de semáforos
-Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regisões críticas.
+Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regiões críticas.
 
 - Solução sujeita a erros, especialmente em situações complexas
 	- pode existir **mais do que um ponto de sincronismos** ao longo do programa

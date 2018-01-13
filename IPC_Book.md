@@ -11,7 +11,7 @@ Num ambiente multiprogramado, os processos podem ser:
 		- e.g.: jobs num sistema bacth, processos de diferentes utilizadores
 	- É da responsabilidade do sistema operativo garantir que a atribuição de recursos é feita de forma controlada
 		- É preciso garantir que não ocorre perda de informação
-		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Acess**_
+		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Access**_
 - Cooperativos:
 	- **Partilham Informação** e/ou **Comunicam** entre si
 	- Para **partilharem** informação precisam de ter acesso a um **espaço de endereçamento comum**
@@ -19,13 +19,13 @@ Num ambiente multiprogramado, os processos podem ser:
 		- Endereço de memória comum
 		- Canal de comunicação que liga os processos
 	- É da **responsabilidade do processo** garantir que o acesso à zona de memória partilhada ou ao canal de comunicação é feito de forma controlada para não ocorrerem perdas de informação
-		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Acess**_
+		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Access**_
 		- Tipicamente, o canal de comunicação é um recurso do sistema, pelo quais os **processos competem**
 
-O acesso a um recurso/área partilhada é efetuada através de código. Para evitar a perda de informação, o código de acesso (também denominado zona cŕitica) deve evitar incorrer em **race conditions**.
+O acesso a um recurso/área partilhada é efetuada através de código. Para evitar a perda de informação, o código de acesso (também denominado zona crítica) deve evitar incorrer em **race conditions**.
 
 ## Exclusão Mútua
-Ao forçar a ocorrência de exclusão mútua no acesso a um recurso/àrea partilhada, podemos originar:
+Ao forçar a ocorrência de exclusão mútua no acesso a um recurso/área partilhada, podemos originar:
 
 - **deadlock:**
 	- Vários processos estão em espera **eternamente** pelas condições/eventos que lhe permitem aceder à sua respetiva **zona crítica**
@@ -63,7 +63,7 @@ void acess_resource(unsigned int p)
 # Acesso a Memória Partilhada
 O acesso à memória partilhada é muito semelhante ao aceso a um recurso (podemos ver a memória partilhada como um recurso partilhado entre vários processos).
 
-Assim, à semelhança do acesso a um recurso, é preciso **bloquear o acesso de outros processos à memória partilhada** antes de aceder ao recurso e após aceder, **re-ativar o acesso a memória partilhada** pelos outros processos.
+Assim, à semelhança do acesso a um recurso, é preciso **bloquear o acesso de outros processos à memória partilhada** antes de aceder ao recurso e após aceder, **reativar o acesso a memória partilhada** pelos outros processos.
 
 ```c
 /* shared data structure */
@@ -167,7 +167,7 @@ Ao aceder a uma zona crítica devem ser verificados as seguintes condições:
 
 - **Efective Mutual Exclusion:** O **acesso** a uma **zona crítica** associada com o mesmo recurso/memória partilhada só pode ser **permitida a um processo de cada vez** entre **todos os processos** a competir pelo acesso a esse mesmo recurso/memória partilhada
 - **Independência** do número de processos intervenientes e na sua velocidade relativa de execução
-- Um processo fora da sua zona cŕitica não pode impedir outro processo de entrar na sua zona crítica
+- Um processo fora da sua zona crítica não pode impedir outro processo de entrar na sua zona crítica
 - Um processo **não deve ter de esperar indefinidamente** após pedir acesso ao recurso/memória partilhada para que possa aceder à sua zona crítica
 - O período de tempo que um processo está na sua **zona crítica** deve ser **finito**
 
@@ -176,7 +176,7 @@ Para controlar o acesso às zonas críticas normalmente é usado um endereço de
 
 - **Software:**
 	- A solução é baseada nas instruções típicas de acesso à memória
-	- Leitura e Escrita são indepentes e correspondem a instruções diferentes
+	- Leitura e Escrita são independentes e correspondem a instruções diferentes
 - **Hardware:**
 	- A solução é baseada num conjunto de instruções especiais de acesso à memória
 	- Estas instruções permitem ler e de seguida escrever na memória, de forma **atómica**
@@ -326,11 +326,11 @@ void enter_critical_section(unsigned int own_pid)
 	want_enter[own_pid] = true;
 	while (want_enter[other_pid])
 	{
-		if (own_pid != p_w_priority)			// If the process is not the prioritary process
+		if (own_pid != p_w_priority)			// If the process is not the priority process
 		{
 			want_enter[own_pid] = false;		// go back
-			while (own_pid != p_w_priority);	// waits to acess to his critical section while
-												//  its is not the prioritary process 
+			while (own_pid != p_w_priority);	// waits to access to his critical section while
+												//  its is not the priority process 
 			want_enter[own_pid] = true;			// attempt to go to his critical section
 		}
 	}
@@ -369,7 +369,7 @@ void enter_critical_section(uint own_pid)
 	do
 	{
 		want_enter[own_pid] = WANT;					// attempt to access to the critical section
-		while (own_pid != p_w_priority)				// While the process is not the prioritary process
+		while (own_pid != p_w_priority)				// While the process is not the priority process
 		{
 			if (want_enter[p_w_priority] == NO)		// Wait for the priority process to leave its critical section
 				p_w_priority = own_pid;
@@ -393,7 +393,7 @@ void leave_critical_section(unsigned int own_pid)
 }
 ```
 
-Pode sofrer de **starvation** se quando um processo iniciar a saída da zona crítica e alterar `p_w_priority`, atribuindo a prioridade a outro processo, outro processo tentar aceder à zona crítica, sendo a sua execução interompida no for. Em situações "especiais", este fenómeno pode ocorrer sempre para o mesmo processo, o que faz com que ele nunca entre na sua zona crítica
+Pode sofrer de **starvation** se quando um processo iniciar a saída da zona crítica e alterar `p_w_priority`, atribuindo a prioridade a outro processo, outro processo tentar aceder à zona crítica, sendo a sua execução interrompida no for. Em situações "especiais", este fenómeno pode ocorrer sempre para o mesmo processo, o que faz com que ele nunca entre na sua zona crítica
 
 
 ## Peterson Algorithm (1981)
@@ -564,9 +564,9 @@ void unlock(bool * flag)
 ## Busy Waiting
 Ambas as funções anteriores são suportadas nos _Instruction Sets_ de alguns processadores, implementadas de forma atómica
 
-No entanto, ambas as soluções anteriores sofrem de **busy waiting**. A primitva lock está no seu **estado ON** (usando o CPU) **enquanto espera** que se verifique a condição de acesso à zona crítica. Este tipo de soluções são conhecidas como **spinlocks**, porque o processo oscila em torno da variável enquanto espera pelo acesso
+No entanto, ambas as soluções anteriores sofrem de **busy waiting**. A primitiva lock está no seu **estado ON** (usando o CPU) **enquanto espera** que se verifique a condição de acesso à zona crítica. Este tipo de soluções são conhecidas como **spinlocks**, porque o processo oscila em torno da variável enquanto espera pelo acesso
 
-Em sistemas **uniprocessador**, o **busy_waiting** é **indesejado** porque causa:
+Em sistemas **uniprocessor**, o **busy_waiting** é **indesejado** porque causa:
 
 - **Perda de eficiência:** O **time quantum** de um processo está a ser desperdiçado porque não está a ser usado para nada
 - ** Risco de deadlock**: Se um **processo mais prioritário** tenciona efetuar um **lock** enquanto um processo menos prioritário está na sua zona crítica, **nenhum deles pode prosseguir**.
@@ -593,7 +593,7 @@ A implementação das funções `enter_critical_section` e `leave_critical_secti
 ```c
 #define  R ... /* process id = 0, 1, ..., R-1 */
 
-shared unsigned int access = 1;		// Note that access is an integer, not a boolena
+shared unsigned int access = 1;		// Note that access is an integer, not a boolean
 
 void enter_critical_section(unsigned int own_pid)
 {
@@ -671,10 +671,10 @@ title: Semáforos
 No ficheiro `IPC.md` são indicadas as condições e informação base para:
 
 - Sincronizar a entrada na zona crítica
-- Para serem usadas em programação concurrente
+- Para serem usadas em programação concorrente
 - Criar zonas que garantam a exclusão mútua
 
-Semáforos são **mecanismos** que permitem por implementar estas condições e **sincronizar a atividade** de **entidades concurrentes em ambiente multiprogramado**
+Semáforos são **mecanismos** que permitem por implementar estas condições e **sincronizar a atividade** de **entidades concorrentes em ambiente multiprogramado**
 
 Não são nada mais do que **mecanismos de sincronização**.
 
@@ -737,9 +737,9 @@ void sem_up(unsigned int semid)
 }
 ```
 
-A solução apresentada é típica de um sistema _uniprocessor_ porque recorre à diretivas **disable_interrutions** e **enable_interruptions** para garantir a exclusão mútua no acesso à zona crítica.
+A solução apresentada é típica de um sistema _uniprocessor_ porque recorre à diretivas **disable_interruptions** e **enable_interruptions** para garantir a exclusão mútua no acesso à zona crítica.
 
-Só é possível garantir a exclusão mútua nestas condições se o sistema só possuir um único processador, poruqe as diretivas irão impedir a interrupção do processo que está na posse do processador devido a eventos externos. Esta solução não funciona para um sistema multi-processador porque ao  executar a diretiva **disable_interrutions**, só estamos a **desativar as interrupções para um único processador**. Nada impede que noutro processador esteja a correr um processo que vá aceder à mesma zona de memória partilhada, não sendo garantida a exclusão mútua para sistemas multi-processador.
+Só é possível garantir a exclusão mútua nestas condições se o sistema só possuir um único processador, porque as diretivas irão impedir a interrupção do processo que está na posse do processador devido a eventos externos. Esta solução não funciona para um sistema multiprocessador porque ao  executar a diretiva **disable_interruptions**, só estamos a **desativar as interrupções para um único processador**. Nada impede que noutro processador esteja a correr um processo que vá aceder à mesma zona de memória partilhada, não sendo garantida a exclusão mútua para sistemas multiprocessador.
 
 Uma solução alternativa seria a extensão do **disable_interruptions** a todos os processadores. No entanto, iriamos estar a impedir a troca de processos noutros processadores do sistema que poderiam nem sequer tentar aceder às variáveis de memória partilhada.
 
@@ -905,17 +905,17 @@ Assim, o produtor tenta aceder à sua zona crítica sem primeiro decrementar o n
 	- São disponibilizadas aos utilizadores através de _system_calls_
 - São **genéricos** e **modulares**
 	- por serem implementações de baixo nível, ganham **versatilidade**
-	- Podem ser usados em qualquer tipo de situação de programão concurrente
+	- Podem ser usados em qualquer tipo de situação de programação concorrente
 
 
 ### Desvantagens
-- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concurrente**, uma vez que são aplicadas numa filosofia _bottom-up_
+- Usam **primitivas de baixo nível**, o que implica que o programador necessita de conhecer os **princípios da programação concorrente**, uma vez que são aplicadas numa filosofia _bottom-up_
 		- Facilmente ocorrem **race conditions**
 		- Facilmente se geram situações de **deadlock**, uma vez que **a ordem das operações atómicas são relevantes**
 - São tanto usados para implementar **exclusão mútua** como para **sincronizar processos**
 
 ### Problemas do uso de semáforos
-Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regisões críticas.
+Como tanto usados para implementar **exclusão mútua** como para **sincronizar processos**, se as condições de acesso não forem satisfeitas, os processos são bloqueados **antes** de entrarem nas suas regiões críticas.
 
 - Solução sujeita a erros, especialmente em situações complexas
 	- pode existir **mais do que um ponto de sincronismos** ao longo do programa
@@ -957,14 +957,14 @@ Mecanismo de sincronização de alto nível para resolver os problemas de sincro
 Seguindo esta filosofia, a **exclusão mútua** e **sincronização** são tratadas **separadamente**, devendo os processos:
 
 1. Entrar na sua zona crítica
-2. Bloquear caso nao possuam condições para continuar
+2. Bloquear caso não possuam condições para continuar
 
 
 Os monitores são uma solução que suporta nativamente a exclusão mútua, onde uma aplicação é vista como um conjunto de _threads_ que competem para terem acesso a uma estrutura de dados partilhada, sendo que esta estrutura só pode ser acedida pelos métodos do monitor.
 
 Um monitor assume que todos os seus métodos **têm de ser executados em exclusão mútua**:
 
-- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a exceutar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
+- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a executar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
 
 A sincronização entre threads é obtida usando **variáveis condicionais**:
 
@@ -1026,7 +1026,7 @@ A sincronização entre threads é obtida usando **variáveis condicionais**:
 	- Não existem garantias que a __thread__ que foi acordada e fica em competição por acesso vá ter acesso
 	- Pode ser **acordada** e voltar a **bloquear**
 	- Enquanto está em `ready` nada garante que outra _thread_ não dê um `signal` e passe para o estado `ready`
-	- A _thread_ que ti nha sido acordada volta a ser **bloqueada**
+	- A _thread_ que tinha sido acordada volta a ser **bloqueada**
 
 
 ## Bounded-Buffer Problem usando Monitores
@@ -1083,9 +1083,9 @@ O uso de `if/while` deve-se às diferentes implementações de monitores:
 	- A _thread_ acordada fica à espera que a _thread_ que deu o `signal` termine para que possa **disputar** o acesso
 	
 
-- O `wait` internamente vai **largar a exlcusão mútua**
+- O `wait` internamente vai **largar a exclusão mútua**
 	- Se não larga a exclusão mútua, mais nenhum processo consegue entrar
-	- Um wait na verdade é um  `lock(..)` seguid de `unlock(...)`
+	- Um wait na verdade é um  `lock(..)` seguido de `unlock(...)`
 - Depois de efetuar uma **inserção**, é preciso efetuar um `signal` do nitems
 - Depois de efetuar um **retrieval** é preciso fazer um `signal` do nslots
 	- Em comparação, num semáforo quando faço o up é sempre incrementado o seu valor
@@ -1101,7 +1101,7 @@ O valor inicial do **mutex** é 0.
 ## POSIX support for monitors
 A criação e sincronização de _threads_ usa o _Standard POSIX, IEEE 1003.1c_.
 
-O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em unix pela biblioteca _pthread_
+O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em Unix pela biblioteca _pthread_
 
 O conceito de monitor **não existe**, mas a biblioteca permite ser usada para criar monitores _Lampsom/Redell_ em C/C++, usando:
 
@@ -1123,8 +1123,8 @@ As funções disponíveis são:
 
 Os processos podem comunicar entre si usando **mensagens**. 
 
-- Não existe a necessidade de possuirem memória partilhada
-- Mecanismos válidos quer para sistemas **uniprocessador** quer para sistemas **multiprocessador**
+- Não existe a necessidade de possuírem memória partilhada
+- Mecanismos válidos quer para sistemas **uniprocessor** quer para sistemas **multiprocessador**
 
 	
 A **comunicação** é efetuada através de **duas operações**:
@@ -1143,7 +1143,7 @@ Requer a existência de um **canal de comunicação**. Existem 3 implementaçõe
 		2. Lê o processo $N+1$
 		3. etc...
 	- No entanto, outros métodos podem ser usados
-3. **Automatic or expliciting buffering**
+3. **Automatic or explicit buffering**
 
 ## Direct vs Indirect
 
@@ -1158,11 +1158,11 @@ O processo que pretende comunicar deve **explicitar o nome do destinatário/reme
 
 A comunicação entre os **dois processos** envolvidos é **peer-to-peer**, e é estabelecida automaticamente entre entre um conjunto de processos comunicantes, só existindo **um canal de comunicação**
 
-## Assymetric direct communications
+## Asymmetric direct communications
 Só o `sender` tem de explicitar o destinatário:
 
 - `send(P, message`: 
-- `receive(id, message)`: receve mensagens de qualquer processo
+- `receive(id, message)`: receive mensagens de qualquer processo
 
 ## Comunicação Indireta
 As mensagens são enviadas para uma **mailbox** (caixa de mensagens) ou **ports**, e o `receiver` vai buscar as mensagens a uma `poll`
@@ -1187,7 +1187,7 @@ Questões que se levantam. Se **mais do que um processo** tentar **receber uma m
 ## Implementação
 Existem várias opções para implementar o **send** e **receive**, que podem ser combinadas entre si:
 
-- **blocking send:** o `sender` **envia** a mensagem e fica **bloquedo** até a mensagem ser entregue ao processo ou mailbox destinatária
+- **blocking send:** o `sender` **envia** a mensagem e fica **bloqueado** até a mensagem ser entregue ao processo ou mailbox destinatária
 - **nonblocking send:** o `sender` após **enviar** a mensagem, **continua** a sua execução
 - **blocking receive:** o `receiver` bloqueia-se até estar disponível uma mensagem para si
 - **nonblocking receiver:** o `receiver` devolve a uma mensagem válida quando tiver ou uma indicação de que não existe uma mensagem válida quando não tiver
@@ -1206,7 +1206,7 @@ O link pode usar várias políticas de implementação:
 	- A `queue` possui uma capacidade (potencialmente) infinita
 	- Tanto o `sender` como o `receiver` podem ser **não bloqueantes**
  
-## Bound-Buffer Problem usando mensanges
+## Bound-Buffer Problem usando mensagens
 ```c
 shared FIFO fifo;			 /* fixed-size FIFO memory */
 shared mutex access;		 /* mutex to control mutual exclusion */
@@ -1249,11 +1249,11 @@ void consumer(unsigned int c)
 
 - Existe uma fila de mensagens de **diferentes tipos**, representados por um inteiro
 - `send` **bloqueante** se **não existir espaço disponível**
-- A receção possui um argumento para espcificar o **tipo de mensagem a receber**:
+- A recepção possui um argumento para especificar o **tipo de mensagem a receber**:
 	- Um tipo específico
 	- Qualquer tipo
 	- Um conjunto de tipos
-- Qualquer que seja a política de receção de mensagens:
+- Qualquer que seja a política de recepção de mensagens:
 	- É sempre **obtida** a mensagem **mais antiga** de uma dado tipo(s)
 	- A implementação do `receive` pode ser **blocking** ou **nonblocking**
 - System calls:
@@ -1312,7 +1312,7 @@ author: Pedro Martins
 ---
 
 # Deadlock
-- **recurso:** algo que um processo precisa para proseeguir com a sua execução. Podem ser:
+- **recurso:** algo que um processo precisa para prosseguir com a sua execução. Podem ser:
 	- **componentes físicos** do sistema computacional, como:
 		- processador
 		- memória
@@ -1361,7 +1361,7 @@ Existem 4 condições necessárias para a ocorrência de **deadlock:**
 2. **hold and wait:**
 	- Um processo mantêm em posse pelo menos um recurso enquanto espera por outro recurso que está na posse de outro processo
 3. **no preemption:**
-	- Os recursos em causa são non-preemptive, o que implica que só o processo na posse do recurso o pode libertar
+	- Os recursos em causa são non preemptive, o que implica que só o processo na posse do recurso o pode libertar
 4. **espera circular:**
 	- é necessário um conjunto de processos em espera tais que cada um deles precise de um recurso que está na posse de outro processo nesse conjunto
 
@@ -1373,9 +1373,9 @@ Se **uma delas não se verifica**, não há deadlock. _(~B => ~A)_
 Dijkstra em 1965 enunciou um conjunto de regras para garantir o acesso **em exclusão mútua** por processo em competição por recursos de memória partilhados entre eles.[^1]
 
 1. **Exclusão Mútua:** Dois processos não podem entrar nas suas zonas críticas ao mesmo tempo
-2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualemnte algum processo (não necessariamento o que está a tentar entrar), mas entra na sua zona crítica
-3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, eentão eventualemnte esse processo entr na sua zona crítica
-4. **First-In-First-Out:** Nenhum processo qa iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu trunos para entrar na sua zona crítica
+2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualmente algum processo (não necessariamente o que está a tentar entrar), mas entra na sua zona crítica
+3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, então eventualmente esse processo entra na sua zona crítica
+4. **First In First Out:** Nenhum processo a iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu turno para entrar na sua zona crítica
 
 
 
@@ -1426,7 +1426,7 @@ A solução **pode sofrer de deadlock:**
 2. **hold and wait:**
 	- Se conseguir adquirir o `left_fork`, o filósofo fica no estado `holding_left_fork` até conseguir obter o `right_fork` e não liberta o `left_fork`
 3. **no preemption:**
-	- Os garfos são recursos non-preemptive. Só o filósofo é que pode libertar os seus garfos após obter a sua posse e no fim de comer
+	- Os garfos são recursos non preemptive. Só o filósofo é que pode libertar os seus garfos após obter a sua posse e no fim de comer
 4. **espera circular:**
 	- Os garfos são partilhados por todos os filósofos de forma circular
 		- O garfo à esquerda de um filósofo, `left_fork` é o garfo à direita do outro, `right_fork`
@@ -1439,28 +1439,28 @@ Se uma das condições necessárias para a ocorrência de deadlock não se verif
 As **políticas de prevenção de deadlock** são bastantes **restritas**, **pouco efetivas** e **difíceis de aplicar** em várias situações.
 
 - **Negar a exclusão mútua** só pode ser aplicada a **recursos partilhados**
-- **Negar _hold-and-wait_** requer **conhecimento _a priori_ dos recursos necessários** e considera sempre o pior caso, no qual os recursos são todos necessários em simultâneo (o que pode não ser verdade)
-- **Negar _no preemption_**, impondo a libertação (e posterior re-aquisição) de recursos adquiridos por processos que não têm condições (aka, todos os recursos que precisam) para continuar a execução pode originar grandes atrasos na execução da tarefa
+- **Negar _hold and wait_** requer **conhecimento _a priori_ dos recursos necessários** e considera sempre o pior caso, no qual os recursos são todos necessários em simultâneo (o que pode não ser verdade)
+- **Negar _no preemption_**, impondo a libertação (e posterior reaquisição) de recursos adquiridos por processos que não têm condições (aka, todos os recursos que precisam) para continuar a execução pode originar grandes atrasos na execução da tarefa
 - **Negar a _circular wait_** pode resultar numa má gestão de recursos
 
 ### Negar a exclusão mútua
 - Só é possível se os recursos puderem ser partilhados, senão podemos incorrer em **race conditions**
-- Não é possível no jantar dos filśofos, porque os garfos não podem ser partilhados entre os filósofos
+- Não é possível no jantar dos filósofos, porque os garfos não podem ser partilhados entre os filósofos
 - Não é a condição mais vulgar a negar para prevenir _deadlock_
 
-### Negar _hold-and-wait_
+### Negar _hold and wait_
 - É possível fazê-lo se um processo é obrigado a pedir todos os recursos que vai precisar antes de iniciar, em vez de ir obtendo os recursos à medida que precisa deles
-- Pode ocurrer **starvation**, porque um processo pode nunca ter condições para obter nenhum recurso
+- Pode ocorrer **starvation**, porque um processo pode nunca ter condições para obter nenhum recurso
 	- É comum usar _aging mechanisms_ to para resolver este problema
 - No jantar dos filósofos, quando um filósofo quer comer, passa a adquirir os dois garfos ao mesmo tempo
 	- Se estes não tiverem disponíveis, o filósofo espera no `hungry state`, podendo ocorrer **starvation**
 
-![Negar _hold-and-wait_](Pictures/hold_and_wait_denial.png)
+![Negar _hold and wait_](Pictures/hold_and_wait_denial.png)
 
 Solução equivalente à proposta por Dijkstra.
 
 ### Negar _no preemption_
-- A condição de os recursos serem _non-preemptive_ pode ser implementada fazendo um processo libertar o(s) recurso(s) que possui se não conseguir adquirir o próximo recurso que precisa para continuar em execução
+- A condição de os recursos serem _non preemptive_ pode ser implementada fazendo um processo libertar o(s) recurso(s) que possui se não conseguir adquirir o próximo recurso que precisa para continuar em execução
 - Posteriormente o processo tenta novamente adquirir esses recursos
 - Pode ocorrer **starvation** and **busy waiting**
 	- podem ser usados _aging mechanisms_ para resolver a starvation
@@ -1477,11 +1477,11 @@ Solução equivalente à proposta por Dijkstra.
 ### Negar a espera circular
 - Através do uso de IDs atribuídos a cada recurso e impondo uma ordem de acesso (ascendente ou descendente) é possível evitar sempre a espera em círculo
 - Pode ocorrer **starvation**
-- No jantar dos filósofos, isto implica que nalgumas situações, um dos filśofos vai precisar de adquirir primeiro o `right_fork` e de seguida o `left_fork`
+- No jantar dos filósofos, isto implica que nalgumas situações, um dos filósofos vai precisar de adquirir primeiro o `right_fork` e de seguida o `left_fork`
 	- A cada filósofo é atribuído um número entre 0 e N
 	- A cada garfo é atribuído um ID (e.g., igual ao ID do filósofo à sua direita ou esquerda)
-	- Cada filśofo adquire primeiro o garfo com o menro ID
-	- obriga a que os filósofos 0 a N-2 adquiram primeiro o `left_fork` enquanto o filósofo N-1 adquir primeiro o `right_fork`
+	- Cada filósofo adquire primeiro o garfo com o menor ID
+	- obriga a que os filósofos 0 a N-2 adquiram primeiro o `left_fork` enquanto o filósofo N-1 adquirir primeiro o `right_fork`
 
 ![Negar a condição de espera circular no acesso aos recursos](Pictures/circular_wait_denial.png)
 
@@ -1505,7 +1505,7 @@ Considerando:
 - $NTR_i$ - o número total de recursos do tipo `i` _(i = 0, 1, ..., N-1)_
 - $R_{i, j}$: o número de recursos do tipo `i` requeridos pelo processo `j`, _(i=0, 1, ..., N-1 e j=0, 1, ..., M-1)_
 
-O sistema pode impedir um novo processo, `M`, de ser exectuado se a sua terminação não pode ser garantida. Para que existam certezas que um novo processo pode ser terminado após ser lançado, tem de se verificar:
+O sistema pode impedir um novo processo, `M`, de ser executado se a sua terminação não pode ser garantida. Para que existam certezas que um novo processo pode ser terminado após ser lançado, tem de se verificar:
 
 $$ NTR_i \geq R_{i, M} + \sum_{j=0}^{M-1} R_{i, j} $$
 

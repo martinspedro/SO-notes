@@ -11,7 +11,7 @@ Num ambiente multiprogramado, os processos podem ser:
 		- e.g.: jobs num sistema bacth, processos de diferentes utilizadores
 	- É da responsabilidade do sistema operativo garantir que a atribuição de recursos é feita de forma controlada
 		- É preciso garantir que não ocorre perda de informação
-		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Acess**_
+		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Access**_
 - Cooperativos:
 	- **Partilham Informação** e/ou **Comunicam** entre si
 	- Para **partilharem** informação precisam de ter acesso a um **espaço de endereçamento comum**
@@ -19,13 +19,13 @@ Num ambiente multiprogramado, os processos podem ser:
 		- Endereço de memória comum
 		- Canal de comunicação que liga os processos
 	- É da **responsabilidade do processo** garantir que o acesso à zona de memória partilhada ou ao canal de comunicação é feito de forma controlada para não ocorrerem perdas de informação
-		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Acess**_
+		- Só **um processo pode usar um recurso num intervalo de tempo** - _**Mutual Exclusive Access**_
 		- Tipicamente, o canal de comunicação é um recurso do sistema, pelo quais os **processos competem**
 
-O acesso a um recurso/área partilhada é efetuada através de código. Para evitar a perda de informação, o código de acesso (também denominado zona cŕitica) deve evitar incorrer em **race conditions**.
+O acesso a um recurso/área partilhada é efetuada através de código. Para evitar a perda de informação, o código de acesso (também denominado zona crítica) deve evitar incorrer em **race conditions**.
 
 ## Exclusão Mútua
-Ao forçar a ocorrência de exclusão mútua no acesso a um recurso/àrea partilhada, podemos originar:
+Ao forçar a ocorrência de exclusão mútua no acesso a um recurso/área partilhada, podemos originar:
 
 - **deadlock:**
 	- Vários processos estão em espera **eternamente** pelas condições/eventos que lhe permitem aceder à sua respetiva **zona crítica**
@@ -63,7 +63,7 @@ void acess_resource(unsigned int p)
 # Acesso a Memória Partilhada
 O acesso à memória partilhada é muito semelhante ao aceso a um recurso (podemos ver a memória partilhada como um recurso partilhado entre vários processos).
 
-Assim, à semelhança do acesso a um recurso, é preciso **bloquear o acesso de outros processos à memória partilhada** antes de aceder ao recurso e após aceder, **re-ativar o acesso a memória partilhada** pelos outros processos.
+Assim, à semelhança do acesso a um recurso, é preciso **bloquear o acesso de outros processos à memória partilhada** antes de aceder ao recurso e após aceder, **reativar o acesso a memória partilhada** pelos outros processos.
 
 ```c
 /* shared data structure */
@@ -167,7 +167,7 @@ Ao aceder a uma zona crítica devem ser verificados as seguintes condições:
 
 - **Efective Mutual Exclusion:** O **acesso** a uma **zona crítica** associada com o mesmo recurso/memória partilhada só pode ser **permitida a um processo de cada vez** entre **todos os processos** a competir pelo acesso a esse mesmo recurso/memória partilhada
 - **Independência** do número de processos intervenientes e na sua velocidade relativa de execução
-- Um processo fora da sua zona cŕitica não pode impedir outro processo de entrar na sua zona crítica
+- Um processo fora da sua zona crítica não pode impedir outro processo de entrar na sua zona crítica
 - Um processo **não deve ter de esperar indefinidamente** após pedir acesso ao recurso/memória partilhada para que possa aceder à sua zona crítica
 - O período de tempo que um processo está na sua **zona crítica** deve ser **finito**
 
@@ -176,7 +176,7 @@ Para controlar o acesso às zonas críticas normalmente é usado um endereço de
 
 - **Software:**
 	- A solução é baseada nas instruções típicas de acesso à memória
-	- Leitura e Escrita são indepentes e correspondem a instruções diferentes
+	- Leitura e Escrita são independentes e correspondem a instruções diferentes
 - **Hardware:**
 	- A solução é baseada num conjunto de instruções especiais de acesso à memória
 	- Estas instruções permitem ler e de seguida escrever na memória, de forma **atómica**
@@ -326,11 +326,11 @@ void enter_critical_section(unsigned int own_pid)
 	want_enter[own_pid] = true;
 	while (want_enter[other_pid])
 	{
-		if (own_pid != p_w_priority)			// If the process is not the prioritary process
+		if (own_pid != p_w_priority)			// If the process is not the priority process
 		{
 			want_enter[own_pid] = false;		// go back
-			while (own_pid != p_w_priority);	// waits to acess to his critical section while
-												//  its is not the prioritary process 
+			while (own_pid != p_w_priority);	// waits to access to his critical section while
+												//  its is not the priority process 
 			want_enter[own_pid] = true;			// attempt to go to his critical section
 		}
 	}
@@ -369,7 +369,7 @@ void enter_critical_section(uint own_pid)
 	do
 	{
 		want_enter[own_pid] = WANT;					// attempt to access to the critical section
-		while (own_pid != p_w_priority)				// While the process is not the prioritary process
+		while (own_pid != p_w_priority)				// While the process is not the priority process
 		{
 			if (want_enter[p_w_priority] == NO)		// Wait for the priority process to leave its critical section
 				p_w_priority = own_pid;
@@ -393,7 +393,7 @@ void leave_critical_section(unsigned int own_pid)
 }
 ```
 
-Pode sofrer de **starvation** se quando um processo iniciar a saída da zona crítica e alterar `p_w_priority`, atribuindo a prioridade a outro processo, outro processo tentar aceder à zona crítica, sendo a sua execução interompida no for. Em situações "especiais", este fenómeno pode ocorrer sempre para o mesmo processo, o que faz com que ele nunca entre na sua zona crítica
+Pode sofrer de **starvation** se quando um processo iniciar a saída da zona crítica e alterar `p_w_priority`, atribuindo a prioridade a outro processo, outro processo tentar aceder à zona crítica, sendo a sua execução interrompida no for. Em situações "especiais", este fenómeno pode ocorrer sempre para o mesmo processo, o que faz com que ele nunca entre na sua zona crítica
 
 
 ## Peterson Algorithm (1981)
@@ -564,9 +564,9 @@ void unlock(bool * flag)
 ## Busy Waiting
 Ambas as funções anteriores são suportadas nos _Instruction Sets_ de alguns processadores, implementadas de forma atómica
 
-No entanto, ambas as soluções anteriores sofrem de **busy waiting**. A primitva lock está no seu **estado ON** (usando o CPU) **enquanto espera** que se verifique a condição de acesso à zona crítica. Este tipo de soluções são conhecidas como **spinlocks**, porque o processo oscila em torno da variável enquanto espera pelo acesso
+No entanto, ambas as soluções anteriores sofrem de **busy waiting**. A primitiva lock está no seu **estado ON** (usando o CPU) **enquanto espera** que se verifique a condição de acesso à zona crítica. Este tipo de soluções são conhecidas como **spinlocks**, porque o processo oscila em torno da variável enquanto espera pelo acesso
 
-Em sistemas **uniprocessador**, o **busy_waiting** é **indesejado** porque causa:
+Em sistemas **uniprocessor**, o **busy_waiting** é **indesejado** porque causa:
 
 - **Perda de eficiência:** O **time quantum** de um processo está a ser desperdiçado porque não está a ser usado para nada
 - ** Risco de deadlock**: Se um **processo mais prioritário** tenciona efetuar um **lock** enquanto um processo menos prioritário está na sua zona crítica, **nenhum deles pode prosseguir**.
@@ -593,7 +593,7 @@ A implementação das funções `enter_critical_section` e `leave_critical_secti
 ```c
 #define  R ... /* process id = 0, 1, ..., R-1 */
 
-shared unsigned int access = 1;		// Note that access is an integer, not a boolena
+shared unsigned int access = 1;		// Note that access is an integer, not a boolean
 
 void enter_critical_section(unsigned int own_pid)
 {

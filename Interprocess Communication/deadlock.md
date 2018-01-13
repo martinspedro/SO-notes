@@ -4,7 +4,7 @@ author: Pedro Martins
 ---
 
 # Deadlock
-- **recurso:** algo que um processo precisa para proseeguir com a sua execução. Podem ser:
+- **recurso:** algo que um processo precisa para prosseguir com a sua execução. Podem ser:
 	- **componentes físicos** do sistema computacional, como:
 		- processador
 		- memória
@@ -53,7 +53,7 @@ Existem 4 condições necessárias para a ocorrência de **deadlock:**
 2. **hold and wait:**
 	- Um processo mantêm em posse pelo menos um recurso enquanto espera por outro recurso que está na posse de outro processo
 3. **no preemption:**
-	- Os recursos em causa são non-preemptive, o que implica que só o processo na posse do recurso o pode libertar
+	- Os recursos em causa são non preemptive, o que implica que só o processo na posse do recurso o pode libertar
 4. **espera circular:**
 	- é necessário um conjunto de processos em espera tais que cada um deles precise de um recurso que está na posse de outro processo nesse conjunto
 
@@ -65,9 +65,9 @@ Se **uma delas não se verifica**, não há deadlock. _(~B => ~A)_
 Dijkstra em 1965 enunciou um conjunto de regras para garantir o acesso **em exclusão mútua** por processo em competição por recursos de memória partilhados entre eles.[^1]
 
 1. **Exclusão Mútua:** Dois processos não podem entrar nas suas zonas críticas ao mesmo tempo
-2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualemnte algum processo (não necessariamento o que está a tentar entrar), mas entra na sua zona crítica
-3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, eentão eventualemnte esse processo entr na sua zona crítica
-4. **First-In-First-Out:** Nenhum processo qa iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu trunos para entrar na sua zona crítica
+2. **Livre de Deadlock:** Se um process está a tentar entrar na sua zona crítica, eventualmente algum processo (não necessariamente o que está a tentar entrar), mas entra na sua zona crítica
+3. **Livre de Starvation:** Se um processo está atentar entrar na sua zona crítica, então eventualmente esse processo entra na sua zona crítica
+4. **First In First Out:** Nenhum processo a iniciar pode entrar na sua zona crítica antes de um processo que já está à espera do seu turno para entrar na sua zona crítica
 
 
 
@@ -118,7 +118,7 @@ A solução **pode sofrer de deadlock:**
 2. **hold and wait:**
 	- Se conseguir adquirir o `left_fork`, o filósofo fica no estado `holding_left_fork` até conseguir obter o `right_fork` e não liberta o `left_fork`
 3. **no preemption:**
-	- Os garfos são recursos non-preemptive. Só o filósofo é que pode libertar os seus garfos após obter a sua posse e no fim de comer
+	- Os garfos são recursos non preemptive. Só o filósofo é que pode libertar os seus garfos após obter a sua posse e no fim de comer
 4. **espera circular:**
 	- Os garfos são partilhados por todos os filósofos de forma circular
 		- O garfo à esquerda de um filósofo, `left_fork` é o garfo à direita do outro, `right_fork`
@@ -131,28 +131,28 @@ Se uma das condições necessárias para a ocorrência de deadlock não se verif
 As **políticas de prevenção de deadlock** são bastantes **restritas**, **pouco efetivas** e **difíceis de aplicar** em várias situações.
 
 - **Negar a exclusão mútua** só pode ser aplicada a **recursos partilhados**
-- **Negar _hold-and-wait_** requer **conhecimento _a priori_ dos recursos necessários** e considera sempre o pior caso, no qual os recursos são todos necessários em simultâneo (o que pode não ser verdade)
-- **Negar _no preemption_**, impondo a libertação (e posterior re-aquisição) de recursos adquiridos por processos que não têm condições (aka, todos os recursos que precisam) para continuar a execução pode originar grandes atrasos na execução da tarefa
+- **Negar _hold and wait_** requer **conhecimento _a priori_ dos recursos necessários** e considera sempre o pior caso, no qual os recursos são todos necessários em simultâneo (o que pode não ser verdade)
+- **Negar _no preemption_**, impondo a libertação (e posterior reaquisição) de recursos adquiridos por processos que não têm condições (aka, todos os recursos que precisam) para continuar a execução pode originar grandes atrasos na execução da tarefa
 - **Negar a _circular wait_** pode resultar numa má gestão de recursos
 
 ### Negar a exclusão mútua
 - Só é possível se os recursos puderem ser partilhados, senão podemos incorrer em **race conditions**
-- Não é possível no jantar dos filśofos, porque os garfos não podem ser partilhados entre os filósofos
+- Não é possível no jantar dos filósofos, porque os garfos não podem ser partilhados entre os filósofos
 - Não é a condição mais vulgar a negar para prevenir _deadlock_
 
-### Negar _hold-and-wait_
+### Negar _hold and wait_
 - É possível fazê-lo se um processo é obrigado a pedir todos os recursos que vai precisar antes de iniciar, em vez de ir obtendo os recursos à medida que precisa deles
-- Pode ocurrer **starvation**, porque um processo pode nunca ter condições para obter nenhum recurso
+- Pode ocorrer **starvation**, porque um processo pode nunca ter condições para obter nenhum recurso
 	- É comum usar _aging mechanisms_ to para resolver este problema
 - No jantar dos filósofos, quando um filósofo quer comer, passa a adquirir os dois garfos ao mesmo tempo
 	- Se estes não tiverem disponíveis, o filósofo espera no `hungry state`, podendo ocorrer **starvation**
 
-![Negar _hold-and-wait_](../Pictures/hold_and_wait_denial.png)
+![Negar _hold and wait_](../Pictures/hold_and_wait_denial.png)
 
 Solução equivalente à proposta por Dijkstra.
 
 ### Negar _no preemption_
-- A condição de os recursos serem _non-preemptive_ pode ser implementada fazendo um processo libertar o(s) recurso(s) que possui se não conseguir adquirir o próximo recurso que precisa para continuar em execução
+- A condição de os recursos serem _non preemptive_ pode ser implementada fazendo um processo libertar o(s) recurso(s) que possui se não conseguir adquirir o próximo recurso que precisa para continuar em execução
 - Posteriormente o processo tenta novamente adquirir esses recursos
 - Pode ocorrer **starvation** and **busy waiting**
 	- podem ser usados _aging mechanisms_ para resolver a starvation
@@ -169,11 +169,11 @@ Solução equivalente à proposta por Dijkstra.
 ### Negar a espera circular
 - Através do uso de IDs atribuídos a cada recurso e impondo uma ordem de acesso (ascendente ou descendente) é possível evitar sempre a espera em círculo
 - Pode ocorrer **starvation**
-- No jantar dos filósofos, isto implica que nalgumas situações, um dos filśofos vai precisar de adquirir primeiro o `right_fork` e de seguida o `left_fork`
+- No jantar dos filósofos, isto implica que nalgumas situações, um dos filósofos vai precisar de adquirir primeiro o `right_fork` e de seguida o `left_fork`
 	- A cada filósofo é atribuído um número entre 0 e N
 	- A cada garfo é atribuído um ID (e.g., igual ao ID do filósofo à sua direita ou esquerda)
-	- Cada filśofo adquire primeiro o garfo com o menro ID
-	- obriga a que os filósofos 0 a N-2 adquiram primeiro o `left_fork` enquanto o filósofo N-1 adquir primeiro o `right_fork`
+	- Cada filósofo adquire primeiro o garfo com o menor ID
+	- obriga a que os filósofos 0 a N-2 adquiram primeiro o `left_fork` enquanto o filósofo N-1 adquirir primeiro o `right_fork`
 
 ![Negar a condição de espera circular no acesso aos recursos](../Pictures/circular_wait_denial.png)
 
@@ -197,7 +197,7 @@ Considerando:
 - $NTR_i$ - o número total de recursos do tipo `i` _(i = 0, 1, ..., N-1)_
 - $R_{i, j}$: o número de recursos do tipo `i` requeridos pelo processo `j`, _(i=0, 1, ..., N-1 e j=0, 1, ..., M-1)_
 
-O sistema pode impedir um novo processo, `M`, de ser exectuado se a sua terminação não pode ser garantida. Para que existam certezas que um novo processo pode ser terminado após ser lançado, tem de se verificar:
+O sistema pode impedir um novo processo, `M`, de ser executado se a sua terminação não pode ser garantida. Para que existam certezas que um novo processo pode ser terminado após ser lançado, tem de se verificar:
 
 $$ NTR_i \geq R_{i, M} + \sum_{j=0}^{M-1} R_{i, j} $$
 

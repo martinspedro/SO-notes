@@ -2,8 +2,8 @@
 
 Os processos podem comunicar entre si usando **mensagens**. 
 
-- Não existe a necessidade de possuirem memória partilhada
-- Mecanismos válidos quer para sistemas **uniprocessador** quer para sistemas **multiprocessador**
+- Não existe a necessidade de possuírem memória partilhada
+- Mecanismos válidos quer para sistemas **uniprocessor** quer para sistemas **multiprocessador**
 
 	
 A **comunicação** é efetuada através de **duas operações**:
@@ -22,7 +22,7 @@ Requer a existência de um **canal de comunicação**. Existem 3 implementaçõe
 		2. Lê o processo $N+1$
 		3. etc...
 	- No entanto, outros métodos podem ser usados
-3. **Automatic or expliciting buffering**
+3. **Automatic or explicit buffering**
 
 ## Direct vs Indirect
 
@@ -37,11 +37,11 @@ O processo que pretende comunicar deve **explicitar o nome do destinatário/reme
 
 A comunicação entre os **dois processos** envolvidos é **peer-to-peer**, e é estabelecida automaticamente entre entre um conjunto de processos comunicantes, só existindo **um canal de comunicação**
 
-## Assymetric direct communications
+## Asymmetric direct communications
 Só o `sender` tem de explicitar o destinatário:
 
 - `send(P, message`: 
-- `receive(id, message)`: receve mensagens de qualquer processo
+- `receive(id, message)`: receive mensagens de qualquer processo
 
 ## Comunicação Indireta
 As mensagens são enviadas para uma **mailbox** (caixa de mensagens) ou **ports**, e o `receiver` vai buscar as mensagens a uma `poll`
@@ -66,7 +66,7 @@ Questões que se levantam. Se **mais do que um processo** tentar **receber uma m
 ## Implementação
 Existem várias opções para implementar o **send** e **receive**, que podem ser combinadas entre si:
 
-- **blocking send:** o `sender` **envia** a mensagem e fica **bloquedo** até a mensagem ser entregue ao processo ou mailbox destinatária
+- **blocking send:** o `sender` **envia** a mensagem e fica **bloqueado** até a mensagem ser entregue ao processo ou mailbox destinatária
 - **nonblocking send:** o `sender` após **enviar** a mensagem, **continua** a sua execução
 - **blocking receive:** o `receiver` bloqueia-se até estar disponível uma mensagem para si
 - **nonblocking receiver:** o `receiver` devolve a uma mensagem válida quando tiver ou uma indicação de que não existe uma mensagem válida quando não tiver
@@ -85,7 +85,7 @@ O link pode usar várias políticas de implementação:
 	- A `queue` possui uma capacidade (potencialmente) infinita
 	- Tanto o `sender` como o `receiver` podem ser **não bloqueantes**
  
-## Bound-Buffer Problem usando mensanges
+## Bound-Buffer Problem usando mensagens
 ```c
 shared FIFO fifo;			 /* fixed-size FIFO memory */
 shared mutex access;		 /* mutex to control mutual exclusion */
@@ -128,11 +128,11 @@ void consumer(unsigned int c)
 
 - Existe uma fila de mensagens de **diferentes tipos**, representados por um inteiro
 - `send` **bloqueante** se **não existir espaço disponível**
-- A receção possui um argumento para espcificar o **tipo de mensagem a receber**:
+- A recepção possui um argumento para especificar o **tipo de mensagem a receber**:
 	- Um tipo específico
 	- Qualquer tipo
 	- Um conjunto de tipos
-- Qualquer que seja a política de receção de mensagens:
+- Qualquer que seja a política de recepção de mensagens:
 	- É sempre **obtida** a mensagem **mais antiga** de uma dado tipo(s)
 	- A implementação do `receive` pode ser **blocking** ou **nonblocking**
 - System calls:

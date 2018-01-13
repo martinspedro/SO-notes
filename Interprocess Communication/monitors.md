@@ -4,14 +4,14 @@ Mecanismo de sincronização de alto nível para resolver os problemas de sincro
 Seguindo esta filosofia, a **exclusão mútua** e **sincronização** são tratadas **separadamente**, devendo os processos:
 
 1. Entrar na sua zona crítica
-2. Bloquear caso nao possuam condições para continuar
+2. Bloquear caso não possuam condições para continuar
 
 
 Os monitores são uma solução que suporta nativamente a exclusão mútua, onde uma aplicação é vista como um conjunto de _threads_ que competem para terem acesso a uma estrutura de dados partilhada, sendo que esta estrutura só pode ser acedida pelos métodos do monitor.
 
 Um monitor assume que todos os seus métodos **têm de ser executados em exclusão mútua**:
 
-- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a exceutar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
+- Se uma _thread_ chama um **método de acesso** enquanto outra _thread_ está a executar outro método de acesso, a sua **execução é bloqueada** até a outra terminar a execução do método
 
 A sincronização entre threads é obtida usando **variáveis condicionais**:
 
@@ -73,7 +73,7 @@ A sincronização entre threads é obtida usando **variáveis condicionais**:
 	- Não existem garantias que a __thread__ que foi acordada e fica em competição por acesso vá ter acesso
 	- Pode ser **acordada** e voltar a **bloquear**
 	- Enquanto está em `ready` nada garante que outra _thread_ não dê um `signal` e passe para o estado `ready`
-	- A _thread_ que ti nha sido acordada volta a ser **bloqueada**
+	- A _thread_ que tinha sido acordada volta a ser **bloqueada**
 
 
 ## Bounded-Buffer Problem usando Monitores
@@ -130,9 +130,9 @@ O uso de `if/while` deve-se às diferentes implementações de monitores:
 	- A _thread_ acordada fica à espera que a _thread_ que deu o `signal` termine para que possa **disputar** o acesso
 	
 
-- O `wait` internamente vai **largar a exlcusão mútua**
+- O `wait` internamente vai **largar a exclusão mútua**
 	- Se não larga a exclusão mútua, mais nenhum processo consegue entrar
-	- Um wait na verdade é um  `lock(..)` seguid de `unlock(...)`
+	- Um wait na verdade é um  `lock(..)` seguido de `unlock(...)`
 - Depois de efetuar uma **inserção**, é preciso efetuar um `signal` do nitems
 - Depois de efetuar um **retrieval** é preciso fazer um `signal` do nslots
 	- Em comparação, num semáforo quando faço o up é sempre incrementado o seu valor
@@ -148,7 +148,7 @@ O valor inicial do **mutex** é 0.
 ## POSIX support for monitors
 A criação e sincronização de _threads_ usa o _Standard POSIX, IEEE 1003.1c_.
 
-O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em unix pela biblioteca _pthread_
+O _standard_ define uma API para a **criação** e **sincronização** de _threads_, implementada em Unix pela biblioteca _pthread_
 
 O conceito de monitor **não existe**, mas a biblioteca permite ser usada para criar monitores _Lampsom/Redell_ em C/C++, usando:
 
