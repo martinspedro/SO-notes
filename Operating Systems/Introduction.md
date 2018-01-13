@@ -50,7 +50,7 @@ O sistema operativo fornece **níveis de abstração** (APIs) para que os progra
 	- Todas as chamadas ao sistema são interrupções
 	- Interface uniforme com o `hardware`
 	- Permite as aplicações serem **portáteis** entre sistemas de computação **estruturalmente diferentes**
-- O sistema operativo controla o **espaço de endereçamento fisico** criando uma camada de abstração **(memória virtual)**
+- O sistema operativo controla o **espaço de endereçamento físico** criando uma camada de abstração **(memória virtual)**
 		
 ![Visão de um sistema operativo do tipo Extended Machine](../Pictures/extended_machine.png)
 
@@ -59,7 +59,7 @@ O sistema operativo fornece **níveis de abstração** (APIs) para que os progra
 - Criar um ambiente interativo que sirva de interface máquina-utilizador
 - Disponibilizar mecanismos para desenvolver, testar e validar programas
 - Disponibilizar mecanismos que controlem e monitorizem a execução de programas, incluindo a sua intercomunicação e e sincronização
-- Isolar os espaços de endereçamento de cada programa e geriri o espaço de cada um deles tendo em conta as limitações físicas da memória principal do sistema
+- Isolar os espaços de endereçamento de cada programa e gerir o espaço de cada um deles tendo em conta as limitações físicas da memória principal do sistema
 - Organizar a memória secundária [^2] em sistema de ficheiros 
 - Definir um modelo geral de acesso aos dispositivos de I/O, independentemente das suas características individuais
 - Detetar situações de erros e estabelecer protocolos para lidar com essas situações
@@ -83,19 +83,19 @@ O sistema operativo é visto como um programa que gere todos estes recursos, efe
  
 ## Evolução dos Sistemas Operativos
  
-Primórdios : Sistema Electromecânco
+Primórdios : Sistema Electromecânico
 
 - 1ª Geração: 1945 - 1955
 	- Vacuum tubes
 	- electromechanical relays
 	-No operating system
 	-programed in system
-	- Program has fukk control of the machine
+	- Program has full control of the machine
 	- Cartões perfurada (ENIAC)
-- 2ª geração: Transisteosres individuais
+- 2ª geração: Transistores individuais
 
 
-- 4ª Generação (1980 - presente)
+- 4ª Geração (1980 - presente)
 
 	|Technology|Notes|
 	|:----:|:-----:|
@@ -105,7 +105,7 @@ Primórdios : Sistema Electromecânco
 
 
 
-- 5ª Generação (1990 - presente)
+- 5ª Geração (1990 - presente)
 
 |Technology|Notes|
 |:----:|:---:|

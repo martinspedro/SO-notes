@@ -13,7 +13,7 @@
 
 
 ### Multiprogrammed batch
-- **Propósito:** Otmizar a utilização do processador
+- **Propósito:** Otimizar a utilização do processador
 - **Método de Otimização:** Enquanto um programa está à espera pela conclusão de uma operação de I/O, outro programa usa o processador
 
 	
@@ -25,9 +25,9 @@
 	- Proporcionar uma interface `user-friendly` 
 	- Minimizar o tempo de resposta a pedidos externos
 - **Método:**
-	- Vários utilizadors mas cada um no seu terminal
+	- Vários utilizadores mas cada um no seu terminal
 	- Todos os terminais têm comunicação direta e em simultâneo com o sistema
-	- Usando multiprogramação, o uso do processador é multiplexado no tempo, sendo atribuído um time-quantuma cada utilizador
+	- Usando multiprogramação, o uso do processador é multiplexado no tempo, sendo atribuído um time-quantum a cada utilizador
 	- No `macrotempo` é criada a ilusão ao utilizador que possui o sistema só para si
 
 
@@ -40,7 +40,7 @@
 
 ![Real Time System](../Pictures/real_time_system.png)
 
-### Network Operaing System
+### Network Operating System
 -  **Propósito:** Obter vantagem com as interconexões de `hardware` existentes de sistemas computacionais para estabelecer um conjunto de serviços comuns a uma comunidade.
 
 A máquina é mantêm a sua individualidade mas está dotada de um conjunto de primitivas que permite a comunicação com outras máquinas da mesma rede:
@@ -75,7 +75,7 @@ A máquina é mantêm a sua individualidade mas está dotada de um conjunto de p
 - Multiprocessador
 - Computador Pessoal
 - Real time
-- Handhled
+- Handheld
 - Sistemas Embutidos
 - Nós de sensores
 - Smart Card
@@ -97,25 +97,25 @@ Se um sistema suporta este tipo de arquitectura, suporta **multiprocessamento**
 
 O **multiprocessamento** pode ser feito com diferentes arquitecturas:
 
-- **SMTP** - symetric processing (SMP)
+- **SMTP** - symmetric processing (SMP)
 	- Computadores de uso pessoal
 	- Vários processadores
 	- A memória principal é partilhada por todos os processadores
 	- Cada core possui cache própria
-	- Tem de exisitir **mecanismos de exclusão mútua** para o hardware de suporte ao multiprocessamento
+	- Tem de existir **mecanismos de exclusão mútua** para o hardware de suporte ao multiprocessamento
 	- Cada processador vê toda a memória (como memória virtual) apesar de ter o acesso limitado
 - **Planar Mesh** 
 	- Cada processador liga a 4 memória adjacentes
 
  
-## Concurrência 
+## Concorrência 
 -  Ilusão criada por um sistema computacional de "aparentemente" ser capaz de executar mais programas em simultâneo do que o seu número de processadores
 - Os processador(es) devem ser atribuídos a diferentes programas de forma multiplexada no tempo
 
 
 Se um sistema suporta este tipo de arquitectura suporta **multiprogramação**
 
-![Exemplo de multiplexing temporal: Os programas A e B estão a ser executados de forma concurrente num sistema single processor](../Pictures/multiprogramming_time_diagram.png)
+![Exemplo de multiplexing temporal: Os programas A e B estão a ser executados de forma concorrente num sistema single processor](../Pictures/multiprogramming_time_diagram.png)
 
 
  

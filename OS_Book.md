@@ -50,7 +50,7 @@ O sistema operativo fornece **níveis de abstração** (APIs) para que os progra
 	- Todas as chamadas ao sistema são interrupções
 	- Interface uniforme com o `hardware`
 	- Permite as aplicações serem **portáteis** entre sistemas de computação **estruturalmente diferentes**
-- O sistema operativo controla o **espaço de endereçamento fisico** criando uma camada de abstração **(memória virtual)**
+- O sistema operativo controla o **espaço de endereçamento físico** criando uma camada de abstração **(memória virtual)**
 		
 ![Visão de um sistema operativo do tipo Extended Machine](Pictures/extended_machine.png)
 
@@ -59,7 +59,7 @@ O sistema operativo fornece **níveis de abstração** (APIs) para que os progra
 - Criar um ambiente interativo que sirva de interface máquina-utilizador
 - Disponibilizar mecanismos para desenvolver, testar e validar programas
 - Disponibilizar mecanismos que controlem e monitorizem a execução de programas, incluindo a sua intercomunicação e e sincronização
-- Isolar os espaços de endereçamento de cada programa e geriri o espaço de cada um deles tendo em conta as limitações físicas da memória principal do sistema
+- Isolar os espaços de endereçamento de cada programa e gerir o espaço de cada um deles tendo em conta as limitações físicas da memória principal do sistema
 - Organizar a memória secundária [^2] em sistema de ficheiros 
 - Definir um modelo geral de acesso aos dispositivos de I/O, independentemente das suas características individuais
 - Detetar situações de erros e estabelecer protocolos para lidar com essas situações
@@ -83,19 +83,19 @@ O sistema operativo é visto como um programa que gere todos estes recursos, efe
  
 ## Evolução dos Sistemas Operativos
  
-Primórdios : Sistema Electromecânco
+Primórdios : Sistema Electromecânico
 
 - 1ª Geração: 1945 - 1955
 	- Vacuum tubes
 	- electromechanical relays
 	-No operating system
 	-programed in system
-	- Program has fukk control of the machine
+	- Program has full control of the machine
 	- Cartões perfurada (ENIAC)
-- 2ª geração: Transisteosres individuais
+- 2ª geração: Transistores individuais
 
 
-- 4ª Generação (1980 - presente)
+- 4ª Geração (1980 - presente)
 
 	|Technology|Notes|
 	|:----:|:-----:|
@@ -105,7 +105,7 @@ Primórdios : Sistema Electromecânco
 
 
 
-- 5ª Generação (1990 - presente)
+- 5ª Geração (1990 - presente)
 
 |Technology|Notes|
 |:----:|:---:|
@@ -129,7 +129,7 @@ Primórdios : Sistema Electromecânco
 
 
 ### Multiprogrammed batch
-- **Propósito:** Otmizar a utilização do processador
+- **Propósito:** Otimizar a utilização do processador
 - **Método de Otimização:** Enquanto um programa está à espera pela conclusão de uma operação de I/O, outro programa usa o processador
 
 	
@@ -141,9 +141,9 @@ Primórdios : Sistema Electromecânco
 	- Proporcionar uma interface `user-friendly` 
 	- Minimizar o tempo de resposta a pedidos externos
 - **Método:**
-	- Vários utilizadors mas cada um no seu terminal
+	- Vários utilizadores mas cada um no seu terminal
 	- Todos os terminais têm comunicação direta e em simultâneo com o sistema
-	- Usando multiprogramação, o uso do processador é multiplexado no tempo, sendo atribuído um time-quantuma cada utilizador
+	- Usando multiprogramação, o uso do processador é multiplexado no tempo, sendo atribuído um time-quantum a cada utilizador
 	- No `macrotempo` é criada a ilusão ao utilizador que possui o sistema só para si
 
 
@@ -156,7 +156,7 @@ Primórdios : Sistema Electromecânco
 
 ![Real Time System](Pictures/real_time_system.png)
 
-### Network Operaing System
+### Network Operating System
 -  **Propósito:** Obter vantagem com as interconexões de `hardware` existentes de sistemas computacionais para estabelecer um conjunto de serviços comuns a uma comunidade.
 
 A máquina é mantêm a sua individualidade mas está dotada de um conjunto de primitivas que permite a comunicação com outras máquinas da mesma rede:
@@ -191,7 +191,7 @@ A máquina é mantêm a sua individualidade mas está dotada de um conjunto de p
 - Multiprocessador
 - Computador Pessoal
 - Real time
-- Handhled
+- Handheld
 - Sistemas Embutidos
 - Nós de sensores
 - Smart Card
@@ -213,25 +213,25 @@ Se um sistema suporta este tipo de arquitectura, suporta **multiprocessamento**
 
 O **multiprocessamento** pode ser feito com diferentes arquitecturas:
 
-- **SMTP** - symetric processing (SMP)
+- **SMTP** - symmetric processing (SMP)
 	- Computadores de uso pessoal
 	- Vários processadores
 	- A memória principal é partilhada por todos os processadores
 	- Cada core possui cache própria
-	- Tem de exisitir **mecanismos de exclusão mútua** para o hardware de suporte ao multiprocessamento
+	- Tem de existir **mecanismos de exclusão mútua** para o hardware de suporte ao multiprocessamento
 	- Cada processador vê toda a memória (como memória virtual) apesar de ter o acesso limitado
 - **Planar Mesh** 
 	- Cada processador liga a 4 memória adjacentes
 
  
-## Concurrência 
+## Concorrência 
 -  Ilusão criada por um sistema computacional de "aparentemente" ser capaz de executar mais programas em simultâneo do que o seu número de processadores
 - Os processador(es) devem ser atribuídos a diferentes programas de forma multiplexada no tempo
 
 
 Se um sistema suporta este tipo de arquitectura suporta **multiprogramação**
 
-![Exemplo de multiplexing temporal: Os programas A e B estão a ser executados de forma concurrente num sistema single processor](Pictures/multiprogramming_time_diagram.png)
+![Exemplo de multiplexing temporal: Os programas A e B estão a ser executados de forma concorrente num sistema single processor](Pictures/multiprogramming_time_diagram.png)
 
 
  
@@ -262,7 +262,7 @@ Um sistema operativo deve:
 - Virtual Machines
 - Exokernels
 
-[^1]: Dispositivos plug-and -play são dispositivos que podem ser ligados e desligados _"a quente"_, enquanto o computar está ligado
+[^1]: Dispositivos plug-and-play são dispositivos que podem ser ligados e desligados _"a quente"_, enquanto o computar está ligado
 
 
 
@@ -270,7 +270,7 @@ Um sistema operativo deve:
 - A perspectiva mais utilizada
 - Só existe um **único programa** a ser executado em `kernel mode`
 - Um **único entry point**
-	- Todos os pedidos ao sistem são feitos usando este `entry-point`
+	- Todos os pedidos ao sistema são feitos usando este `entry-point`
 - Comunicação com o sistema através de `syscall` [^2]
 	- Implementadas por um conjunto de rotinas 
 	- Existe ainda outro conjunto de funções auxiliares para a system call
@@ -285,7 +285,7 @@ Um sistema operativo deve:
 [^3]: Imagem retirada do livro Modern Operating Systems, Andrew Tanenbaum & Herbert Bos
 
  
-### Layered Aprroach: Divisão por camadas
+### Layered Approach: Divisão por camadas
 -  Perspetiva modular
 	- O sistema operativo é constituído por um conjunto de camadas, com diferentes níveis hierárquicos
 - A interação **só é possível entre camadas adjacentes**
@@ -293,7 +293,7 @@ Um sistema operativo deve:
 	- Tem de chamar uma função da camada imediatamente abaixo que irá tratar de chamar funções das camadas mais abaixo (estilo `sofs`)
 - Não é simples de projetar
 	- É preciso definir claramente que funcionalidades em que camada, o que pode ser difícil de decidir
-- **Fácil de testar e modficar**, mas uma **grande perda de eficiência**
+- **Fácil de testar e modificar**, mas uma **grande perda de eficiência**
 	- A eficiência pode piorar se a divisão de funções não for bem feita
 	- Existe um `overhead` adicional causado pelo chamada de funções entre as várias camadas
 - Facilita a divisão de funções entre o modo de utilizador e o modo de `kernel`
@@ -313,17 +313,17 @@ Um sistema operativo deve:
 
 ### Microkernel
 -  Posso ter **modularidade** sem ser obrigado a usar camadas em níveis hierárquicos diferentes
-- Defino um conjuto de módulos de "pequena dimensão", com funcionalidades bem definidas
+- Defino um conjunto de módulos de "pequena dimensão", com funcionalidades bem definidas
 	- apenas o `microkernel` é executado em `kernel space`, com permissões de `root`
 	- todos os outros módulos são executados em `user space` e comunicam entre si usando os mecanismos de comunicação providenciados pelo `microkernel`
-	- Os módulos que são executados em `user space` podem ser lançados no startup ou dinâmicamente à medida que são precisos (dispositivos `plug-and-play` [^1])
+	- Os módulos que são executados em `user space` podem ser lançados no startup ou dinamicamente à medida que são precisos (dispositivos `plug-and-play` [^1])
 - O `microkernel` é responsável por:
 	- Gestão de Processos
 	- Gestão da Memória
-	- Implementar sistemas simples de comunicação interprocesso
+	- Implementar sistemas simples de comunicação interprocess
 	- Escalonamento do Processador (Processor Scheduling)
 	- Tratar das interrupções
-- Sistema robsto
+- Sistema robusto
 	- Manipulação de um filesystem é feita em `user space`. Se houver problemas a integridade do sistema físico não é afetada
 
 ![Estrutura de um sistema operativo que usa microkernel - Retirada do livro _Modern Operating Systems, Andrew Tanenbaum & Herbert Bos_](Pictures/microkernel.png)
@@ -337,7 +337,7 @@ Um sistema operativo deve:
 		- Xen
 		- Hyper-V
 		- VMware ESX
-	- Type-2 (`hosted supervisor`): executa o `guest OS` **indiretamente** no `hardware` da máquina, sendo a máquina virtual executada "em cima" do sistema operatico do `host`. Exemplos:
+	- Type-2 (`hosted supervisor`): executa o `guest OS` **indiretamente** no `hardware` da máquina, sendo a máquina virtual executada "em cima" do sistema operativo do `host`. Exemplos:
 		- VirtualBox
 		- VMware Workstation
 		- Parallels
@@ -363,7 +363,7 @@ Um sistema operativo deve:
 	- Os recursos são **divididos em partições**, em vez de clonados
 	- Os recursos são alocados às `virtual machines` e a sua utilização é controlada pelo `microkernel`
 - Permite a implementação de **camadas de abstração personalizadas** consoante as necessidades
-- **Eficiente:** Poupa uma camada destinada a efeutar o mapeamento
+- **Eficiente:** Poupa uma camada destinada a efetuar o mapeamento
 
 
 ## Estruturas Internas do Unix/Linux e Windows
@@ -374,7 +374,7 @@ Um sistema operativo deve:
 
 Legenda:
 
-- `trap`: interrupção por software (unica instrução que muda o modo de execução)
+- `trap`: interrupção por software (única instrução que muda o modo de execução)
 - `buffercache:` espaço do disco onde são mantidos todos os ficheiros em cache (aka abertos)
 	- **desmontar uma pen:** forçar a escrita da buffer cache para a pen
 
@@ -383,7 +383,7 @@ Unix considera tudo como sendo ficheiros:
 	- ou bytes 
 
 
-`open`, `close`, `fork` **não são system calls**. São funções de biblioteca que acedem às `system call` (implementadas no `kernel`). Sâo um interface amigável para o utilizador ter acesso a estas funcionalidades.
+`open`, `close`, `fork` **não são system calls**. São funções de biblioteca que acedem às `system call` (implementadas no `kernel`). São um interface amigável para o utilizador ter acesso a estas funcionalidades.
  
 ### Estrutura Global do Unix
  

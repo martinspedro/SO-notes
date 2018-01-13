@@ -25,7 +25,7 @@ Um sistema operativo deve:
 - Virtual Machines
 - Exokernels
 
-[^1]: Dispositivos plug-and -play são dispositivos que podem ser ligados e desligados _"a quente"_, enquanto o computar está ligado
+[^1]: Dispositivos plug-and-play são dispositivos que podem ser ligados e desligados _"a quente"_, enquanto o computar está ligado
 
 
 
@@ -33,7 +33,7 @@ Um sistema operativo deve:
 - A perspectiva mais utilizada
 - Só existe um **único programa** a ser executado em `kernel mode`
 - Um **único entry point**
-	- Todos os pedidos ao sistem são feitos usando este `entry-point`
+	- Todos os pedidos ao sistema são feitos usando este `entry-point`
 - Comunicação com o sistema através de `syscall` [^2]
 	- Implementadas por um conjunto de rotinas 
 	- Existe ainda outro conjunto de funções auxiliares para a system call
@@ -48,7 +48,7 @@ Um sistema operativo deve:
 [^3]: Imagem retirada do livro Modern Operating Systems, Andrew Tanenbaum & Herbert Bos
 
  
-### Layered Aprroach: Divisão por camadas
+### Layered Approach: Divisão por camadas
 -  Perspetiva modular
 	- O sistema operativo é constituído por um conjunto de camadas, com diferentes níveis hierárquicos
 - A interação **só é possível entre camadas adjacentes**
@@ -56,7 +56,7 @@ Um sistema operativo deve:
 	- Tem de chamar uma função da camada imediatamente abaixo que irá tratar de chamar funções das camadas mais abaixo (estilo `sofs`)
 - Não é simples de projetar
 	- É preciso definir claramente que funcionalidades em que camada, o que pode ser difícil de decidir
-- **Fácil de testar e modficar**, mas uma **grande perda de eficiência**
+- **Fácil de testar e modificar**, mas uma **grande perda de eficiência**
 	- A eficiência pode piorar se a divisão de funções não for bem feita
 	- Existe um `overhead` adicional causado pelo chamada de funções entre as várias camadas
 - Facilita a divisão de funções entre o modo de utilizador e o modo de `kernel`
@@ -76,17 +76,17 @@ Um sistema operativo deve:
 
 ### Microkernel
 -  Posso ter **modularidade** sem ser obrigado a usar camadas em níveis hierárquicos diferentes
-- Defino um conjuto de módulos de "pequena dimensão", com funcionalidades bem definidas
+- Defino um conjunto de módulos de "pequena dimensão", com funcionalidades bem definidas
 	- apenas o `microkernel` é executado em `kernel space`, com permissões de `root`
 	- todos os outros módulos são executados em `user space` e comunicam entre si usando os mecanismos de comunicação providenciados pelo `microkernel`
-	- Os módulos que são executados em `user space` podem ser lançados no startup ou dinâmicamente à medida que são precisos (dispositivos `plug-and-play` [^1])
+	- Os módulos que são executados em `user space` podem ser lançados no startup ou dinamicamente à medida que são precisos (dispositivos `plug-and-play` [^1])
 - O `microkernel` é responsável por:
 	- Gestão de Processos
 	- Gestão da Memória
-	- Implementar sistemas simples de comunicação interprocesso
+	- Implementar sistemas simples de comunicação interprocess
 	- Escalonamento do Processador (Processor Scheduling)
 	- Tratar das interrupções
-- Sistema robsto
+- Sistema robusto
 	- Manipulação de um filesystem é feita em `user space`. Se houver problemas a integridade do sistema físico não é afetada
 
 ![Estrutura de um sistema operativo que usa microkernel - Retirada do livro _Modern Operating Systems, Andrew Tanenbaum & Herbert Bos_](../Pictures/microkernel.png)
@@ -100,7 +100,7 @@ Um sistema operativo deve:
 		- Xen
 		- Hyper-V
 		- VMware ESX
-	- Type-2 (`hosted supervisor`): executa o `guest OS` **indiretamente** no `hardware` da máquina, sendo a máquina virtual executada "em cima" do sistema operatico do `host`. Exemplos:
+	- Type-2 (`hosted supervisor`): executa o `guest OS` **indiretamente** no `hardware` da máquina, sendo a máquina virtual executada "em cima" do sistema operativo do `host`. Exemplos:
 		- VirtualBox
 		- VMware Workstation
 		- Parallels
@@ -126,7 +126,7 @@ Um sistema operativo deve:
 	- Os recursos são **divididos em partições**, em vez de clonados
 	- Os recursos são alocados às `virtual machines` e a sua utilização é controlada pelo `microkernel`
 - Permite a implementação de **camadas de abstração personalizadas** consoante as necessidades
-- **Eficiente:** Poupa uma camada destinada a efeutar o mapeamento
+- **Eficiente:** Poupa uma camada destinada a efetuar o mapeamento
 
 
 ## Estruturas Internas do Unix/Linux e Windows
@@ -137,7 +137,7 @@ Um sistema operativo deve:
 
 Legenda:
 
-- `trap`: interrupção por software (unica instrução que muda o modo de execução)
+- `trap`: interrupção por software (única instrução que muda o modo de execução)
 - `buffercache:` espaço do disco onde são mantidos todos os ficheiros em cache (aka abertos)
 	- **desmontar uma pen:** forçar a escrita da buffer cache para a pen
 
@@ -146,7 +146,7 @@ Unix considera tudo como sendo ficheiros:
 	- ou bytes 
 
 
-`open`, `close`, `fork` **não são system calls**. São funções de biblioteca que acedem às `system call` (implementadas no `kernel`). Sâo um interface amigável para o utilizador ter acesso a estas funcionalidades.
+`open`, `close`, `fork` **não são system calls**. São funções de biblioteca que acedem às `system call` (implementadas no `kernel`). São um interface amigável para o utilizador ter acesso a estas funcionalidades.
  
 ### Estrutura Global do Unix
  
