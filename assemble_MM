@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Script to assemble all Interprocess Communication curayted notes in a single md file
+#
+
+cat "Memory Management/Introduction.md" 				  >  MM_Book.md
+cat "Memory Management/partitions_mem_arch.md" 		  >> MM_Book.md
+cat "Memory Management/real_memory.md" 				  >> MM_Book.md
+cat "Memory Management/virtual_mem_organization.md"  >> MM_Book.md
+
+# Replace Pictures directory (running at root dir)
+sed -i -e 's~../Pictures~Pictures~g' MM_Book.md
+
