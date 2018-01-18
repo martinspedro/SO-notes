@@ -6,10 +6,13 @@
 ./assemble_OS
 ./assemble_IPC
 ./assemble_PM
+./assemble_MM
 
 cat "OS_Book.md" 	 	    					  >  Theoretical_SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> Theoretical_SO_Book.md
 cat "IPC_Book.md"       					  >> Theoretical_SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> Theoretical_SO_Book.md
 cat "PM_Book.md"    	   					  >> Theoretical_SO_Book.md
+echo -ne "\n\\\newpage\n\n"			     >> Theoretical_SO_Book.md
+cat "MM_Book.md"    	   					  >> Theoretical_SO_Book.md
 

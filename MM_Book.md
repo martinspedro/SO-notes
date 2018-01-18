@@ -570,3 +570,7 @@ Acesso à memória decomposto em 3 fases
 - Situações de falta de página degridem muito a qualidade do sistema
 
 
+
+\newpage
+**NOT FINNISHED**
+

@@ -41,13 +41,10 @@ Um sistema operativo deve:
 	- **Vantagem:** eficiência no acesso a informação e dados
 	- **Desvantagem:** Sistema difícil de testar e modificar
 
-![Diagrama de um `kernel` monolítico [^3]](../Pictures/monolithic_kernel.png)
+![Diagrama de um `kernel` monolítico - imagem retirada do livro _Modern Operating Systems, Andrew Tanenbaum & Herbert Bos_](../Pictures/monolithic_kernel.png)
 
 [^2]: syscall: system call
 
-[^3]: Imagem retirada do livro Modern Operating Systems, Andrew Tanenbaum & Herbert Bos
-
- 
 ### Layered Approach: Divisão por camadas
 -  Perspetiva modular
 	- O sistema operativo é constituído por um conjunto de camadas, com diferentes níveis hierárquicos
@@ -93,7 +90,7 @@ Um sistema operativo deve:
 
 
 ### Virtual machine (hypervisors)
--  Criam plataformas virtuais onde podem ser instalados `guess OSs`
+- Criam plataformas virtuais onde podem ser instalados `guess OSs`
 - Existem dois tipos de hypervisors
 	- Type-1 (`native hypervisor`): executa o `guest OS` **diretamente** no `hardware` da máquina `host` (máquina física onde a máquina virtual vai ser executada). Exemplos:
 		- z/VM

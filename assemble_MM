@@ -8,6 +8,8 @@ cat "Memory Management/partitions_mem_arch.md" 		  >> MM_Book.md
 cat "Memory Management/real_memory.md" 				  >> MM_Book.md
 cat "Memory Management/virtual_mem_organization.md"  >> MM_Book.md
 
+echo -ne "\n\\\newpage\n**NOT FINNISHED**\n\n"		  >> MM_Book.md
+
 # Replace Pictures directory (running at root dir)
 sed -i -e 's~../Pictures~Pictures~g' MM_Book.md
 

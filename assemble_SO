@@ -7,8 +7,9 @@
 ./assemble_Sofs17
 ./assemble_IPC
 ./assemble_PM
+./assemble_MM
 
-cat "OS_Book.md" 								  > SO_Book.md
+cat "OS_Book.md" 								  >  SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
 cat "Shell Scripting/Shell_Scripting.md" >> SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
@@ -17,4 +18,5 @@ echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
 cat "IPC_Book.md"       					  >> SO_Book.md
 echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
 cat "PM_Book.md"    	   					  >> SO_Book.md
-
+echo -ne "\n\\\newpage\n\n"			     >> SO_Book.md
+cat "MM_Book.md"    	   					  >> SO_Book.md
