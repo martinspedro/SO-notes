@@ -1,6 +1,6 @@
 # Organização da memória real
 
-[Espaço de endereçamento real de um processo](../Pictures/process_physical_address_space.png)
+![Espaço de endereçamento real de um processo](../Pictures/process_physical_address_space.png)
 
 Existe uma correspondência biunívoca [^2] entre o **espaço de endereçamento lógico** de um processo e o **espaço de endereçamento físico** de um processo. Isto implica
 
@@ -10,15 +10,15 @@ Existe uma correspondência biunívoca [^2] entre o **espaço de endereçamento 
 - O **espaço de endereçamento físico de um processo deve ser contíguo**
 	- Não e uma condição estritamente necessária
 	- Simplifica e torna mais eficiente se o espaço de endereçamento de um processo for obrigado a ser contíguo
-- A **existência de uma àrea de swapping**
-	- Serve como extensão da memóri principal
+- A **existência de uma área de swapping**
+	- Serve como extensão da memória principal
 	- Armazena espaços de endereçamentos de processos que não podem residir em memória principal por falta de espaço
 
 [^2]: De um para um
 
 ## Tradução de um endereço lógico num endereço físico
 
-[Tradução de um endereço lógico num endereço físico](../Pictures/logic_address_to_physical_address.png)
+![Tradução de um endereço lógico num endereço físico](../Pictures/logic_address_to_physical_address.png)
 
 - `registo base`: endereço do início da região de memória principal onde está alojado o espaço de endereçamento físico do processo
 - `registo limite`: tamanho em _bytes_ do espaço de endereçamento
@@ -75,6 +75,5 @@ Depois de carregado o Sistema Operativo, o que resta da memória principal é us
 ### Fim de Vida do processo
 - O processo transita para o estado `Terminated`
 - O seu espaço de endereçamento é transmitido para a `área de swapping` (se não estiver lá), para aguardar o fim das operações
-
 
 

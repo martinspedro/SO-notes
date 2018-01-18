@@ -104,13 +104,13 @@ A função principal é **controlar a transferência de dados** entre a **memór
 - Transferir para a `área de swapping` a totlidade/parte do **espaço de endereçamento** de um processo quando a memória principal não consegue guardar todos os processos que coexistem em memória
 
 
-[Diagrama da inclusão da gestão de memória com o scheduling de baixo nível do processador](../Pictures/memory_management_multiprogrammation.png)
+![Diagrama da inclusão da gestão de memória com o scheduling de baixo nível do processador](../Pictures/memory_management_multiprogrammation.png)
 
 
 ## Espaço de Endereçamento
 
 
-[Construção do espaço de endereçamento de um programa após compilação e linkagem](../Pictures/memory_management_multiprogrammation.png)
+![Construção do espaço de endereçamento de um programa após compilação e linkagem](../Pictures/memory_management_multiprogrammation.png)
 
 - Os ficheiros `object` (resultantes da compilação), possuem todos os seus endereços das diversas instruções, constantes e variáveis calculados a partir do endereço 0 (início dos endereços do módulo)
 
@@ -139,7 +139,7 @@ Se a linkagem for **dinâmica**, cada referência no código do processo é subs
 Como vários processos independentes podem executar a mesma biblioteca do sistema, ao todos executarem uma cópia do código **minimiza-se** a ocupação da **memória principal**
 
 
-[Diagrama da divisão do espaço de endereçamento de um programa](../Pictures/program_address_space_diargam.png)
+![Diagrama da divisão do espaço de endereçamento de um programa](../Pictures/program_address_space_diargam.png)
 
 - As zonas de de código e definiçao estática de variáveis têm um **tamanho fixo**
 	- Determinado pelo `loader`
