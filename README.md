@@ -64,10 +64,15 @@ To ease the publish of an eye-candy pdf:
 ## Disclaimer
 
 Currently this work is **highly experimental and not yet scientific reviewed**.
-**Do not trust this notes by themselves**. They are meant to complete other materials, **not replace them**
+**Do not trust this notes by themselves**. They are meant to complete other materials, **not replace them**.
+
+## Acknowledgement
+This work is a direct product of the lectures notes toked during Operative Systems classes in the academic year of 2017/18, lectured by Prof. Artur Pereira. 
+
+This raw notes were later improved and filtered using as scientific reference the lecture slides from Prof. Artur Pereira and the book _Modern Operating Systems_ by Andrew Tanenbaum & Herbert Bos 
 
 ## Roadmap
-
+ 
 - [ ] Curate Raw notes
 	- [X] Operative Systems: Introductory Concepts
 	- [ ] Bash Scripting 
@@ -81,5 +86,5 @@ Currently this work is **highly experimental and not yet scientific reviewed**.
 
 
 ## License
-The content of this project itself is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/) and the underlying source code is under the [MIT license](https://opensource.org/licenses/mit-license.php).
+T he content of this project itself is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-sa/4.0/) and the underlying source code is under the [MIT license](https://opensource.org/licenses/mit-license.php).
 
