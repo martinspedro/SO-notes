@@ -1,6 +1,6 @@
 ---
 titlepage: true
-titlepage-color: 06386e
+titlepage-color: E55B3C 
 titlepage-text-color: "FFFFFF"
 titlepage-rule-color: "FFFFFF"
 titlepage-rule-height: 1
@@ -9,8 +9,8 @@ titlepage-rule-height: 1
 date: \today
 version: 0.1
 
-title: "Sebenta de SO"
-subtitle: "Programação concorrente, Process switching e Processor Scheduling"
+title: "Sebenta de SO - Conceitos Teóricos"
+subtitle: "Conceitos Introdutórios em sistemas de Operação, Process Management, Interprocess Communicattion & Memory Management"
 
 author: Pedro Martins
 email: martinspedro@ua.pt
@@ -25,7 +25,9 @@ department:
     name: Departamento de Eletrónica, Telecomunicações e Informática
     url: https://www.ua.pt/deti/
 
-
+toc: true
+lof: true
+lot: true
 toc-depth: 5
 secnumdepth: 5
 
