@@ -1,6 +1,6 @@
 ---
 titlepage: true
-titlepage-color: 06386e
+titlepage-color: 347C17 #06386e
 titlepage-text-color: "FFFFFF"
 titlepage-rule-color: "FFFFFF"
 titlepage-rule-height: 1
@@ -10,8 +10,8 @@ date: \today
 version: 0.1
 #lang: portuguese
 
-title: "Memory Managment"
-subtitle: "Address Space of a process, Real & Virtual memory organization"
+title: "Memory Management"
+subtitle: "Address Space of a process, Real & Virtual memory organization, Segmented, Paginated and Segmented-Paginate Virtual Memory Architectures, Memory Replacement Politics"
 
 author: Pedro Martins
 email: martinspedro@ua.pt
