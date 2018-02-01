@@ -11,7 +11,7 @@ version: 0.1
 #lang: portuguese
 
 title: "Sebenta de SO"
-subtitle: "Bash Scripting, Filesystems, Sofs17, Programação concorrente, Process switching e Processor Scheduling"
+subtitle: "Bash Scripting, Filesystems, Sofs17, Programação concorrente, Process switching, Processor Scheduling and Memory Management"
 
 author: Pedro Martins
 email: martinspedro@ua.pt
@@ -26,7 +26,9 @@ department:
     name: Departamento de Eletrónica, Telecomunicações e Informática
     url: https://www.ua.pt/deti/
 
-
+toc: true
+lof: true
+lot: true
 toc-depth: 5
 secnumdepth: 5
 
