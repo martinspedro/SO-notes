@@ -62,7 +62,7 @@ Como a memória é reservada dinamicamente, o sistema de operação tem de mante
 	- localiza as regiões que foram reservadas para armazenamento do espaço	de endereçamento dos processos que residem em memória principal
 
 
-usando uma lista biligada (ou simplesmente ligada) para cada região. Estas listas:
+Usando uma lista biligada (ou simplesmente ligada) para cada região. Estas listas:
 
 - Não vão sempre indicar os espaços livres 
 - Podem ser alargadas
