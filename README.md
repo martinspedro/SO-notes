@@ -1,16 +1,16 @@
 # SO-notes
-A collection of useful notes and pdfs for [Operative Systems course](http://www.ua.pt/deti/uc/2851), at [Aveiro University](https://www.ua.pt/).
+A collection of useful notes and pdfs for the [Operative Systems course](http://www.ua.pt/deti/uc/2851), at [Aveiro University](https://www.ua.pt/).
 
 A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 
 ## Published Notes
-- _[beta version]_ [Operating Systems: Introductory Concepts](pdf/OS_Book.pdf)
-- _[beta version]_ [Shell Scripting](pdf/Shell_Scripting.pdf)
-- _[beta version]_ [Sofs17](pdf/sofs17_Book.pdf)
-- _[beta version]_ [Interprocess Communication](pdf/IPC_Book.pdf)
-- _[beta version]_ [Process Management](pdf/PM_Book.pdf)
-- _[alpha version]_ [Memory Management](pdf/MM_Book.pdf)
-- _[beta version]_ [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
+- _[beta version]_  [Operating Systems: Introductory Concepts](pdf/OS_Book.pdf)
+- _[alpha version]_ [Shell Scripting](pdf/Shell_Scripting.pdf)
+- _[alpha version]_ [Sofs17](pdf/sofs17_Book.pdf)
+- _[beta version]_  [Interprocess Communication](pdf/IPC_Book.pdf)
+- _[beta version]_  [Process Management](pdf/PM_Book.pdf)
+- _[beta version]_  [Memory Management](pdf/MM_Book.pdf)
+- _[beta version]_  [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
 - _[alpha version]_ [All Notes](pdf/SO_Book.pdf)
 
 ## Note taking process
@@ -79,7 +79,7 @@ This raw notes were later improved and filtered using as scientific reference th
 	- [ ] Filesystems & Sofs17
 	- [X] Process Management
 	- [X] Interprocess Communication 
-	- [ ] Memory Management
+	- [x] Memory Management
 - [X] Improve the publishing scripts
 - [ ] Improve the publish template
 - [ ] Provide a static website with all the notes
