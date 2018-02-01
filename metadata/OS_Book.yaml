@@ -1,12 +1,12 @@
 ---
 titlepage: true
-titlepage-color: 06386e
+titlepage-color: 657383 
 titlepage-text-color: "FFFFFF"
 titlepage-rule-color: "FFFFFF"
 titlepage-rule-height: 1
 
 title: "Operating Systems Introductory Concepts"
-subtitle: "OS types, Evolution fo Operating Systems, Taxonomy of OSes, OSes Internal Structurek"
+subtitle: "OS types, Evolution of Operating Systems, Taxonomy of Operating Systems and their Internal Structurek"
 
 
 date: \today
