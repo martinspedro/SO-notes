@@ -4,14 +4,17 @@ A collection of useful notes and pdfs for the [Operative Systems course](http://
 A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 
 ## Published Notes
-- _[alpha version]_  [Operating Systems: Introductory Concepts](pdf/OS_Book.pdf)
+- _[alpha version]_ [Operating Systems: Introductory Concepts](pdf/OS_Book.pdf)
 - _[alpha version]_ [Shell Scripting](pdf/Shell_Scripting.pdf)
 - _[alpha version]_ [Sofs17](pdf/sofs17_Book.pdf)
-- _[alpha version]_  [Interprocess Communication](pdf/IPC_Book.pdf)
-- _[alpha version]_  [Process Management](pdf/PM_Book.pdf)
-- _[alpha version]_  [Memory Management](pdf/MM_Book.pdf)
-- _[alpha version]_  [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
+- _[alpha version]_ [Interprocess Communication](pdf/IPC_Book.pdf)
+- _[alpha version]_ [Process Management](pdf/PM_Book.pdf)
+- _[alpha version]_ [Memory Management](pdf/MM_Book.pdf)
+- _[alpha version]_ [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
 - _[alpha version]_ [All Notes](pdf/SO_Book.pdf)
+
+	
+- _alpha version zip_ [ZIP with all the notes](https://github.com/k3rn3l-pan1c/SO-notes/releases/download/v0.1/Sebenta.de.SO.zip)
 
 ## Note taking process
  1. Notes are taken using pandoc markdown extended syntax
