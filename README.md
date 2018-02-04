@@ -12,9 +12,7 @@ A website is also available [here](https://k3rn3l-pan1c.github.io/SO-notes/).
 - _[alpha version]_ [Memory Management](pdf/MM_Book.pdf)
 - _[alpha version]_ [Theoretical Notes Only](pdf/Theoretical_SO_Book.pdf)
 - _[alpha version]_ [All Notes](pdf/SO_Book.pdf)
-
-	
-- _alpha version zip_ [ZIP with all the notes](https://github.com/k3rn3l-pan1c/SO-notes/releases/download/v0.1/Sebenta.de.SO.zip)
+- _[alpha version zip]_ [ZIP with all the notes](https://github.com/k3rn3l-pan1c/SO-notes/releases/download/v0.1/Sebenta.de.SO.zip)
 
 ## Note taking process
  1. Notes are taken using pandoc markdown extended syntax
